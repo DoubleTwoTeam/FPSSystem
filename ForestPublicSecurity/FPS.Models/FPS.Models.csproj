@@ -41,7 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Approve.cs" />
+    <Compile Include="ApproveCourse.cs" />
     <Compile Include="Authority.cs" />
+    <Compile Include="Business.cs" />
+    <Compile Include="Instance.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Role.cs" />
     <Compile Include="RoleAuthority.cs" />
