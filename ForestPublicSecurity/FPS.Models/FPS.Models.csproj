@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Alarm.cs" />
     <Compile Include="Approve.cs" />
     <Compile Include="ApproveCourse.cs" />
     <Compile Include="Authority.cs" />
