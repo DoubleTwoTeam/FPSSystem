@@ -41,8 +41,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IAlarm.cs" />
+    <Compile Include="IPoliceCase.cs" />
     <Compile Include="IStudent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FPS.Models\FPS.Models.csproj">
+      <Project>{b8f5b543-be2e-4577-be52-ef97f00c2477}</Project>
+      <Name>FPS.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
