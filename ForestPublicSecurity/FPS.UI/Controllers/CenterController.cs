@@ -46,5 +46,14 @@ namespace FPS.UI.Controllers
         {
             return View();
         }
+
+        /// <summary>
+        /// 报警页面
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult CallPolice()
+        {
+            return View();
+        }
     }
 }

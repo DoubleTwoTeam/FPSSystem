@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>天津市滨海新区公安塘沽分局矛盾纠纷系统</title>
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/jsCalender/WdatePicker.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $(".click").click(function(){
+  $(".tip").fadeIn(200);
+  });
+  
+  $(".tiptop a").click(function(){
+  $(".tip").fadeOut(200);
+});
+
+  $(".sure").click(function(){
+  $(".tip").fadeOut(100);
+});
+
+  $(".cancel").click(function(){
+  $(".tip").fadeOut(100);
+});
+
+});
+</script>
+
+
+</head>
+
+
+<body>
+
+	<div class="place">
+    <span>位置：</span>
+    <ul class="placeul">
+    <li><a href="home.html">首页</a></li>
+    <li><a href="#">分析研判</a></li>
+    <li><a href="#">量化考核统计图</a></li>
+    </ul>
+    </div>
+    
+    <div class="rightinfo">
+    
+    <ul class="prosearch">
+	   <li>
+	   	<i>统计项</i>
+	   	<a>
+	   		<select name="" style="border: 1px solid #C3AB7D;padding:7px 10px 7px 10px;">
+	   			<option value="0">请选择</option>
+	   			<option value="1">本周</option>
+	   			<option value="2">本月</option>
+	   		</select>
+	   	</a>
+	   	
+	   	<i>派出所</i>
+	   	<a>
+	   		<select name="" style="border: 1px solid #C3AB7D;padding:7px 10px 7px 10px;">
+	   			<option value="请选择">请选择</option>
+          <option value="塘沽分局派出所名称">塘沽分局派出所名称</option>
+          <option value="塘沽杭州道派出所">塘沽杭州道派出所</option>
+          <option value="塘沽新洋市场治安派出所">塘沽新洋市场治安派出所</option>
+          <option value="塘沽大沽派出所">塘沽大沽派出所</option>
+          <option value="塘沽滨海新村派出所">塘沽滨海新村派出所</option>
+          <option value="塘沽中心商务区派出所">塘沽中心商务区派出所</option>
+          <option value="塘沽滨海站治安派出所">塘沽滨海站治安派出所</option>
+          <option value="塘沽新北派出所">塘沽新北派出所</option>
+          <option value="塘沽北塘派出所">塘沽北塘派出所</option>
+          <option value="塘沽新村派出所">塘沽新村派出所</option>
+          <option value="塘沽石油新村派出所">塘沽石油新村派出所</option>
+          <option value="塘沽新港派出所">塘沽新港派出所</option>
+          <option value="塘沽临港经济区派出所">塘沽临港经济区派出所</option>
+          <option value="塘沽于家堡派出所">塘沽于家堡派出所</option>
+          <option value="塘沽新河派出所">塘沽新河派出所</option>
+          <option value="塘沽胡家园派出所">塘沽胡家园派出所</option>
+          <option value="塘沽向阳派出所">塘沽向阳派出所</option>
+          <option value="塘沽新城派出所">塘沽新城派出所</option>
+
+	   		</select>
+	   	</a>
+	   	
+	   	
+	   	<i>时间段</i><a><input name="" type="text" class="scinput" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"/></a>
+	   	<i>至</i><a><input name="" type="text" class="scinput" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"/></a>
+	   	<a><input name="button" type="button" class="sure" value="查询" style="background:#417EB5;margin-left: 25px;"/></a>
+	    
+	   </li>
+	   </ul>
+	   
+	   
+    
+   
+  
+ 
+    
+    </div>
+    
+
+</body>
+
+</html>
