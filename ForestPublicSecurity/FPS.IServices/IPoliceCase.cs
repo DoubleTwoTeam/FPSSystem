@@ -16,7 +16,5 @@ namespace FPS.IServices
         /// <param name="instance"></param>
         /// <returns></returns>
         int InsertInstance(Instance instance);
-
-        
     }
 }
