@@ -1,0 +1,196 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>天津市滨海新区公安塘沽分局矛盾纠纷系统</title>
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/jsCalender/WdatePicker.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $(".click").click(function(){
+  $(".tip").fadeIn(200);
+  });
+  
+  $(".tiptop a").click(function(){
+  $(".tip").fadeOut(200);
+});
+
+  $(".sure").click(function(){
+  $(".tip").fadeOut(100);
+});
+
+  $(".cancel").click(function(){
+  $(".tip").fadeOut(100);
+});
+
+});
+</script>
+
+
+</head>
+
+
+<body>
+
+	<div class="place">
+    <span>位置：</span>
+    <ul class="placeul">
+    <li><a href="home.html">首页</a></li>
+    <li><a href="#">推送管理</a></li>
+    <li><a href="#">转入记录管理</a></li>
+    </ul>
+    </div>
+    
+    <div class="rightinfo">
+    <ul class="toolbar" style="margin-bottom: 10px;">
+	    <li><a href="add_permission.html" class="tablelink"><span><img src="images/t02.png" /></span>接收记录</a></li>
+	    <li><a href="javascript:;" onclick="exportExcel()" class="tablelink"><span><img src="images/t05.png" /></span>导出Excel</a></li>
+	    
+	    </ul>
+    <ul class="prosearch">
+	   <li>
+	   	<i>转发时间</i><a><input name="" type="text" class="scinput"   onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"/></a>
+	   	<i>身份证号</i><a><input name="" type="text" class="scinput" /></a>
+	   	<i>姓名</i><a><input name="" type="text" class="scinput" /></a>
+	   	
+	   	<a><input name="" type="button" class="sure" value="查询" style="background:#417EB5;"/></a>
+	   </li>
+	   
+	   </ul>
+	   
+	   <ul class="prosearch">
+	   	
+	   <li>
+	   	<i>联系电话</i><a><input name="" type="text" class="scinput" /></a>
+	   	<i>接警单号</i><a><input name="" type="text" class="scinput" /></a>
+	   	
+	   </li>
+	   <li>性别：
+	   	<input name="sex" type="radio" value="1" id="sex1"  />&nbsp;&nbsp;<label for="sex1">男</label>&nbsp;&nbsp;
+	   	<input name="sex" type="radio" value="2" id="sex2"  />&nbsp;&nbsp;<label for="sex2">女</label>&nbsp;&nbsp;
+	   
+	   </li>
+     <li>
+   	    <a><input name="reset" type="reset" class="sure" value="清空" style="background:#417EB5;margin-left: 25px;"/></a>
+	   </li>
+	   </ul>
+    <table class="tablelist">
+    	<thead>
+    	<tr>
+        
+        <th>序号<i class="sort"><img src="images/px.gif" /></i></th>
+        <th>数据来源</th>
+        <th>标志</th>
+       
+        <th>姓名</th>
+        <th>性别</th>
+        <th>身份证号</th>
+        <th>联系方式</th>
+        <th>转递部门</th>
+        <th>转递时间</th>
+        
+        <th>现住地址</th>
+        <th>推送时间</th>
+        <th>状态</th>
+        <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!--
+        	作者：1628648978@qq.com
+        	时间：2018-08-15
+        	描述：无记录时提示暂无查询结果
+        -->
+        <!--
+        	<tr><td colspan="13">暂无查询结果</td></tr>
+        -->
+       
+        <tr>
+        <td>1</td>
+        <td>110警情</td>
+        <td><a href="#link" style="color: blue;">201002017102623564456</a></td>
+        
+        <td>张欢宇</td>
+        <td>女</td>
+        <td>610402199403025468</td>
+        <td>13642133909</td>
+        <td>刑侦部</td>
+        <td>2018-6-26 23:12:12</td>
+        
+        <td>天津市...</td>
+        <td>2017-12-11 12:11:11</td>
+        <td>待接收</td>
+        <td><a href="#link" style="color: blue;">接收</a>　<a href="#link" style="color: blue;">拒收</a></td>
+        </tr>
+        
+        <tr>
+        <td>2</td>
+        <td>多元化排查</td>
+        <td><a href="#link" style="color: blue;">201002017102623564456</a></td>
+        
+        <td>王鹏</td>
+        <td>男</td>
+        <td>610402199403025468</td>
+        <td>13642133909</td>
+        <td>刑侦部</td>
+        <td>2018-6-26 23:12:12</td>
+        
+        <td>天津市...</td>
+        <td>2017-12-11 12:11:11</td>
+        <td><span style="color: red;">即将到期</span></td>
+        <td><a href="#link" style="color: blue;">接收</a>　<a href="#link" style="color: blue;">拒收</a></td>
+        </tr>
+        
+        
+        <tr>
+        <td>3</td>
+        <td>民警排查</td>
+        <td><a href="#link" style="color: blue;">201002017102623564456</a></td>
+       
+        <td>吕云鹏</td>
+        <td>男</td>
+        <td>610402199403025468</td>
+        <td>13642133909</td>
+        <td>刑侦部</td>
+        <td>2018-6-26 23:12:12</td>
+        
+        <td>天津市...</td>
+        <td>2017-12-11 12:11:11</td>
+        <td><span style="">自动接收</span></td>
+        <td></td>
+        </tr>
+        
+       
+        
+              
+        </tbody>
+    </table>
+    
+   
+    <div class="pagin">
+    	<div class="message">共<i class="blue">1256</i>条记录，当前显示第&nbsp;<i class="blue">2&nbsp;</i>页</div>
+        <ul class="paginList">
+        <li class="paginItem"><a href="javascript:;"><span class="pagepre"></span></a></li>
+        <li class="paginItem"><a href="javascript:;">1</a></li>
+        <li class="paginItem current"><a href="javascript:;">2</a></li>
+        <li class="paginItem"><a href="javascript:;">3</a></li>
+        <li class="paginItem"><a href="javascript:;">4</a></li>
+        <li class="paginItem"><a href="javascript:;">5</a></li>
+        <li class="paginItem more"><a href="javascript:;">...</a></li>
+        <li class="paginItem"><a href="javascript:;">10</a></li>
+        <li class="paginItem"><a href="javascript:;"><span class="pagenxt"></span></a></li>
+        </ul>
+    </div>
+    
+ 
+    
+    </div>
+    
+    <script type="text/javascript">
+	$('.tablelist tbody tr:odd').addClass('odd');
+	</script>
+
+</body>
+
+</html>

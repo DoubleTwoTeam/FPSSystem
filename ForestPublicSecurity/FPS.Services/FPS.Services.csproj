@@ -93,7 +93,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config.cs" />
+<<<<<<< HEAD
     <Compile Include="JurisdictionService.cs" />
+=======
+    <Compile Include="PoliceCaseServices.cs" />
+>>>>>>> 970e508048302c8a53ae7a4defa37e74f008602f
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StudentServices.cs" />
     <Compile Include="SugerBase.cs" />

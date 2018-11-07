@@ -13,21 +13,45 @@ namespace FPS.UI.Controllers
     {
         private readonly IStudent _student;
 
-        public CenterController(IStudent student) => _student = student;
+        public CenterController(IStudent student)
+        {
+            _student = student;
+        }
 
+        /// <summary>
+        /// 森林管控中心首页
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Index()
         {
             ViewBag.Name = _student.GetStudentName();
             return View();
         }
 
+        /// <summary>
+        /// 后台登录入口
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Login()
         {
             ViewBag.Name = _student.GetStudentName();
             return View();
         }
 
+        /// <summary>
+        /// 后台静态页
+        /// </summary>
+        /// <returns></returns>
         public ActionResult StaticIndex()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// 报警页面
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult CallPolice()
         {
             return View();
         }

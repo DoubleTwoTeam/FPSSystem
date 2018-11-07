@@ -1,0 +1,180 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>天津市滨海新区公安塘沽分局矛盾纠纷系统</title>
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/jsCalender/WdatePicker.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $(".click").click(function(){
+  $(".tip").fadeIn(200);
+  });
+  
+  $(".tiptop a").click(function(){
+  $(".tip").fadeOut(200);
+});
+
+  $(".sure").click(function(){
+  $(".tip").fadeOut(100);
+});
+
+  $(".cancel").click(function(){
+  $(".tip").fadeOut(100);
+});
+
+});
+</script>
+
+
+</head>
+
+
+<body>
+
+	<div class="place">
+    <span>位置：</span>
+    <ul class="placeul">
+    <li><a href="home.html">首页</a></li>
+    <li><a href="#">大数据预警</a></li>
+    <li><a href="#">预警研判中心</a></li>
+    </ul>
+    </div>
+    
+    <div class="rightinfo">
+    
+    <ul class="prosearch">
+	   <li>
+	   	<i>身份证号</i><a><input name="" type="text" class="scinput" /></a>
+	   	<a><input name="button" type="button" class="sure" value="查询" style="background:#417EB5;margin-left: 25px;"/></a>
+	    
+	   </li>
+	   </ul>
+	   
+	   
+    <table class="tablelist">
+    	<thead>
+    		
+    	<tr>
+        
+        <th>序号<i class="sort"><img src="images/px.gif" /></i></th>
+        <th>预警研判</th>
+        <th>身份证号</th>
+        <th>姓名</th>
+        <th>性别</th>
+        <th>研判时间</th>
+        <th>研判人</th>
+        <th>婚恋家庭</th>
+        <th>邻里关系</th>
+        <th>劳资关系</th>
+        <th>其他研判</th>
+        <th>总分</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!--
+        	作者：1628648978@qq.com
+        	时间：2018-08-15
+        	描述：无记录时提示暂无查询结果
+        -->
+        <!--
+        	<tr><td colspan="10">暂无查询结果</td></tr>
+        -->
+       
+        <tr>
+        <td>1</td>
+        <td><span style="color: red;font-size:30px;">●</span></td>
+        <td>610102199454522233</td>
+        <td>陈童</td>
+        <td>女</td>
+        <td>2018-06-23 15:32:23</td>
+        <td>魏海</td>
+        <td>2</td>
+        <td>2</td>
+        <td>2</td>
+        <td><a href="#" class="tablelink">详情</a></td>
+        <td>16</td>
+        </tr>
+        
+        <tr>
+        <td>2</td>
+        <td><span style="color: orangered;font-size:30px;">●</span></td>
+        <td>610102199454522233</td>
+        <td>陈童</td>
+        <td>女</td>
+        <td>2018-06-23 15:32:23</td>
+        <td>魏海</td>
+        <td>2</td>
+        <td>2</td>
+        <td>2</td>
+        <td><a href="#" class="tablelink">详情</a></td>
+        <td>16</td>
+        </tr>
+        
+        <tr>
+        <td>3</td>
+        <td><span style="color:orange;font-size:30px;">●</span></td>
+        <td>610102199454522233</td>
+        <td>陈童</td>
+        <td>女</td>
+        <td>2018-06-23 15:32:23</td>
+        <td>魏海</td>
+        <td>2</td>
+        <td>2</td>
+        <td>2</td>
+        <td><a href="#" class="tablelink">详情</a></td>
+        <td>16</td>
+        </tr>
+        
+        <tr>
+        <td>4</td>
+        <td><span style="color: blue;font-size:30px;">●</span></td>
+        <td>610102199454522233</td>
+        <td>陈童</td>
+        <td>女</td>
+        <td>2018-06-23 15:32:23</td>
+        <td>魏海</td>
+        <td>2</td>
+        <td>2</td>
+        <td>2</td>
+        <td><a href="#" class="tablelink">详情</a></td>
+        <td>16</td>
+        </tr>
+              
+        </tbody>
+    </table>
+    
+   
+    <div class="pagin">
+    	<div class="message">共<i class="blue">1256</i>条记录，当前显示第&nbsp;<i class="blue">2&nbsp;</i>页</div>
+        <ul class="paginList">
+        <li class="paginItem"><a href="javascript:;"><span class="pagepre"></span></a></li>
+        <li class="paginItem"><a href="javascript:;">1</a></li>
+        <li class="paginItem current"><a href="javascript:;">2</a></li>
+        <li class="paginItem"><a href="javascript:;">3</a></li>
+        <li class="paginItem"><a href="javascript:;">4</a></li>
+        <li class="paginItem"><a href="javascript:;">5</a></li>
+        <li class="paginItem more"><a href="javascript:;">...</a></li>
+        <li class="paginItem"><a href="javascript:;">10</a></li>
+        <li class="paginItem"><a href="javascript:;"><span class="pagenxt"></span></a></li>
+        </ul>
+    </div>
+    
+ 
+    
+    </div>
+    
+  <script type="text/javascript">
+	$('.tablelist tbody tr:odd').addClass('odd');
+	</script>
+<!--导出Excel-->
+	<script type="text/javascript">
+	 function exportExcel(){
+	 	alert("导出Excel函数");
+	 }
+	</script>
+
+</body>
+
+</html>
