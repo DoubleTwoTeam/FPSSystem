@@ -6,10 +6,7 @@ using System.Threading.Tasks;
 
 namespace FPS.Models
 {
-    /// <summary>
-    /// 权限类
-    /// </summary>
-   public class Authority
+    public class AuthorityName
     {
         /// <summary>
         /// ID
@@ -23,6 +20,10 @@ namespace FPS.Models
         /// 父级ID
         /// </summary>
         public int FatherId { get; set; }
+        /// <summary>
+        /// 父级名称
+        /// </summary>
+        public string FatherName { get; set; }
         /// <summary>
         /// 状态
         /// </summary>

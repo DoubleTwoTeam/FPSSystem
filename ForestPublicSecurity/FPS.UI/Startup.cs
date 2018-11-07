@@ -28,6 +28,7 @@ namespace FPS.UI
         public void ConfigureServices(IServiceCollection services)
         {   
             services.AddTransient<IStudent, StudentServices>();
+            services.AddTransient<IJurisdiction, JurisdictionService>();
             var dbConnectionString = "Data Source=169.254.159.216/orcl;User ID=scott;Password=tiger;";
             SugerBase.DBConnectionString = dbConnectionString;
             services.Configure<CookiePolicyOptions>(options =>
