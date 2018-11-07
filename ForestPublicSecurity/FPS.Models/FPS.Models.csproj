@@ -41,7 +41,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <Compile Include="Authority.cs" />
     <Compile Include="AuthorityName.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -50,7 +49,6 @@
     <Compile Include="RoleAuthority.cs" />
     <Compile Include="Student.cs" />
     <Compile Include="UserAndRole.cs" />
-=======
     <Compile Include="Alarm.cs" />
     <Compile Include="Approve.cs" />
     <Compile Include="ApproveCourse.cs" />
@@ -63,7 +61,6 @@
     <Compile Include="RoleAuthority.cs" />
     <Compile Include="Sendbox.cs" />
     <Compile Include="Student.cs" />
->>>>>>> 970e508048302c8a53ae7a4defa37e74f008602f
     <Compile Include="UserRole.cs" />
     <Compile Include="Users.cs" />
   </ItemGroup>

@@ -65,7 +65,7 @@ namespace FPS.UI.Controllers
                             .Trim('"');
             //_hostingEnvironment.WebRootPath就是要存的地址可以改下
             filename = _hostingEnvironment.WebRootPath + $@"\{filename}";
-            size += file.Length;
+            size = file.Length;
             using (FileStream fs = System.IO.File.Create(filename))
             {
                 file.CopyTo(fs);
