@@ -58,20 +58,27 @@ namespace FPS.Models
         /// 处理人
         /// </summary>
         public int SolvePeopleId { get; set; }
-        
-        /// <summary>
-        /// 处理时间
-        /// </summary>
-        public DateTime EndTime { get; set; }
 
         /// <summary>
         /// 外派警员
         /// </summary>
-        public int MyProperty { get; set; }
-       
+        public int OutID { get; set; }
+
+        /// <summary>
+        /// 处理时间
+        /// </summary>
+        public DateTime OverTime { get; set; }
+
+
+        /// <summary>
+        /// 审批状态
+        /// </summary>
+
+        public int State { get; set; }
+
         /// <summary>
         /// 备用
         /// </summary>
-        public int State { get; set; }
+        public string Stace { get; set; }
     }
 }
