@@ -10,6 +10,36 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Views\Center\about.html" />
+    <None Remove="Views\Center\news-list.html" />
+    <None Remove="Views\Center\news.html" />
+    <None Remove="Views\Center\online.html" />
+    <None Remove="Views\Center\product-list.html" />
+    <None Remove="Views\Center\product.html" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Views\Center\about.html">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\Center\news-list.html">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\Center\news.html">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\Center\online.html">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\Center\product-list.html">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Views\Center\product.html">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="wwwroot\js\jquery-3.3.1.intellisense.js" />
     <None Include="wwwroot\js\jquery.validate-vsdoc.js" />
   </ItemGroup>
