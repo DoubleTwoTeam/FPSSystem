@@ -1,0 +1,286 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>五台山森林管控中心后台系统</title>
+    <link href="~/police/css/style.css" rel="stylesheet" type="text/css" />
+    <script language="JavaScript" src="~/police/js/jquery.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            //导航切换
+            $(".menuson .header").click(function () {
+                var $parent = $(this).parent();
+                $(".menuson>li.active").not($parent).removeClass("active open").find('.sub-menus').hide();
+
+                $parent.addClass("active");
+                if (!!$(this).next('.sub-menus').size()) {
+                    if ($parent.hasClass("open")) {
+                        $parent.removeClass("open").find('.sub-menus').hide();
+                    } else {
+                        $parent.addClass("open").find('.sub-menus').show();
+                    }
+
+
+                }
+            });
+
+            // 三级菜单点击
+            $('.sub-menus li').click(function (e) {
+                $(".sub-menus li.active").removeClass("active")
+                $(this).addClass("active");
+            });
+
+            $('.title').click(function () {
+                var $ul = $(this).next('ul');
+                $('dd').find('.menuson').slideUp();
+                if ($ul.is(':visible')) {
+                    $(this).next('.menuson').slideUp();
+                } else {
+                    $(this).next('.menuson').slideDown();
+                }
+            });
+        })
+    </script>
+
+
+</head>
+
+<body style="background:;">
+    <div class="lefttop"><span></span>五台山风景区总局</div>
+
+    <dl class="leftmenu">
+
+        <dd>
+            <div class="title">
+                <span><img src="~/police/images/leftico01.png" /></span>110警情
+            </div>
+            <ul class="menuson">
+
+                <li class="active">
+                    <div class="header">
+                        <cite></cite>
+                        <a href="zhuandi_110.html" target="rightFrame">转递记录管理</a>
+                        <i></i>
+                    </div>
+
+                </li>
+
+                <li>
+                    <div class="header">
+                        <cite></cite>
+                        <a href="delete_110.html" target="rightFrame">删除记录管理</a>
+                        <i></i>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="header">
+                        <cite></cite>
+                        <a href="xuji_110.html" target="rightFrame">续记管理</a>
+                        <i></i>
+                    </div>
+                </li>
+
+            </ul>
+        </dd>
+
+
+        <dd>
+            <div class="title">
+                <span><img src="~/police/images/leftico01.png" /></span>主动排查
+            </div>
+            <ul class="menuson">
+
+                <li>
+                    <div class="header">
+                        <cite></cite>
+                        <a href="javascript:;" target="rightFrame">多元化排查</a>
+                        <i></i>
+                    </div>
+                    <ul class="sub-menus">
+                        <li><a href="paicha_duoyuan.html" target="rightFrame">多元化排查列表</a></li>
+                        <li><a href="paicha_duoyuan_zhuandi.html" target="rightFrame">转递记录管理</a></li>
+                        <li><a href="paicha_duoyuan_delete.html" target="rightFrame">删除记录管理</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <div class="header">
+                        <cite></cite>
+                        <a href="javascript:;" target="rightFrame">民警排查</a>
+                        <i></i>
+                    </div>
+                    <ul class="sub-menus">
+                        <li><a href="paicha_minjing.html" target="rightFrame">民警排查列表</a></li>
+                        <li><a href="paicha_minjing_zhuandi.html" target="rightFrame">转递记录管理</a></li>
+                        <li><a href="paicha_minjing_delete.html" target="rightFrame">删除记录管理</a></li>
+                    </ul>
+                </li>
+
+            </ul>
+        </dd>
+
+
+        <dd>
+            <div class="title"><span><img src="~/police/images/leftico01.png" /></span>推送管理</div>
+            <ul class="menuson">
+                <li>
+                    <div class="header">
+                        <cite></cite>
+                        <a href="tuisong_zhuanru.html" target="rightFrame">转入人员管理</a>
+                        <i></i>
+                    </div>
+
+                </li>
+
+                <li>
+                    <div class="header">
+                        <cite></cite>
+                        <a href="tuisong_zhuanchu.html" target="rightFrame">转出人员管理</a>
+                        <i></i>
+                    </div>
+                </li>
+
+
+            </ul>
+        </dd>
+
+
+        <dd>
+            <div class="title"><span><img src="~/police/images/leftico01.png" /></span>短信督导</div>
+            <ul class="menuson">
+                <li>
+                    <div class="header">
+                        <cite></cite>
+                        <a href="shortMessageSet.html" target="rightFrame">短信督导设置</a>
+                        <i></i>
+                    </div>
+
+                </li>
+
+            </ul>
+
+        </dd>
+
+
+
+        <dd>
+            <div class="title"><span><img src="~/police/images/leftico01.png" /></span>大数据预警</div>
+            <ul class="menuson">
+                <li>
+                    <div class="header">
+                        <cite></cite>
+                        <a href="bigdata_yanpan.html" target="rightFrame">预警研判中心</a>
+                        <i></i>
+                    </div>
+
+                </li>
+
+                <li>
+                    <div class="header">
+                        <cite></cite>
+                        <a href="bigdata_type.html" target="rightFrame">预警类型管理</a>
+                        <i></i>
+                    </div>
+
+                </li>
+                <li>
+                    <div class="header">
+                        <cite></cite>
+                        <a href="bigdata_jibie.html" target="rightFrame">预警级别管理</a>
+                        <i></i>
+                    </div>
+
+                </li>
+
+            </ul>
+
+        </dd>
+
+        <dd>
+            <div class="title"><span><img src="~/police/images/leftico01.png" /></span>分析研判</div>
+            <ul class="menuson">
+                <li>
+                    <div class="header">
+                        <cite></cite>
+                        <a href="fenxi_chuzhihuajie_tongji.html" target="rightFrame">处置化解统计表</a>
+                        <i></i>
+                    </div>
+
+                </li>
+
+                <li>
+                    <div class="header">
+                        <cite></cite>
+                        <a href="fenxi_kaohe.html" target="rightFrame">量化考核表</a>
+                        <i></i>
+                    </div>
+
+                </li>
+                <li>
+                    <div class="header">
+                        <cite></cite>
+                        <a href="fenxi_kaohe_tongji.html" target="rightFrame">量化考核统计图</a>
+                        <i></i>
+                    </div>
+
+                </li>
+
+            </ul>
+
+        </dd>
+
+        <dd>
+            <div class="title"><span><img src="~/police/images/leftico01.png" /></span>系统管理</div>
+            <ul class="menuson">
+                <li>
+                    <div class="header">
+                        <cite></cite>
+                        <a href="system_log.html" target="rightFrame">日志管理</a>
+                        <i></i>
+                    </div>
+
+                </li>
+
+                <li>
+                    <div class="header">
+                        <cite></cite>
+                        <a href="system_permission.html" target="rightFrame">权限配置</a>
+                        <i></i>
+                    </div>
+
+                </li>
+                <li>
+                    <div class="header">
+                        <cite></cite>
+                        <a href="tab.html" target="rightFrame">组织机构配置</a>
+                        <i></i>
+                    </div>
+
+                </li>
+                <li>
+                    <div class="header">
+                        <cite></cite>
+                        <a href="system_shenpi_del.html" target="rightFrame">人员删除审批</a>
+                        <i></i>
+                    </div>
+
+                </li>
+
+            </ul>
+
+        </dd>
+
+
+    </dl>
+
+</body>
+</html>
+

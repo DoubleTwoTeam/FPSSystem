@@ -42,6 +42,28 @@
   <ItemGroup>
     <None Include="wwwroot\js\jquery-3.3.1.intellisense.js" />
     <None Include="wwwroot\js\jquery.validate-vsdoc.js" />
+    <None Include="wwwroot\police\images\login\登录页警察图片.psd" />
+    <None Include="wwwroot\police\js\artDialog.js" />
+    <None Include="wwwroot\police\js\cloud.js" />
+    <None Include="wwwroot\police\js\format+zh_CN,default,corechart.I.js" />
+    <None Include="wwwroot\police\js\iframe.js" />
+    <None Include="wwwroot\police\js\jquery-1.4.4.min.js" />
+    <None Include="wwwroot\police\js\jquery.ba-resize.min.js" />
+    <None Include="wwwroot\police\js\jquery.gvChart-1.0.1.min.js" />
+    <None Include="wwwroot\police\js\jquery.idTabs.min.js" />
+    <None Include="wwwroot\police\js\jquery.js" />
+    <None Include="wwwroot\police\js\jsapi.js" />
+    <None Include="wwwroot\police\js\jsCalender\calendar.js" />
+    <None Include="wwwroot\police\js\jsCalender\jquery.js" />
+    <None Include="wwwroot\police\js\jsCalender\lang\en.js" />
+    <None Include="wwwroot\police\js\jsCalender\lang\zh-cn.js" />
+    <None Include="wwwroot\police\js\jsCalender\lang\zh-tw.js" />
+    <None Include="wwwroot\police\js\jsCalender\sapar.js" />
+    <None Include="wwwroot\police\js\jsCalender\sapar.min.js" />
+    <None Include="wwwroot\police\js\jsCalender\WdatePicker.js" />
+    <None Include="wwwroot\police\js\main.js" />
+    <None Include="wwwroot\police\js\PIE.htc" />
+    <None Include="wwwroot\police\js\select-ui.min.js" />
   </ItemGroup>
 
   <ItemGroup>
@@ -57,6 +79,10 @@
     <ProjectReference Include="..\FPS.Models\FPS.Models.csproj" />
     <ProjectReference Include="..\FPS.Services\FPS.Services.csproj" />
     <ProjectReference Include="..\FPS.Unility\FPS.Unility.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Images\" />
   </ItemGroup>
 
 </Project>
