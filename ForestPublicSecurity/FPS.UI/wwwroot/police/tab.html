@@ -1,0 +1,245 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>天津市滨海新区公安塘沽分局矛盾纠纷系统</title>
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+<link href="css/select.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/jquery.idTabs.min.js"></script>
+<script type="text/javascript" src="js/select-ui.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(e) {
+    $(".select1").uedSelect({
+		width : 345			  
+	});
+	$(".select2").uedSelect({
+		width : 167  
+	});
+	$(".select3").uedSelect({
+		width : 100
+	});
+});
+</script>
+</head>
+
+<body>
+
+	<div class="place">
+    <span>位置：</span>
+    <ul class="placeul">
+    <li><a href="home.html">首页</a></li>
+    <li><a href="#">系统管理</a></li>
+    <li><a href="#">组织机构配置</a></li>
+    </ul>
+    </div>
+    
+    <div class="formbody">
+    
+    
+    <div id="usual1" class="usual"> 
+    
+    <div class="itab">
+  	<ul> 
+    <li><a href="#tab1" class="selected">部门</a></li> 
+    <li><a href="#tab2">角色</a></li>
+    <li><a href="#tab3">用户</a></li>
+  	</ul>
+    </div> 
+    
+  	<div id="tab1" class="tabson">
+    	部门组织机构树形菜单插件
+    </div> 
+    
+    
+  	<div id="tab2" class="tabson">
+    
+    <ul class="toolbar"style="clear: both;margin-bottom:10px;">
+	    <li><a href="add_permission.html" class="tablelink"><span><img src="images/t01.png" /></span>新增</a></li>
+	    
+				<li><a href="add_role.html" class="tablelink"><span><img src="images/t02.png" /></span>编辑</a></li>
+	    <li><a href="javascript:;" onclick="deleteRole()" class="tablelink"><span><img src="images/t03.png" /></span>删除</a></li>
+	    
+	  </ul>
+    <ul class="seachform" style="clear: both;margin-left:10px;">
+    
+    <li><label>名称</label><input name="" type="text" class="scinput" /></li>
+    <li><label>编码</label><input name="" type="text" class="scinput" /></li>
+    
+    <li><label>&nbsp;</label><input name="" type="button" class="scbtn" value="查询" style="background:#417EB5;"/></li>
+    
+    </ul>
+    
+    
+    <table class="tablelist">
+    	<thead>
+    	<tr>
+        <th><input name="" type="checkbox" value="" checked="checked"/></th>
+        <th>序号<i class="sort"><img src="images/px.gif" /></i></th>
+        <th>名称</th>
+        <th>编码</th>
+        
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td><input name="" type="checkbox" value="" /></td>
+        <td>1</td>
+        <td>伤害派发</td>
+        <td>SHPF</td>
+        </tr>
+        
+        <tr>
+        <td><input name="" type="checkbox" value="" /></td>
+        <td>2</td>
+        <td>刑事督办</td>
+        <td>XSDB</td>
+        </tr>
+        
+        <tr>
+        <td><input name="" type="checkbox" value="" /></td>
+        <td>3</td>
+        <td>派出所民警</td>
+        <td>PCSMJ</td>
+        </tr>
+        
+        <tr>
+        <td><input name="" type="checkbox" value="" /></td>
+        <td>4</td>
+        <td>管理员</td>
+        <td>admin</td>
+        </tr>
+        
+        <tr>
+        <td><input name="" type="checkbox" value="" /></td>
+        <td>5</td>
+        <td>矛盾纠纷</td>
+        <td>MDJF</td>
+        </tr>
+        </tbody>
+    </table>
+    
+    </div>  
+    
+    
+    <div id="tab3" class="tabson">
+    
+    <ul class="toolbar" style="clear: both;margin-bottom:10px;">
+	    <li><a href="add_permission.html" class="tablelink"><span><img src="images/t01.png" /></span>新增</a></li>
+	    <li><a href="add_role.html" class="tablelink"><span><img src="images/t02.png" /></span>编辑</a></li>
+	    <li><a href="javascript:;" onclick="deleteRole()" class="tablelink"><span><img src="images/t03.png" /></span>删除</a></li>
+	    <li><a href="add_role.html" class="tablelink"><span><img src="images/jiesuo.png" /></span>重置密码</a></li>
+	    <li><a href="javascript:;" onclick="deleteRole()" class="tablelink"><span><img src="images/jiesuoyonghu.png" /></span>解锁用户</a></li>
+	    
+	  </ul>
+    <ul class="seachform" style="clear: both;">
+    <li><label>名称</label><input name="" type="text" class="scinput" /></li>
+    <li><label>身份证号</label><input name="" type="text" class="scinput" /></li>
+    <li><label>用户编码</label><input name="" type="text" class="scinput" /></li>
+    <li><label>部门</label>  
+    <div class="vocation">
+    <select style="border: 1px solid #C3AB7D;padding:7px 10px 7px 10px;">
+    <option>请选择</option>
+    </select>
+    </div>
+    </li>
+    
+    <li><label>是否删除</label>  
+    <div class="vocation">
+    <select style="border: 1px solid #C3AB7D;padding:7px 10px 7px 10px;">
+    <option>请选择</option>
+    <option>是</option>
+    <option>否</option>
+    </select>
+    </div>
+    </li>
+    
+    
+    
+    <li><label>&nbsp;</label><input name="" type="button" class="scbtn" value="查询" style="background:#417EB5;"/></li>
+    
+    </ul>
+    
+    <table class="tablelist">
+    	<thead>
+    	<tr>
+        <th><input name="" type="checkbox" value="" checked="checked"/></th>
+        <th>序号<i class="sort"><img src="images/px.gif" /></i></th>
+        <th>名称</th>
+        <th>语音</th>
+        <th>主题</th>
+        <th>身份证号</th>
+        <th>编码</th>
+        <th>部门</th>
+        <th>联系电话</th>
+        <th>电子邮箱</th>
+        <th>是否删除</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td><input name="" type="checkbox" value="" /></td>
+        <td>1</td>
+        <td>伤害督办人员</td>
+        <td>简体中文（中国）</td>
+        <td>office风格</td>
+        <td>610402199402154564</td>
+        <td>SHDB</td>
+        <td>五侦指挥部/本部</td>
+        <td>13116154877</td>
+        <td>13642133909@163.com</td>
+        <td>否</td>
+        </tr>
+        
+        <tr>
+        <td><input name="" type="checkbox" value="" /></td>
+        <td>2</td>
+        <td>刑事督办人员</td>
+        <td>简体中文（中国）</td>
+        <td>office风格</td>
+        <td>610402199402154564</td>
+        <td>SHDB</td>
+        <td>五侦指挥部/本部</td>
+        <td>13116154877</td>
+        <td>13642133909@163.com</td>
+        <td>否</td>
+        </tr>
+        <tr>
+        <td><input name="" type="checkbox" value="" /></td>
+        <td>3</td>
+        <td>刑事督办人员</td>
+        <td>简体中文（中国）</td>
+        <td>office风格</td>
+        <td>610402199402154564</td>
+        <td>SHDB</td>
+        <td>五侦指挥部/本部</td>
+        <td>13116154877</td>
+        <td>13642133909@163.com</td>
+        <td>否</td>
+        </tr>
+        </tbody>
+    </table>
+    
+    </div>  
+       
+	</div> 
+ 
+	<script type="text/javascript"> 
+      $("#usual1 ul").idTabs(); 
+    </script>
+    
+    <script type="text/javascript">
+	$('.tablelist tbody tr:odd').addClass('odd');
+	</script>
+    
+    
+    
+    
+    
+    </div>
+
+
+</body>
+
+</html>
