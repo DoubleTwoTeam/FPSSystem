@@ -17,15 +17,28 @@ namespace FPS.UI.Controllers
         private readonly IPoliceCase _policeCase;
         
 
+        /// <summary>
+        /// 案件显示页面
+        /// </summary>
+        /// <returns></returns>
         public IActionResult GetInstanceList()
         {
             return View();
         }
 
+        /// <summary>
+        /// 案件添加页面
+        /// </summary>
+        /// <returns></returns>
         public IActionResult InsertPoliceCase()
         {
             return View();
         }
+        /// <summary>
+        /// 案件添加
+        /// </summary>
+        /// <param name="instance"></param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult InsertPoliceCase(Instance instance)
         {
