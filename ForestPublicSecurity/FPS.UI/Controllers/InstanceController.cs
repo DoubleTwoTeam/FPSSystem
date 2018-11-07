@@ -6,11 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 
 using FPS.IServices;
 using FPS.Models;
-using System.IO;
-using System.Web;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Hosting;
-using System.Net.Http.Headers;
 
 namespace FPS.UI.Controllers
 {
@@ -20,17 +15,7 @@ namespace FPS.UI.Controllers
         /// 依赖注入案件接口
         /// </summary>
         private readonly IPoliceCase _policeCase;
-
-        private readonly IHostingEnvironment _hostingEnvironment;
-        /// <summary>
-        /// 依赖注入
-        /// </summary>
-        /// <param name="policeCase"></param>
-        public InstanceController(IPoliceCase policeCase,IHostingEnvironment hostingEnvironment)
-        {
-            _policeCase = policeCase;
-            _hostingEnvironment = hostingEnvironment;
-        }
+        
 
         /// <summary>
         /// 案件显示页面
@@ -49,15 +34,15 @@ namespace FPS.UI.Controllers
         {
             return View();
         }
-
         /// <summary>
         /// 案件添加
         /// </summary>
         /// <param name="instance"></param>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult InsertPoliceCase(Instance instance, IFormFile file)
+        public IActionResult InsertPoliceCase(Instance instance)
         {
+<<<<<<< HEAD
             long size = 0;
             var filename = ContentDispositionHeaderValue
                             .Parse(file.ContentDisposition)
@@ -71,11 +56,14 @@ namespace FPS.UI.Controllers
                 file.CopyTo(fs);
                 fs.Flush();
             }
+=======
+>>>>>>> parent of 970e508... 写案件的页面
 
             return View();
         }
 
-        public int InsertApprove(int id)
+
+        public int  InsertApprove(int id)
         {
             return 0;
         }
