@@ -1,0 +1,134 @@
+﻿@model  List<FPS.Models.ApproveDataModel>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/police/css/style.css" rel="stylesheet" type="text/css" />
+    <title>GetApproveList</title>
+</head>
+<body>
+    <div class="place">
+        <span>位置：</span>
+        <ul class="placeul">
+            <li><a href="home.html">首页</a></li>
+            <li><a href="#">主动排查</a></li>
+            <li><a href="#">多元化排查</a></li>
+            <li><a href="#">转递记录管理</a></li>
+        </ul>
+    </div>
+
+    <div class="rightinfo">
+
+        <ul class="prosearch">
+            <li>
+                <i>转递时间</i><a><input name="" type="text" class="scinput" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" /></a>
+                <i>身份证号</i><a><input name="" type="text" class="scinput" /></a>
+                <i>姓名</i><a><input name="" type="text" class="scinput" /></a>
+
+                <a><input name="" type="button" class="sure" value="查询" style="background:#417EB5;" /></a>
+            </li>
+
+        </ul>
+
+        <ul class="prosearch">
+            <li>
+                <i>联系电话</i><a><input name="" type="text" class="scinput" /></a>
+                <i>反馈编号</i><a><input name="" type="text" class="scinput" /></a>
+
+            </li>
+            <li>
+                性别：
+                <input name="sex" type="radio" value="1" id="sex1" />&nbsp;&nbsp;<label for="sex1">男</label>&nbsp;&nbsp;
+                <input name="sex" type="radio" value="2" id="sex2" />&nbsp;&nbsp;<label for="sex2">女</label>&nbsp;&nbsp;
+
+            </li>
+            <li>
+                <a><input name="reset" type="reset" class="sure" value="清空" style="background:#417EB5;margin-left: 25px;" /></a>
+            </li>
+        </ul>
+        <table class="tablelist">
+            <thead>
+                <tr>
+
+                    <th>序号<i class="sort"><img src="images/px.gif" /></i></th>
+                    <th>业务类型</th>
+                    <th>申请人</th>
+                    <th>案件类型</th>
+                    <th>案件详情</th>
+                    <th>申请时间</th>
+                    <th>审批状态</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+
+                    <td>@item.ID</td>
+                    <td>@item.BusinessName</td>
+                    <td>@item.RealName</td>
+                    <td>@item.InstanceTypes</td>
+                    <td>@Html.ActionLink("查看详情", "GetInstanceById", new { id = item.InstanceID })</td>
+                    <td>@item.InstanceTime</td>
+                    @{
+                        if (item.ApproveState == 1)
+                        {
+                            <td>未审批</td>
+                        }
+                        else if (item.ApproveState == 2)
+                        {
+                            <td>局长审核中</td>
+                        }
+                        else if (item.ApproveState == 3)
+                        {
+                            <td>审核通过</td>
+                        }
+                        else
+                        {
+                            <td>已驳回</td>
+                        }
+                    }
+
+                    <td>
+                        @Html.ActionLink("通过", "PassApprove", new { id = item.ID, bussiness = item.BusinessID })
+                        @Html.ActionLink("驳回", "NoApprove", new { id = item.ID })
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+
+
+        @*<div class="pagin">
+            <div class="message">共<i class="blue">1256</i>条记录，当前显示第&nbsp;<i class="blue">2&nbsp;</i>页</div>
+            <ul class="paginList">
+                <li class="paginItem"><a href="javascript:;"><span class="pagepre"></span></a></li>
+                <li class="paginItem"><a href="javascript:;">1</a></li>
+                <li class="paginItem current"><a href="javascript:;">2</a></li>
+                <li class="paginItem"><a href="javascript:;">3</a></li>
+                <li class="paginItem"><a href="javascript:;">4</a></li>
+                <li class="paginItem"><a href="javascript:;">5</a></li>
+                <li class="paginItem more"><a href="javascript:;">...</a></li>
+                <li class="paginItem"><a href="javascript:;">10</a></li>
+                <li class="paginItem"><a href="javascript:;"><span class="pagenxt"></span></a></li>
+            </ul>
+        </div>*@
+
+
+
+    </div>
+
+    <script src="~/js/dist/lib/layer/2.4/layer.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    <script type="text/javascript">
+        $('.tablelist tbody tr:odd').addClass('odd');
+    </script>
+
+</body>
+</html>

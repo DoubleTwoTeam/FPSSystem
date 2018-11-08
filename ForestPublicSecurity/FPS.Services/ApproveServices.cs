@@ -20,8 +20,8 @@ namespace FPS.Services
         {
             var db = SugerBase.GetInstance();
             List<ApproveDataModel> list= JsonConvert.DeserializeObject<List<ApproveDataModel>>(JsonConvert.SerializeObject(db.SqlQueryable<ApproveDataModel>(
-                "select Approve.ID,Instance.ID as InstanceID,Instance.RegisterPeopleID,Business.ID as BusinessID,Business.Name as BusinessName,Users.realName as UsersName,Role.Name as RoleName,Approve.STATE,APPROVE.TIME " +
-                "FROM Approve,Users,Instance,Business,Role " +
+                "select Approve.ID,Instance.ID as InstanceID,Instance.RegisterPeopleID,Business.ID as BusinessID,Business.Name as BusinessName,Users.realName as UsersName,Role.Name as RoleName,Instance.InstanceTypes,Instance.InstanceTime,Instance.ApproveState " +
+                "from Approve,Users,Instance,Business,Role " +
                 "where Approve.ORIGINALID=Instance.ID and Approve.BUSINESSTYPEID=Business.ID and Approve.APPROVEPEOPLEID=USERS.ID and Approve.ROLEID=Role.ID")));
             return list;
         }
