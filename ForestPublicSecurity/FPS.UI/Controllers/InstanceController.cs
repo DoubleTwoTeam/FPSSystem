@@ -6,11 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 
 using FPS.IServices;
 using FPS.Models;
-using System.IO;
-using System.Web;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Hosting;
 using System.Net.Http.Headers;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
 
 namespace FPS.UI.Controllers
 {
@@ -22,10 +21,7 @@ namespace FPS.UI.Controllers
         private readonly IPoliceCase _policeCase;
 
         private readonly IHostingEnvironment _hostingEnvironment;
-        /// <summary>
-        /// 依赖注入
-        /// </summary>
-        /// <param name="policeCase"></param>
+
         public InstanceController(IPoliceCase policeCase,IHostingEnvironment hostingEnvironment)
         {
             _policeCase = policeCase;
@@ -56,7 +52,7 @@ namespace FPS.UI.Controllers
         /// <param name="instance"></param>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult InsertPoliceCase(Instance instance, IFormFile file)
+        public IActionResult InsertPoliceCase(Instance instance,IFormFile file)
         {
             long size = 0;
             var filename = ContentDispositionHeaderValue
@@ -71,11 +67,17 @@ namespace FPS.UI.Controllers
                 file.CopyTo(fs);
                 fs.Flush();
             }
-
+            instance.Space = filename;
+            int result= _policeCase.InsertInstance(instance);
+            if (result > 0)
+            {
+                Response.WriteAsync("<script>alert('添加案情成功')<script>");
+            }
             return View();
         }
 
-        public int InsertApprove(int id)
+
+        public int  InsertApprove(int id)
         {
             return 0;
         }
