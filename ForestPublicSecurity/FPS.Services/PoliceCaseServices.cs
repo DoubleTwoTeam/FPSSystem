@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using FPS.Models;
 using FPS.IServices;
+using Newtonsoft.Json;
 
 namespace FPS.Services
 {
@@ -24,5 +25,31 @@ namespace FPS.Services
 
             return result;
         }
+
+        public Approve GetApprove(Instance instance)
+        {
+            var db = SugerBase.GetInstance();
+            ApproveCourse approveCourse= db.Queryable<ApproveCourse>().Where(m => (m.Condition.Contains(instance.InstanceState.ToString()) && m.BusinesstypeId == Convert.ToInt32(instance.InstanceTypes))).Single();
+            Approve approve = new Approve() { RoleId = approveCourse.ApproveRoleId, BusinesstypeId = approveCourse.BusinesstypeId, PlaceID = approveCourse.PostpositionID, OriginalId=instance.ID, Ideas="", State="0" };
+            return approve;
+        }
+
+        /// <summary>
+        /// 案件显示页面
+        /// </summary>
+        /// <returns></returns>
+        public List<InstanceDataModel> GetInstanceList()
+        {
+            var db = SugerBase.GetInstance();
+            List<InstanceDataModel> inStance =db.SqlQueryable<InstanceDataModel>(
+                "select Instance.ID,Alarm.AlarmReason,Alarm.DetailSplace,Users.RealName,Instance.InstanceTypes,Instance.ApproveState,Instance.InstanceState,Instance.Time as InstanceTime " +
+                "from Instance,Alarm,Users" +
+                " where Instance.AlterID=Alarm.ID and Instance.RegisterPeopleID=Users.ID "
+                ).ToList();
+            return inStance;
+        }
+
+
+
     }
 }

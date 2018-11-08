@@ -28,7 +28,7 @@ namespace FPS.IServices
         /// 审批显示
         /// </summary>
         /// <returns></returns>
-        List<ApproveDataModel> GetApproveList();
+        List<ApproveDataModel> GetApproveList(int loginRole);
 
         /// <summary>
         /// 点击审批页面的某个详情进入查看案情
@@ -37,7 +37,10 @@ namespace FPS.IServices
         /// <returns></returns>
         InstanceDataModel GetInstanceById(int id);
 
-        List<ApproveCourse> GetApproveCoursesList(int bussiness);
+        ApproveCourse GetApproveCoursesList(int placed);
+
+        Approve GetApproveById(int id);
+        
 
 
     }
