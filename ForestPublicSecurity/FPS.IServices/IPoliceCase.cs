@@ -22,6 +22,12 @@ namespace FPS.IServices
         /// </summary>
         /// <param name="instance"></param>
         /// <returns></returns>
-        Approve GetApproveCourse(Instance instance);
+        Approve GetApprove(Instance instance);
+
+        /// <summary>
+        /// 案件显示页面
+        /// </summary>
+        /// <returns></returns>
+        List<InstanceDataModel> GetInstanceList();
     }
 }
