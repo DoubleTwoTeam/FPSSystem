@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>天津市滨海新区公安塘沽分局矛盾纠纷系统</title>
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/jsCalender/WdatePicker.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $(".click").click(function(){
+  $(".tip").fadeIn(200);
+  });
+  
+  $(".tiptop a").click(function(){
+  $(".tip").fadeOut(200);
+});
+
+  $(".sure").click(function(){
+  $(".tip").fadeOut(100);
+});
+
+  $(".cancel").click(function(){
+  $(".tip").fadeOut(100);
+});
+
+});
+</script>
+
+
+</head>
+
+
+<body>
+
+	<div class="place">
+    <span>位置：</span>
+    <ul class="placeul">
+    <li><a href="home.html">首页</a></li>
+    <li><a href="#">分析研判</a></li>
+    <li><a href="#">矛盾纠纷量化考核管理</a></li>
+    </ul>
+    </div>
+    
+    <div class="rightinfo">
+    
+    <ul class="prosearch">
+	   <li>
+	   	<i>时间段</i><a><input name="" type="text" class="scinput" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"/></a>
+	   	<i>至</i><a><input name="" type="text" class="scinput" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"/></a>
+	   	<a><input name="button" type="button" class="sure" value="查询" style="background:#417EB5;margin-left: 25px;"/></a>
+	    <a><input name="button" type="button" class="sure" value="导出Excel" onclick="exportExcel()" style="background:#417EB5;margin-left: 25px;"/></a>
+	   
+	   </li>
+	   </ul>
+	   
+	   
+    <table class="tablelist">
+    	<thead>
+    		<tr>
+    			<td colspan="10" style="font-size:18px;font-weight: bold;">
+    				公安塘沽分局管辖派出所矛盾纠纷处理情况量化考核表
+    			</td>
+    		</tr>
+    	<tr>
+        
+        <th>序号<i class="sort"><img src="images/px.gif" /></i></th>
+        <th>预警级别</th>
+        <th>排名</th>
+        <th>纠纷来源</th>
+        <th>派出所名称</th>
+        <th>纠纷总数(起)</th>
+        <th>已结纠纷(起)</th>
+        <th>未结纠纷(起)</th>
+        <th>化解率</th>
+        <th>低于平均值</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!--
+        	作者：1628648978@qq.com
+        	时间：2018-08-15
+        	描述：无记录时提示暂无查询结果
+        -->
+        <!--
+        	<tr><td colspan="10">暂无查询结果</td></tr>
+        -->
+       
+        <tr>
+        <td>1</td>
+        <td><span style="color: red;font-size:30px;">●</span></td>
+        <td>15</td>
+        <td>110警情</td>
+        <td>于家堡派出所</td>
+        <td>100</td>
+        <td>50</td>
+        <td>50</td>
+        <td>50%</td>
+        <td>否</td>
+        </tr>
+        
+        <tr>
+        <td>2</td>
+        <td><span style="color: orangered;font-size:30px;">●</span></td>
+        <td>14</td>
+        <td>主动排查</td>
+        <td>中心商务区派出所</td>
+        <td>100</td>
+        <td>40</td>
+        <td>60</td>
+        <td>40%</td>
+        <td>否</td>
+        </tr>
+        
+        <tr>
+        <td>3</td>
+        <td><span style="color:orange;font-size:30px;">●</span></td>
+        <td>13</td>
+        <td>主动排查</td>
+        <td>胡家园派出所</td>
+        <td>100</td>
+        <td>40</td>
+        <td>60</td>
+        <td>40%</td>
+        <td>是</td>
+        </tr>
+        
+        <tr>
+        <td>4</td>
+        <td><span style="color: blue;font-size:30px;">●</span></td>
+        <td>12</td>
+        <td>主动排查</td>
+        <td>新村派出所</td>
+        <td>100</td>
+        <td>40</td>
+        <td>60</td>
+        <td>40%</td>
+        <td>是</td>
+        </tr>
+              
+        </tbody>
+    </table>
+    
+   
+    <div class="pagin">
+    	<div class="message">共<i class="blue">1256</i>条记录，当前显示第&nbsp;<i class="blue">2&nbsp;</i>页</div>
+        <ul class="paginList">
+        <li class="paginItem"><a href="javascript:;"><span class="pagepre"></span></a></li>
+        <li class="paginItem"><a href="javascript:;">1</a></li>
+        <li class="paginItem current"><a href="javascript:;">2</a></li>
+        <li class="paginItem"><a href="javascript:;">3</a></li>
+        <li class="paginItem"><a href="javascript:;">4</a></li>
+        <li class="paginItem"><a href="javascript:;">5</a></li>
+        <li class="paginItem more"><a href="javascript:;">...</a></li>
+        <li class="paginItem"><a href="javascript:;">10</a></li>
+        <li class="paginItem"><a href="javascript:;"><span class="pagenxt"></span></a></li>
+        </ul>
+    </div>
+    
+ 
+    
+    </div>
+    
+  <script type="text/javascript">
+	$('.tablelist tbody tr:odd').addClass('odd');
+	</script>
+<!--导出Excel-->
+	<script type="text/javascript">
+	 function exportExcel(){
+	 	alert("导出Excel函数");
+	 }
+	</script>
+
+</body>
+
+</html>

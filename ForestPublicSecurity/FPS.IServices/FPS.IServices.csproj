@@ -41,7 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IJurisdiction.cs" />
     <Compile Include="IAlarm.cs" />
+    <Compile Include="IApprove.cs" />
     <Compile Include="IPoliceCase.cs" />
     <Compile Include="IStudent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

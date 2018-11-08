@@ -1,0 +1,250 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>天津市滨海新区公安塘沽分局矛盾纠纷系统</title>
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/jsCalender/WdatePicker.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $(".click").click(function(){
+  $(".tip").fadeIn(200);
+  });
+  
+  $(".tiptop a").click(function(){
+  $(".tip").fadeOut(200);
+});
+
+  $(".sure").click(function(){
+  $(".tip").fadeOut(100);
+});
+
+  $(".cancel").click(function(){
+  $(".tip").fadeOut(100);
+});
+
+});
+</script>
+
+
+</head>
+
+
+<body>
+
+	<div class="place">
+    <span>位置：</span>
+    <ul class="placeul">
+    <li><a href="home.html">首页</a></li>
+    <li><a href="#">主动排查</a></li>
+    <li><a href="#">民警排查</a></li>
+    <li><a href="#">民警排查列表</a></li>
+    </ul>
+    </div>
+    
+    <div class="rightinfo">
+    <ul class="toolbar" style="margin-bottom: 10px;">
+	    <li><a href="add_permission.html" class="tablelink"><span><img src="images/t01.png" /></span>新增</a></li>
+	    <li><a href="add_permission.html" class="tablelink"><span><img src="images/download.png" /></span>模板下载</a></li>
+	    <li><a href="javascript:;" onclick="exportExcel()" class="tablelink"><span><img src="images/t05.png" /></span>导入Excel</a></li>
+	  </ul>
+    <ul class="prosearch">
+	   <li>
+	   	<i>引发时间</i><a><input name="" type="text" class="scinput"   onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"/></a>
+	   	<i>矛盾类别</i>
+	   	<a>
+	   		<select name="" style="border: 1px solid #C3AB7D;padding:7px 10px 7px 10px;">
+	   			<option value="请选择">请选择</option>
+          <option value="婚恋家庭">婚恋家庭</option>
+          <option value="邻里关系">邻里关系</option>
+          <option value="劳资关系">劳资关系</option>
+          <option value="消费维权产品质量">消费维权产品质量</option>
+          <option value="医疗卫生">医疗卫生</option>
+          <option value="物业管理">物业管理</option>
+          <option value="学校教育">学校教育</option>
+          <option value="公司债务金融借贷">公司债务金融借贷</option>
+          <option value="国有土地房屋拆迁">国有土地房屋拆迁</option>
+          <option value="农村土地资源权属">农村土地资源权属</option>
+          <option value="项目建设">项目建设</option>
+          <option value="村（居）务管理">村（居）务管理</option>
+          <option value="环境保护">环境保护</option>
+          <option value="民族宗教">民族宗教</option>
+          <option value="行政执法">行政执法</option>
+          <option value="涉军维权">涉军维权</option>
+          <option value="涉法涉诉">涉法涉诉</option>
+          <option value="其他社会纠纷">其他社会纠纷</option>
+
+	   		</select>
+	   	</a>
+	   	<i>矛盾性质</i>
+	   	<a>
+	   		<select name="" style="border: 1px solid #C3AB7D;padding:7px 10px 7px 10px;">
+	   			 <option value="请选择">请选择</option>
+          <option value="群体性矛盾">群体性矛盾</option>
+          <option value="个人矛盾">个人矛盾</option>
+
+	   		</select>
+	   	</a>
+	   	<i>矛盾处置</i>
+	   	<a>
+	   		<select name="" style="border: 1px solid #C3AB7D;padding:7px 10px 7px 10px;">
+	   			 <option value="请选择">请选择</option>
+          <option value="已化解">已化解</option>
+          <option value="未化解">未化解</option>
+
+	   		</select>
+	   	</a>
+	   
+	   </li>
+	   
+	   </ul>
+	   
+	   <ul class="prosearch">
+	   	
+	   <li>
+	   	
+	   	<i>重点矛盾</i>
+	   	<a>
+	   		<select name="" style="border: 1px solid #C3AB7D;padding:7px 10px 7px 10px;">
+	   			 <option value="请选择">请选择</option>
+          <option value="是">是</option>
+          <option value="否">否</option>
+
+	   		</select>
+	   	</a>
+	   	<i>单位名称</i>
+	   	<a>
+	   		<select name="" style="border: 1px solid #C3AB7D;padding:7px 10px 7px 10px;">
+	   			<option value="请选择">请选择</option>
+          <option value="塘沽分局管辖派出所">塘沽分局管辖派出所</option>
+          <option value="塘沽分局派出所名称">塘沽分局派出所名称</option>
+          <option value="塘沽杭州道派出所">塘沽杭州道派出所</option>
+          <option value="塘沽新洋市场治安派出所">塘沽新洋市场治安派出所</option>
+          <option value="塘沽大沽派出所">塘沽大沽派出所</option>
+          <option value="塘沽滨海新村派出所">塘沽滨海新村派出所</option>
+          <option value="塘沽中心商务区派出所">塘沽中心商务区派出所</option>
+          <option value="塘沽滨海站治安派出所">塘沽滨海站治安派出所</option>
+          <option value="塘沽新北派出所">塘沽新北派出所</option>
+          <option value="塘沽北塘派出所">塘沽北塘派出所</option>
+          <option value="塘沽新村派出所">塘沽新村派出所</option>
+          <option value="塘沽石油新村派出所">塘沽石油新村派出所</option>
+          <option value="塘沽新港派出所">塘沽新港派出所</option>
+          <option value="塘沽临港经济区派出所">塘沽临港经济区派出所</option>
+          <option value="塘沽于家堡派出所">塘沽于家堡派出所</option>
+          <option value="塘沽新河派出所">塘沽新河派出所</option>
+          <option value="塘沽胡家园派出所">塘沽胡家园派出所</option>
+          <option value="塘沽向阳派出所">塘沽向阳派出所</option>
+          <option value="塘沽新城派出所">塘沽新城派出所</option>
+          <option value="塘沽于家堡车站治安派出所">塘沽于家堡车站治安派出所</option>
+
+	   		</select>
+	   	</a>
+	   	<i>调节情况</i>
+	   	<a>
+	   		<select name="" style="border: 1px solid #C3AB7D;padding:7px 10px 7px 10px;">
+	   			 <option value="请选择">请选择</option>
+          <option value="民警未到现场双方当事人已和解">民警未到现场双方当事人已和解</option>
+          <option value="民警现场未发现当事人">民警现场未发现当事人</option>
+          <option value="自诉">自诉</option>
+          <option value="移交">移交</option>
+          <option value="双方现场协商">双方现场协商</option>
+          <option value="告知制止">告知制止</option>
+          <option value="求助">求助</option>
+          <option value="转治安">转治安</option>
+          <option value="转刑事">转刑事</option>
+          <option value="双方回所协商">双方回所协商</option>
+
+	   		</select>
+	   	</a>
+	   	<a><input name="" type="button" class="sure" value="查询" style="background:#417EB5;"/></a>
+	   
+			<a><input name="reset" type="reset" class="sure" value="清空" style="background:#417EB5;"/></a>
+	   </li>
+	   </ul>
+    <table class="tablelist">
+    	<thead>
+    	<tr>
+        
+        <th>序号<i class="sort"><img src="images/px.gif" /></i></th>
+        <th>排查编号</th>
+        <th>矛盾类别</th>
+       
+        <th>矛盾来源</th>
+        <th>矛盾性质</th>
+        <th>矛盾处置</th>
+        <th>引发时间</th>
+        <th>单位名称</th>
+        <th>重点矛盾</th>
+        
+        <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!--
+        	作者：1628648978@qq.com
+        	时间：2018-08-15
+        	描述：无记录时提示暂无查询结果
+        -->
+        <!--
+        	<tr><td colspan="13">暂无查询结果</td></tr>
+        -->
+       
+        <tr>
+        <td>1</td>
+        <td><a href="#link" style="color: blue;">322343</a></td>
+        <td>婚恋家庭</td>
+        <td>多元化排查</td>
+        <td>群体性矛盾</td>
+        <td>已结</td>
+        <td>2017-20-26 23:12:12</td>
+        <td>胡家园派出所</td>
+        <td>是</td>
+        <td><a href="#link" style="color: blue;">编辑</a></td>
+        </tr>
+        
+        <tr>
+        <td>2</td>
+        <td><a href="#link" style="color: blue;">322343</a></td>
+        <td>邻里关系</td>
+        <td>多元化排查</td>
+        <td>群体性矛盾</td>
+        <td>已结</td>
+        <td>2017-20-26 23:12:12</td>
+        <td>胡家园派出所</td>
+        <td>是</td>
+        <td><a href="#link" style="color: blue;">编辑</a></td>
+        </tr>
+        
+        
+       
+        </tbody>
+    </table>
+    
+   
+    <div class="pagin">
+    	<div class="message">共<i class="blue">1256</i>条记录，当前显示第&nbsp;<i class="blue">2&nbsp;</i>页</div>
+        <ul class="paginList">
+        <li class="paginItem"><a href="javascript:;"><span class="pagepre"></span></a></li>
+        <li class="paginItem"><a href="javascript:;">1</a></li>
+        <li class="paginItem current"><a href="javascript:;">2</a></li>
+        <li class="paginItem"><a href="javascript:;">3</a></li>
+        <li class="paginItem"><a href="javascript:;">4</a></li>
+        <li class="paginItem"><a href="javascript:;">5</a></li>
+        <li class="paginItem more"><a href="javascript:;">...</a></li>
+        <li class="paginItem"><a href="javascript:;">10</a></li>
+        <li class="paginItem"><a href="javascript:;"><span class="pagenxt"></span></a></li>
+        </ul>
+    </div>
+    
+ 
+    
+    </div>
+    
+    <script type="text/javascript">
+	$('.tablelist tbody tr:odd').addClass('odd');
+	</script>
+
+</body>
+
+</html>

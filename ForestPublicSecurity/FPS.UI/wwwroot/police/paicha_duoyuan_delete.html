@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>天津市滨海新区公安塘沽分局矛盾纠纷系统</title>
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/jquery.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  $(".click").click(function(){
+  $(".tip").fadeIn(200);
+  });
+  
+  $(".tiptop a").click(function(){
+  $(".tip").fadeOut(200);
+});
+
+  $(".sure").click(function(){
+  $(".tip").fadeOut(100);
+});
+
+  $(".cancel").click(function(){
+  $(".tip").fadeOut(100);
+});
+
+});
+</script>
+
+
+</head>
+
+
+<body>
+
+	<div class="place">
+    <span>位置：</span>
+    <ul class="placeul">
+    <li><a href="home.html">首页</a></li>
+    <li><a href="#">主动排查</a></li>
+    <li><a href="#">多元化排查</a></li>
+    <li><a href="#">删除记录管理</a></li>
+    </ul>
+    </div>
+    
+    <div class="rightinfo">
+    
+    <ul class="prosearch">
+	   <li>
+	   	<i>身份证号</i><a><input name="" type="text" class="scinput" /></a>
+	   	<i>姓名</i><a><input name="" type="text" class="scinput" /></a>
+	   	<i>性别</i><a>
+	   	<input name="sex" type="radio" value="1" id="sex1"  />&nbsp;&nbsp;<label for="sex1">男</label>&nbsp;&nbsp;
+	   	<input name="sex" type="radio" value="2" id="sex2"  />&nbsp;&nbsp;<label for="sex2">女</label>&nbsp;&nbsp;
+	    </a>
+   	   <a><input name="button" type="button" class="sure" value="查询" style="background:#417EB5;margin-left: 25px;"/></a>
+	   </li>
+	   </ul>
+    <table class="tablelist">
+    	<thead>
+    	<tr>
+        
+        <th>序号<i class="sort"><img src="images/px.gif" /></i></th>
+        <th>姓名</th>
+        <th>性别</th>
+       
+        <th>排查编号</th>
+        <th>身份证号码</th>
+        <th>联系方式</th>
+        <th>删除者</th>
+        <th>删除时间</th>
+        
+        <th>审批者</th>
+        <th>审批时间</th>
+        <th>拒绝原因</th>
+        <th>状态</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!--
+        	作者：1628648978@qq.com
+        	时间：2018-08-15
+        	描述：无记录时提示暂无查询结果
+        -->
+        <!--
+        	<tr><td colspan="12">暂无查询结果</td></tr>
+        -->
+       
+        <tr>
+        <td>1</td>
+        <td>陈童</td>
+        <td>女</td>
+        <td><a href="#link" style="color: blue;">201002017102623564456</a></td>
+        <td>610402199403025468</td>
+        <td>13642133909</td>
+        <td>吕云鹏</td>
+        <td>2018-6-26 23:12:12</td>
+        <td>吕云飞</td>
+        <td>2018-6-26 23:12:12</td>
+        <td></td>
+        <td><span style="color:#333;">待审批</span></td>
+        </tr>
+        
+        <tr>
+        <td>2</td>
+        <td>吴新河</td>
+        <td>男</td>
+        <td><a href="#link" style="color: blue;">201002017102623564456</a></td>
+        <td>610402199403025468</td>
+        <td>13642133909</td>
+        <td>魏海</td>
+        <td>2018-6-26 23:12:12</td>
+        <td>乔队</td>
+        <td>2018-6-26 23:12:12</td>
+        <td>核心人员不可删除</td>
+        <td><span style="color: red;">已拒绝</span></td>
+        </tr>
+        
+        <tr>
+        <td>3</td>
+        <td>赵毅</td>
+        <td>男</td>
+        <td><a href="#link" style="color: blue;">201002017102623564456</a></td>
+        <td>610402199403025468</td>
+        <td>13642133909</td>
+        <td>吕云飞</td>
+        <td>2018-6-26 23:12:12</td>
+        <td>乔队</td>
+        <td>2018-6-26 23:12:12</td>
+        <td></td>
+        <td><span style="color:blue;">已删除</span></td>
+        </tr>
+        
+        
+        </tbody>
+    </table>
+    
+   
+    <div class="pagin">
+    	<div class="message">共<i class="blue">3</i>条记录，当前显示第&nbsp;<i class="blue">1&nbsp;</i>页</div>
+        <ul class="paginList">
+        <li class="paginItem"><a href="javascript:;"><span class="pagepre"></span></a></li>
+        <li class="paginItem current"><a href="javascript:;">1</a></li>
+        <li class="paginItem "><a href="javascript:;">2</a></li>
+        <li class="paginItem"><a href="javascript:;">3</a></li>
+        <li class="paginItem"><a href="javascript:;">4</a></li>
+        <li class="paginItem"><a href="javascript:;">5</a></li>
+        <li class="paginItem more"><a href="javascript:;">...</a></li>
+        <li class="paginItem"><a href="javascript:;">10</a></li>
+        <li class="paginItem"><a href="javascript:;"><span class="pagenxt"></span></a></li>
+        </ul>
+    </div>
+    
+ 
+    
+    </div>
+    
+    <script type="text/javascript">
+	$('.tablelist tbody tr:odd').addClass('odd');
+	</script>
+
+</body>
+
+</html>

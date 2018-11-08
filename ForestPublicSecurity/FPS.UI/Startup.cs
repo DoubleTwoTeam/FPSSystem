@@ -28,6 +28,7 @@ namespace FPS.UI
         public void ConfigureServices(IServiceCollection services)
         {   
             services.AddTransient<IStudent, StudentServices>();
+            services.AddTransient<IJurisdiction, JurisdictionService>();
             services.AddTransient<IPoliceCase, PoliceCaseServices>();
             services.AddTransient<IAlarm, AlarmServices>();
             var dbConnectionString = "Data Source=169.254.159.216/orcl;User ID=scott;Password=tiger;";
