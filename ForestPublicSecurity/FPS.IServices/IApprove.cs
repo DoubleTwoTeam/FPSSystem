@@ -37,6 +37,8 @@ namespace FPS.IServices
         /// <returns></returns>
         InstanceDataModel GetInstanceById(int id);
 
+        List<ApproveCourse> GetApproveCoursesList(int bussiness);
+
 
     }
 }

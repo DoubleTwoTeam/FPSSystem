@@ -92,8 +92,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApproveServices.cs" />
+    <Compile Include="AlarmServices.cs" />
     <Compile Include="Config.cs" />
+    <Compile Include="PageCommon.cs" />
     <Compile Include="JurisdictionService.cs" />
     <Compile Include="PoliceCaseServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

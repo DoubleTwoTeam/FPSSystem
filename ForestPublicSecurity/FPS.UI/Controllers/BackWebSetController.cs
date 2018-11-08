@@ -42,7 +42,7 @@ namespace FPS.UI.Controllers
         public IActionResult Login(string name,string pwd)
         {
             //.net Core返回一个弹窗需要制定文本类型与编码格式
-            return Content("<script>alert('登录');location.href='/BackWebSet/Index'</script>", "text/html;charset=utf-8");
+            return Content("<script>alert('登录成功');location.href='/BackWebSet/Index'</script>", "text/html;charset=utf-8");
         }
     }
 }

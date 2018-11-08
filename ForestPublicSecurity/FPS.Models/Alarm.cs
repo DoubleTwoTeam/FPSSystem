@@ -79,6 +79,6 @@ namespace FPS.Models
         /// <summary>
         /// 备用
         /// </summary>
-        public string Stace { get; set; }
+        public string Space { get; set; }
     }
 }

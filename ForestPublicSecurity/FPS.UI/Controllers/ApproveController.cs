@@ -22,5 +22,16 @@ namespace FPS.UI.Controllers
         {
             return View();
         }
+
+        /// <summary>
+        /// 审核通过
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="bussiness"></param>
+        /// <returns></returns>
+        public int PassApprove(int id,int bussiness)
+        {
+            return 0;
+        }
     }
 }

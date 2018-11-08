@@ -33,9 +33,9 @@ namespace FPS.Models
         /// </summary>
         public string Ideas { get; set; }
         /// <summary>
-        /// 状态
+        /// 审批状态
         /// </summary>
-        public string State { get; set; }
+        public int ApproveState { get; set; }
         /// <summary>
         /// 时间
         /// </summary>

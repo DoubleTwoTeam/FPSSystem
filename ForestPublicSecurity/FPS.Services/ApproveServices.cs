@@ -12,6 +12,11 @@ namespace FPS.Services
 {
     public class ApproveServices : IApprove
     {
+        public List<ApproveCourse> GetApproveCoursesList(int bussiness)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// 审批页面显示
         /// </summary>
