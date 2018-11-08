@@ -27,11 +27,11 @@ namespace FPS.Services
             var db = SugerBase.GetInstance();
 
             SugarParameter[] parameter = new SugarParameter[5];
-            parameter[0] = new SugarParameter("page",pageparams.PageIndex);
+            parameter[0] = new SugarParameter("page",pageparams.Page);
             parameter[1] = new SugarParameter("pageSize",pageparams.PageSize);
             parameter[2] = new SugarParameter("tableName", pageparams.TableName);
             parameter[3] = new SugarParameter("strWhere ", pageparams.StrWhere);
-            parameter[4] = new SugarParameter("Orderby", pageparams.OrderCol);
+            parameter[4] = new SugarParameter("Orderby", pageparams.Orderby);
 
             var pageList = JsonConvert.DeserializeObject<PageList<T>>(JsonConvert.SerializeObject(db.Ado.UseStoredProcedure().GetDataTable("pager", parameter)));
 
