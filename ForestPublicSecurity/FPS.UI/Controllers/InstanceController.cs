@@ -22,10 +22,13 @@ namespace FPS.UI.Controllers
 
         private readonly IHostingEnvironment _hostingEnvironment;
 
-        public InstanceController(IPoliceCase policeCase,IHostingEnvironment hostingEnvironment)
+        private readonly IApprove _approve;
+
+        public InstanceController(IPoliceCase policeCase,IHostingEnvironment hostingEnvironment,IApprove approve)
         {
             _policeCase = policeCase;
             _hostingEnvironment = hostingEnvironment;
+            _approve = approve;
         }
 
         /// <summary>
@@ -74,7 +77,12 @@ namespace FPS.UI.Controllers
             int result= _policeCase.InsertInstance(instance);
             if (result > 0)
             {
-                Response.WriteAsync("<script>alert('添加案情成功')<script>");
+                Approve approve = new Approve() { OriginalId = instance.ID, Ideas = "", State = Convert.ToString(instance.ApproveState), BusinesstypeId = 1 };
+                int i= _approve.InsertApprove(approve);
+                if (i>0)
+                {
+                    Response.WriteAsync("<script>alert('添加案情成功，等待审批')<script>");
+                }
             }
             return View();
         }
