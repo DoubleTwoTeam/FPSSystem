@@ -1,4 +1,4 @@
-﻿
+﻿@model List<FPS.Models.Student>
 @{
     Layout = null;
 }
@@ -9,7 +9,124 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
+    <script src="~/js/jquery-3.3.1.js"></script>
+    <script src="~/js/jquery.unobtrusive-ajax.js"></script>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <script src="~/dist/My97DatePicker/WdatePicker.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>天津市滨海新区公安塘沽分局矛盾纠纷系统</title>
+    <link href="/police/css/style.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".click").click(function () {
+                $(".tip").fadeIn(200);
+            });
+
+            $(".tiptop a").click(function () {
+                $(".tip").fadeOut(200);
+            });
+
+            $(".sure").click(function () {
+                $(".tip").fadeOut(100);
+            });
+
+            $(".cancel").click(function () {
+                $(".tip").fadeOut(100);
+            });
+        });
+    </script>
 </head>
 <body>
+
+    <div class="place">
+        <span>位置：</span>
+        <ul class="placeul">
+            <li><a href="home.html">首页</a></li>
+            <li><a href="#">主动排查</a></li>
+            <li><a href="#">多元化排查</a></li>
+            <li><a href="#">转递记录管理</a></li>
+        </ul>
+    </div>
+
+    <div class="rightinfo">
+        <ul class="prosearch">
+            <li>
+                <i>姓名</i><a><input name="name" type="text" class="scinput" /></a>
+                <i>联系电话</i><a><input name="phone" type="text" class="scinput" /></a>
+                <i>身份证号</i><a><input name="" type="text" class="scinput" /></a>
+               
+            </li>
+        </ul>
+
+        <ul class="prosearch">
+            <li>
+                <i>报警时间</i><a><input name="beginTime" type="text" class="scinput" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" />—<input name="endTime" type="text" class="scinput" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" /></a>
+            </li>
+            <li>
+                性别：
+                <input name="sex" type="radio" value="1" id="sex1" />&nbsp;&nbsp;<label for="sex1">男</label>&nbsp;&nbsp;
+                <input name="sex" type="radio" value="2" id="sex2" />&nbsp;&nbsp;<label for="sex2">女</label>&nbsp;&nbsp;
+            </li>
+            <li>
+                <a><input name="" type="button" class="sure" value="查询" style="background:#417EB5;" /></a>
+                <a><input name="reset" type="reset" class="sure" value="清空" style="background:#417EB5;margin-left: 25px;" /></a>
+            </li>
+        </ul>
+        <table class="tablelist">
+            <thead>
+                <tr>
+                    <td style="width:3%;">序号</td>
+                    <td style="width:15%;">报警地点</td>
+                    <td style="width:100px;">申报事项</td>
+                    <td style="width:5%;">报警人</td>
+                    <td style="width:8%;">联系方式</td>
+                    <td style="width:15%;">身份证号</td>
+                    <td style="width:9%;">报警时间</td>
+                    <td style="width:5%;">出警人</td>
+                    <td style="width:9%;">处理时间</td>
+                    <td style="width:5%;">状态</td>
+                    <td style="width:20px;">操作</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr class="text-center">
+                        <td>@item.ID</td>
+                        <td>@item.Name</td>
+                        <td>@item.Sex</td>
+                        <td>
+                            <a><input name="" type="button" class="sure" value="出警" style="background:#ff0000;" /></a>
+                            <a style="display:none;"><input name="" type="button" class="sure" value="归队" style="background:#417EB5;" /></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div class="pagin">
+            <div class="message">共<i class="blue">1256</i>条记录，当前显示第&nbsp;<i class="blue">2&nbsp;</i>页</div>
+            <ul class="paginList">
+                <li class="paginItem"><a href="javascript:;"><span class="pagepre"></span></a></li>
+                <li class="paginItem"><a href="javascript:;">1</a></li>
+                <li class="paginItem current"><a href="police/javascript:;">2</a></li>
+                <li class="paginItem"><a href="javascript:;">3</a></li>
+                <li class="paginItem"><a href="javascript:;">4</a></li>
+                <li class="paginItem"><a href="javascript:;">5</a></li>
+                <li class="paginItem more"><a href="javascript:;">...</a></li>
+                <li class="paginItem"><a href="javascript:;">10</a></li>
+                <li class="paginItem"><a href="javascript:;"><span class="pagenxt"></span></a></li>
+            </ul>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $('.tablelist tbody tr:odd').addClass('odd');
+    </script>
+
 </body>
 </html>
