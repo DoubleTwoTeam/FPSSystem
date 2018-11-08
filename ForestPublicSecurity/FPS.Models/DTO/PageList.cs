@@ -13,5 +13,7 @@ namespace FPS.Models.DTO
     public class PageList<T>
     {
         public List<T> listData { get; set; }
+
+        public int totalCount { get; set; }
     }
 }
