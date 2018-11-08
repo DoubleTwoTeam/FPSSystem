@@ -22,6 +22,7 @@ namespace FPS.Services
 
             int result = db.Insertable(instance).ExecuteCommand();
 
+            Approve approve=new Approve() { OriginalId=instance.ID,}
             return result;
         }
     }

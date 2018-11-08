@@ -68,6 +68,9 @@ namespace FPS.UI.Controllers
                 fs.Flush();
             }
             instance.Space = filename;
+            instance.ApproveState = 0;
+            instance.InstanceState = 0;
+            instance.Time = DateTime.Now;
             int result= _policeCase.InsertInstance(instance);
             if (result > 0)
             {
