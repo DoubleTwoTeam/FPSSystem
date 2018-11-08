@@ -30,6 +30,10 @@ namespace FPS.Models
         /// </summary>
         public int RegisterPeopleID { get; set; }
         /// <summary>
+        /// 立案人姓名
+        /// </summary>
+        public string RealName { get; set; }
+        /// <summary>
         /// 立案类型
         /// </summary>
         public string InstanceTypes { get; set; }

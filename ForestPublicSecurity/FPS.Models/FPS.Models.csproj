@@ -41,8 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApproveDataModel.cs" />
     <Compile Include="Authority.cs" />
     <Compile Include="AuthorityName.cs" />
+    <Compile Include="InstanceDataModel.cs" />
     <Compile Include="Role.cs" />
     <Compile Include="RoleAndAuthority.cs" />
     <Compile Include="RoleAuthority.cs" />

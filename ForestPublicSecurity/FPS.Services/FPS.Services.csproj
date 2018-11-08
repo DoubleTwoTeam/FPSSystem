@@ -92,6 +92,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApproveServices.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="JurisdictionService.cs" />
     <Compile Include="PoliceCaseServices.cs" />

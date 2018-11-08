@@ -35,7 +35,7 @@ namespace FPS.IServices
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Instance GetInstanceById(int id);
+        InstanceDataModel GetInstanceById(int id);
 
 
     }
