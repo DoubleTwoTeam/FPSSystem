@@ -92,9 +92,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
+    <Compile Include="AlarmServices.cs" />
+    <Compile Include="Config.cs" />
+    <Compile Include="PageCommon.cs" />
+=======
     <Compile Include="ApproveServices.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="JurisdictionService.cs" />
+>>>>>>> e518bdf4e8245eae50436df043f03ea667ee2755
     <Compile Include="PoliceCaseServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StudentServices.cs" />

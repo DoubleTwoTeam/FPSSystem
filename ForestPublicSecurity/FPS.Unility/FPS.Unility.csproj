@@ -43,5 +43,19 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FPS.IServices\FPS.IServices.csproj">
+      <Project>{2fbc5ac8-91e1-4a23-bbfa-43d64f19214b}</Project>
+      <Name>FPS.IServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FPS.Models\FPS.Models.csproj">
+      <Project>{b8f5b543-be2e-4577-be52-ef97f00c2477}</Project>
+      <Name>FPS.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FPS.Services\FPS.Services.csproj">
+      <Project>{9D365283-5A96-4707-8CCC-A15BC3F57652}</Project>
+      <Name>FPS.Services</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
