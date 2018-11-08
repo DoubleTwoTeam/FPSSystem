@@ -6,6 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 
 using FPS.IServices;
 using FPS.Models;
+using Microsoft.AspNetCore.Http;
+using System.Net.Http.Headers;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
 
 namespace FPS.UI.Controllers
 {
@@ -15,7 +19,14 @@ namespace FPS.UI.Controllers
         /// 依赖注入案件接口
         /// </summary>
         private readonly IPoliceCase _policeCase;
-        
+
+        private readonly IHostingEnvironment _hostingEnvironment;
+
+        public InstanceController(IPoliceCase policeCase,IHostingEnvironment hostingEnvironment)
+        {
+            _policeCase = policeCase;
+            _hostingEnvironment = hostingEnvironment;
+        }
 
         /// <summary>
         /// 案件显示页面
@@ -34,15 +45,15 @@ namespace FPS.UI.Controllers
         {
             return View();
         }
+
         /// <summary>
         /// 案件添加
         /// </summary>
         /// <param name="instance"></param>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult InsertPoliceCase(Instance instance)
+        public IActionResult InsertPoliceCase(Instance instance,IFormFile file)
         {
-<<<<<<< HEAD
             long size = 0;
             var filename = ContentDispositionHeaderValue
                             .Parse(file.ContentDisposition)
@@ -56,9 +67,12 @@ namespace FPS.UI.Controllers
                 file.CopyTo(fs);
                 fs.Flush();
             }
-=======
->>>>>>> parent of 970e508... 写案件的页面
-
+            instance.Space = filename;
+            int result= _policeCase.InsertInstance(instance);
+            if (result > 0)
+            {
+                Response.WriteAsync("<script>alert('添加案情成功')<script>");
+            }
             return View();
         }
 
