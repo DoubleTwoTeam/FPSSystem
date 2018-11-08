@@ -32,5 +32,17 @@ namespace FPS.UI.Controllers
         {
             return View();
         }
+
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Login(string name,string pwd)
+        {
+            //.net Core返回一个弹窗需要制定文本类型与编码格式
+            return Content("<script>alert('登录');location.href='/BackWebSet/Index'</script>", "text/html;charset=utf-8");
+        }
     }
 }
