@@ -90,5 +90,12 @@ namespace FPS.Services
             var ruselt = db.Updateable(updateAlarm).ExecuteCommand();
             return ruselt;
         }
+
+        public List<Student> GetStudents()
+        {
+            var db = SugerBase.GetInstance();
+            var getAll = db.Queryable<Student>().ToList();
+            return getAll;
+        }
     }
 }
