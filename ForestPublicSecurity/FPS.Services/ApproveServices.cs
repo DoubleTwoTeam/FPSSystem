@@ -12,24 +12,34 @@ namespace FPS.Services
 {
     public class ApproveServices : IApprove
     {
-        public List<ApproveCourse> GetApproveCoursesList(int bussiness)
+        public Approve GetApproveById(int id)
         {
-            throw new NotImplementedException();
+            var db = SugerBase.GetInstance();
+            Approve approve = JsonConvert.DeserializeObject<Approve>(JsonConvert.SerializeObject(db.SqlQueryable<Approve>("select * from Approve where ID=" + id)));
+            return approve;
+        }
+
+        public ApproveCourse GetApproveCoursesList(int placed)
+        {
+            var db = SugerBase.GetInstance();
+            ApproveCourse approveCourse = db.Queryable<ApproveCourse>().Where(m=>m.ID==placed).Single();
+            return approveCourse;
         }
 
         /// <summary>
         /// 审批页面显示
         /// </summary>
         /// <returns></returns>
-        public List<ApproveDataModel> GetApproveList()
+        public List<ApproveDataModel> GetApproveList(int loginRole)
         {
             var db = SugerBase.GetInstance();
             List<ApproveDataModel> list= JsonConvert.DeserializeObject<List<ApproveDataModel>>(JsonConvert.SerializeObject(db.SqlQueryable<ApproveDataModel>(
                 "select Approve.ID,Instance.ID as InstanceID,Instance.RegisterPeopleID,Business.ID as BusinessID,Business.Name as BusinessName,Users.realName as UsersName,Role.Name as RoleName,Instance.InstanceTypes,Instance.InstanceTime,Instance.ApproveState " +
                 "from Approve,Users,Instance,Business,Role " +
-                "where Approve.ORIGINALID=Instance.ID and Approve.BUSINESSTYPEID=Business.ID and Approve.APPROVEPEOPLEID=USERS.ID and Approve.ROLEID=Role.ID")));
+                "where Approve.ORIGINALID=Instance.ID and Approve.BUSINESSTYPEID=Business.ID and Approve.APPROVEPEOPLEID=USERS.ID and Approve.ROLEID=Role.ID and Approve.State=1 and Approve.RoleId="+loginRole)));
             return list;
         }
+        
 
         /// <summary>
         /// 审批页面点击查看案件详情页面
@@ -61,7 +71,9 @@ namespace FPS.Services
 
         public int UpdateApprove(Approve approve)
         {
-            throw new NotImplementedException();
+            var db = SugerBase.GetInstance();
+            int result= db.Updateable<Approve>(approve).ExecuteCommand();
+            return result;
         }
     }
 }

@@ -24,5 +24,14 @@ namespace FPS.Services
 
             return result;
         }
+
+        public Approve GetApproveCourse(Instance instance)
+        {
+            var db = SugerBase.GetInstance();
+            ApproveCourse approveCourse= db.Queryable<ApproveCourse>().Where(m => (m.Condition.Contains(instance.InstanceState.ToString()) && m.BusinesstypeId == Convert.ToInt32(instance.InstanceTypes))).Single();
+            Approve approve = new Approve() { RoleId = approveCourse.ApproveRoleId, BusinesstypeId = approveCourse.BusinesstypeId, PlaceID = approveCourse.PostpositionID };
+            return approve;
+        }
+        
     }
 }

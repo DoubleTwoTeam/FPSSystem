@@ -16,5 +16,12 @@ namespace FPS.IServices
         /// <param name="instance"></param>
         /// <returns></returns>
         int InsertInstance(Instance instance);
+
+        /// <summary>
+        /// 案件申请与配置表作比较
+        /// </summary>
+        /// <param name="instance"></param>
+        /// <returns></returns>
+        Approve GetApproveCourse(Instance instance);
     }
 }
