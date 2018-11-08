@@ -46,6 +46,9 @@
     <Compile Include="ApproveCourse.cs" />
     <Compile Include="Authority.cs" />
     <Compile Include="Business.cs" />
+    <Compile Include="DTO\PageList.cs" />
+    <Compile Include="DTO\PageParams.cs" />
+    <Compile Include="DTO\TotalCount.cs" />
     <Compile Include="Image.cs" />
     <Compile Include="Instance.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
