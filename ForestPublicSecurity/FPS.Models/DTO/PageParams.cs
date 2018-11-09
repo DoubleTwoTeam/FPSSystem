@@ -22,7 +22,10 @@ namespace FPS.Models.DTO
         /// 过滤条件
         /// </summary>
         public string Filter { get; set; }
-
+        
+        /// <summary>
+        /// 页的大小
+        /// </summary>
         public int PageSize { get; set; } = 10;
 
         /// <summary>

@@ -12,8 +12,14 @@ namespace FPS.Models.DTO
     /// <typeparam name="T"></typeparam>
     public class PageList<T>
     {
+        /// <summary>
+        /// 返回的List集合
+        /// </summary>
         public List<T> ListData { get; set; }
-        public int TotalCount { get; set; }
 
+        /// <summary>
+        /// 返回总条数
+        /// </summary>
+        public int TotalCount { get; set; }
     }
 }
