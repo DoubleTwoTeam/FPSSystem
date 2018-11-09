@@ -33,6 +33,9 @@ namespace FPS.Models.DTO
         /// </summary>
         public int CurPage { get; set; }
 
-        public int Sort { get; set; }
+        /// <summary>
+        /// 排序方式
+        /// </summary>
+        public string Sort { get; set; }
     }
 }
