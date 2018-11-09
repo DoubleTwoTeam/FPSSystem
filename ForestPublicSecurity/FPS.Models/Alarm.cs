@@ -52,7 +52,7 @@ namespace FPS.Models
         /// <summary>
         /// 报警人标识
         /// </summary>
-        public int Url { get; set; }
+        public string Url { get; set; }
 
         /// <summary>
         /// 处理人
@@ -60,7 +60,7 @@ namespace FPS.Models
         public int SolvePeopleId { get; set; }
 
         /// <summary>
-        /// 外派警员
+        /// 外派警员ID
         /// </summary>
         public int OutID { get; set; }
 
