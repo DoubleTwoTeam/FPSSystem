@@ -18,11 +18,11 @@ namespace FPS.Services
         /// 显示功能
         /// </summary>
         /// <returns></returns>
-        public PageList<Alarm> PagingCommon<Alarm>(PageParams pageparams)
-        {
-            var reimbursepagedList = PageCommon.PagingCommon<Alarm>(pageparams);
-            return reimbursepagedList;
-        }
+        //public PageList<Alarm> PagingCommon<Alarm>(PageParams pageparams)
+        //{
+        //    var reimbursepagedList = PageCommon.PagingCommon<Alarm>(pageparams);
+        //    return reimbursepagedList;
+        //}
         /// <summary>
         /// 反填显示
         /// </summary>
@@ -91,10 +91,10 @@ namespace FPS.Services
             return ruselt;
         }
 
-        public List<Student> GetStudents()
+        public List<Alarm> GetAlarms()
         {
             var db = SugerBase.GetInstance();
-            var getAll = db.Queryable<Student>().ToList();
+            var getAll = db.Queryable<Alarm>().ToList();
             return getAll;
         }
     }

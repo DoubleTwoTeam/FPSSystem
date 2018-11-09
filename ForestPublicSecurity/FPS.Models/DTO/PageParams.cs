@@ -14,6 +14,16 @@ namespace FPS.Models.DTO
         public string TableName { get; set; }
 
         /// <summary>
+<<<<<<< HEAD
+        /// 显示的字段
+        /// </summary>
+        public string Fields { get; set; }
+
+        /// <summary>
+        /// 过滤条件
+        /// </summary>
+        public string Filter { get; set; }
+=======
         /// 页的大小
         /// </summary>
         public int PageSize { get; set; } = 10;
@@ -22,20 +32,29 @@ namespace FPS.Models.DTO
         /// 当前页面
         /// </summary>
         public int Page { get; set; } = 0;
+>>>>>>> b57e63695203ad7e6896a609262b9525b1435ec0
 
         /// <summary>
-        /// 按照字段排序
+        /// 排序字段
         /// </summary>
+<<<<<<< HEAD
+        public string Sort { get; set; }
+=======
         public string Orderby { get; set; } = "id desc";
+>>>>>>> b57e63695203ad7e6896a609262b9525b1435ec0
 
         /// <summary>
-        /// 搜索条件
+        /// 当前页数
         /// </summary>
-        public string StrWhere { get; set; }
+        public int CurPage { get; set; }
 
         /// <summary>
+<<<<<<< HEAD
+        /// 页的大小
+=======
         /// 共有多少页
+>>>>>>> b57e63695203ad7e6896a609262b9525b1435ec0
         /// </summary>
-        public  int  PageCount { get; set; }
+        public int PageSize { get; set; } = 10;
     }
 }

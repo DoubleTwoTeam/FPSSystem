@@ -22,13 +22,13 @@ namespace FPS.IServices
         /// <returns></returns>
         int InsertAlarm(Alarm alarm);
 
-        List<Student> GetStudents();
+        List<Alarm> GetAlarms();
 
         /// <summary>
         /// 显示报警内容
         /// </summary>
         /// <returns></returns>
-        PageList<T> PagingCommon<T>(PageParams pageparams);
+       // PageList<T> PagingCommon<T>(PageParams pageparams);
 
         /// <summary>
         /// 反填显示

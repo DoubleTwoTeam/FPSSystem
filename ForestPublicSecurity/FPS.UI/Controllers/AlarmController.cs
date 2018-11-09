@@ -25,11 +25,22 @@ namespace FPS.UI.Controllers
         /// 报警显示
         /// </summary>
         /// <returns></returns>
-        public ActionResult Index()
+<<<<<<< HEAD
+        //public IActionResult Index(int pageindex=1)
+        //{
+        //    StringBuilder str = new StringBuilder();
+        //    str.Append(" 1=1");
+        //    //拼接字符串
+        //    PageParams param = new PageParams() { StrWhere =str.ToString() , TableName = "Student", Columns = "*",OrderCol = "ID desc", PageIndex = pageindex, PageSize = 5 };
+        //    PageList<Alarm> alarmList = PageCommon.PagingCommon<Alarm>(param);
 
+        //    return View(alarmList);
+        //}
+=======
+        public ActionResult Index()
         {
-            var studenList = _alarm.GetStudents();
-            return View(studenList);
+            var alarmList = _alarm.GetAlarms();
+            return View(alarmList);
             //StringBuilder str = new StringBuilder();
             //str.Append(" 1=1");
             ////拼接字符串
@@ -38,6 +49,7 @@ namespace FPS.UI.Controllers
 
             //return View(alarmList);
         }
+>>>>>>> b57e63695203ad7e6896a609262b9525b1435ec0
         /// <summary>
         /// 添加视图
         /// </summary>
