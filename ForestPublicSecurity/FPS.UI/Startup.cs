@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 using FPS.Services;
 using FPS.IServices;
+using FPS.UI.Common;
 
 namespace FPS.UI
 {
@@ -26,10 +27,14 @@ namespace FPS.UI
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-        {   
+        {
+            services.AddTransient<IPageHelper, PageHelp>();
             services.AddTransient<IStudent, StudentServices>();
             services.AddTransient<IJurisdiction, JurisdictionService>();
             services.AddTransient<IPoliceCase, PoliceCaseServices>();
+            services.AddTransient<IApprove, ApproveServices>();
+            services.AddTransient<IAlarm, AlarmServices>();
+            services.AddSingleton<IConfiguration>(Configuration);
             var dbConnectionString = "Data Source=169.254.159.216/orcl;User ID=scott;Password=tiger;";
             SugerBase.DBConnectionString = dbConnectionString;
             services.Configure<CookiePolicyOptions>(options =>

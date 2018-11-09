@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FPS.Models", "FPS.Models\FP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FPS.Unility", "FPS.Unility\FPS.Unility.csproj", "{AA65BCF5-20DD-49DB-AFC4-A5D07CCFE94B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FPS.UI", "FPS.UI\FPS.UI.csproj", "{DBE6AFC8-0C96-4604-9A04-176D1D961FA1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FPS.UI", "FPS.UI\FPS.UI.csproj", "{DBE6AFC8-0C96-4604-9A04-176D1D961FA1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -41,8 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApproveDataModel.cs" />
     <Compile Include="Authority.cs" />
     <Compile Include="AuthorityName.cs" />
+    <Compile Include="InstanceDataModel.cs" />
     <Compile Include="Role.cs" />
     <Compile Include="RoleAndAuthority.cs" />
     <Compile Include="RoleAuthority.cs" />
@@ -52,6 +54,8 @@
     <Compile Include="Approve.cs" />
     <Compile Include="ApproveCourse.cs" />
     <Compile Include="Business.cs" />
+    <Compile Include="DTO\PageList.cs" />
+    <Compile Include="DTO\PageParams.cs" />
     <Compile Include="Image.cs" />
     <Compile Include="Instance.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -40,6 +40,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\assets\js\common.min.js" />
+    <None Include="wwwroot\assets\js\jquery-1.8.3.min.js" />
     <None Include="wwwroot\js\jquery-3.3.1.intellisense.js" />
     <None Include="wwwroot\js\jquery.validate-vsdoc.js" />
     <None Include="wwwroot\police\images\login\登录页警察图片.psd" />
@@ -70,6 +72,7 @@
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.1-beta1" />
     <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="2.18.3" />
     <PackageReference Include="sqlSugarCore" Version="4.8.1" />
   </ItemGroup>

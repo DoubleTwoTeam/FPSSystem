@@ -6,11 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 
 using FPS.IServices;
 using FPS.Models;
-using System.IO;
-using System.Web;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Hosting;
 using System.Net.Http.Headers;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
 
 namespace FPS.UI.Controllers
 {
@@ -22,14 +21,14 @@ namespace FPS.UI.Controllers
         private readonly IPoliceCase _policeCase;
 
         private readonly IHostingEnvironment _hostingEnvironment;
-        /// <summary>
-        /// 依赖注入
-        /// </summary>
-        /// <param name="policeCase"></param>
-        public InstanceController(IPoliceCase policeCase,IHostingEnvironment hostingEnvironment)
+
+        private readonly IApprove _approve;
+
+        public InstanceController(IPoliceCase policeCase,IHostingEnvironment hostingEnvironment,IApprove approve)
         {
             _policeCase = policeCase;
             _hostingEnvironment = hostingEnvironment;
+            _approve = approve;
         }
 
         /// <summary>
@@ -38,7 +37,8 @@ namespace FPS.UI.Controllers
         /// <returns></returns>
         public IActionResult GetInstanceList()
         {
-            return View();
+            List<InstanceDataModel> list= _policeCase.GetInstanceList();
+            return View(list);
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace FPS.UI.Controllers
         /// <param name="instance"></param>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult InsertPoliceCase(Instance instance, IFormFile file)
+        public IActionResult InsertPoliceCase(Instance instance,IFormFile file)
         {
             long size = 0;
             var filename = ContentDispositionHeaderValue
@@ -71,13 +71,23 @@ namespace FPS.UI.Controllers
                 file.CopyTo(fs);
                 fs.Flush();
             }
-
+            instance.Space = filename;
+            instance.ApproveState = 0;
+            instance.InstanceState = 0;
+            instance.Time = DateTime.Now;
+            int result= _policeCase.InsertInstance(instance);
+            if (result > 0)
+            {
+                //Approve approve = new Approve() { OriginalId = instance.ID, Ideas = "", State = Convert.ToString(instance.ApproveState), BusinesstypeId = 1 };
+                Approve approve = _policeCase.GetApprove(instance);
+                int i= _approve.InsertApprove(approve);
+                if (i>0)
+                {
+                    Response.WriteAsync("<script>alert('添加案情成功，等待审批')<script>");
+                }
+            }
             return View();
         }
-
-        public int InsertApprove(int id)
-        {
-            return 0;
-        }
+        
     }
 }

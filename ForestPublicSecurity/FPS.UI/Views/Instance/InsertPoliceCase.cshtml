@@ -13,7 +13,7 @@
     <title>InsertPoliceCase</title>
 </head>
 <body>
-    <form action="/Instance/InsertPoliceCase" method="post" enctype="multipart/form-data">
+    <form>
         <div class="place">
             <span>位置：</span>
             <ul class="placeul">
@@ -31,12 +31,9 @@
             <div id="usual1" class="usual">
 
 
-                <li id="tab1" class="tabson">
+                <div id="tab1" class="tabson">
 
                     <ul class="forminfo">
-                        <li><label>报警人姓名<b>*</b></label><input name="" type="text" class="dfinput" style="width:300px;" /></li>
-                        <li><label>身份证号码<b>*</b></label><input name="" type="text" class="dfinput" style="width:300px;" /></li>
-                        <li><label>联系方式<b>*</b></label><input name="" type="text" class="dfinput" style="width:300px;" /></li>
                         <li>
                             <label>案件等级<b>*</b></label>
 
@@ -51,7 +48,7 @@
 
                         </li>
                         <li>
-                            <label>出警人员<b>*</b></label>
+                            <label>预警颜色<b>*</b></label>
 
                             <select name="" style="border: 1px solid #C3AB7D;padding:7px 10px 7px 10px;">
                                 <option value="0">请选择</option>
@@ -62,34 +59,14 @@
                                 <option value="5" style="background:green;color:green;">绿色</option>
                                 <option value="6" style="background:black;color:black;">黑色</option>
                             </select>
-                        </li>
-                        <li>
-                            <label>上传案情附件：</label>
-                            <div>
-                                <span>
-                                    <input class="dfinput" type="text" name="uploadfile" id="uploadfile" readonly nullmsg="请添加附件！" style="width:200px">
-                                    @*<a href="javascript:void();" class="btn btn-primary radius upload-btn"><i class="Hui-iconfont">&#xe642;</i> 浏览文件</a>*@
-                                    <input type="file" multiple name="file" id="file" class="input-file" accept="application/x-zip-compressed">
-                                </span>
-                            </div>
-                        </li>
-                        <li>
-                            <label>&nbsp;</label><input name="" type="submit" class="btn" value="确认提交" />
+
                         </li>
                     </ul>
-
                 </div>
-
-
-
             </div>
         </div>
     </form>
 
-
-        <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
-        <script>
-
-        </script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
 </body>
 </html>
