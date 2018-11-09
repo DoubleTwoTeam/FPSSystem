@@ -28,44 +28,17 @@ namespace FPS.UI.Controllers
         /// 报警显示
         /// </summary>
         /// <returns></returns>
-<<<<<<< HEAD
-
-        //public IActionResult Index(int pageindex=1)
-        //{
-        //    StringBuilder str = new StringBuilder();
-        //    str.Append(" 1=1");
-        //    //拼接字符串
-        //    PageParams param = new PageParams() { StrWhere =str.ToString() , TableName = "Student", Columns = "*",OrderCol = "ID desc", PageIndex = pageindex, PageSize = 5 };
-        //    PageList<Alarm> alarmList = PageCommon.PagingCommon<Alarm>(param);
-
-        //    return View(alarmList);
-        //}
-
-        //public ActionResult Index()
-        //{
-        //    var alarmList = _alarm.GetAlarms();
-        //    return View(alarmList);
-        //    //StringBuilder str = new StringBuilder();
-        //    //str.Append(" 1=1");
-        //    ////拼接字符串
-        //    //PageParams param = new PageParams() { StrWhere = str.ToString(), TableName = "Student", Orderby = "ID desc", Page = pageindex, PageSize = 5 };
-        //    //PageList<Alarm> alarmList = PageCommon.PagingCommon<Alarm>(param);
-
-        //    //return View(alarmList);
-        //}
-=======
 
         public IActionResult Index()
         {
             StringBuilder str = new StringBuilder();
             str.Append(" 1=1");
             //拼接字符串
-            PageParams pageParams = new PageParams() { CurPage = 1, Fields = "ID,Name,Sex", Filter = "", PageSize = 4, Sort = "ID desc", TableName = "student" };
-            PageList<Alarm> alarmList = _pageHelper.InfoList<Alarm>(pageParams);
-
-            return View(alarmList);
+            PageParams pageParams = new PageParams() { CurPage = 1, Fields = "ID,ALARMREASON,DETAILSPLACE,ENCLOSURE,TIME,ALARMPEOPLE,PHONE,IDCARD,URL,SOLVEPEOPLEID,OUTID,OVERTIME,STATE", Filter =str.ToString(), PageSize = 4, Sort = "ID desc", TableName = "Alarm" };
+            PageList<Alarm> pList = _pageHelper.InfoList<Alarm>(pageParams);
+            var alarmlist = pList.ListData;
+            return View(alarmlist);
         }
->>>>>>> 8c03c35bf8d87a07adc4f65a7931bfbfc9374258
 
         /// <summary>
         /// 添加视图
