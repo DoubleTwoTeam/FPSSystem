@@ -101,14 +101,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AlarmServices.cs" />
-<<<<<<< HEAD
     <Compile Include="Config.cs" />
     <Compile Include="ApproveServices.cs" />
     <Compile Include="PageCommon.cs" />
-=======
-    <Compile Include="ApproveServices.cs" />
-    <Compile Include="Config.cs" />
->>>>>>> 8c03c35bf8d87a07adc4f65a7931bfbfc9374258
     <Compile Include="JurisdictionService.cs" />
     <Compile Include="PoliceCaseServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
