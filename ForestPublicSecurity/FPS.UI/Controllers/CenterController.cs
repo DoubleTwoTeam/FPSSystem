@@ -90,6 +90,10 @@ namespace FPS.UI.Controllers
         /// <returns></returns>
         public ActionResult CallPolice(Alarm alarm, IFormFile fileinput)
         {
+            //默认值(null阻断)
+            alarm.Space = "";
+            alarm.Url = "";
+            alarm.Time = DateTime.Now;
             // 文件大小
             //long size = 0;
             // 原文件名（包括路径）
@@ -99,18 +103,29 @@ namespace FPS.UI.Controllers
             // 新文件名
             string shortfilename = $"{Guid.NewGuid()}{extName}";
             // 新文件名（包括路径）
-            filename = hostingEnvironment.WebRootPath + @"\upload\" + shortfilename;
+            filename = hostingEnvironment.WebRootPath + @"\Images\" + shortfilename;
             // 设置文件大小
             //size += signature.Length;
             // 创建新文件
-            using (FileStream fs = System.IO.File.Create(filename))
+
+            //数据库添加对象
+            alarm.Enclosure = shortfilename;
+            var result = _student.AddCallPolice(alarm);
+            if (result>0)
             {
-                // 复制文件
-                fileinput.CopyTo(fs);
-                // 清空缓冲区数据
-                fs.Flush();
+                using (FileStream fs = System.IO.File.Create(filename))
+                {
+                    // 复制文件
+                    fileinput.CopyTo(fs);
+                    // 清空缓冲区数据
+                    fs.Flush();
+                }
+                return Content("<script>alert('报案成功,请保护好自己,耐心等待周队长处理!');location.href='/Center/Index'</script>", "text/html;charset=utf-8");
             }
-            return View();
+            else
+            {
+                return Content("<script>alert('报案失败,请检查网络!如遇经济情况请直接联系周队长: 18513121113');location.href='/Center/Index'</script>", "text/html;charset=utf-8");
+            }
         }
     }
 }
