@@ -9,16 +9,19 @@ using FPS.Services;
 using FPS.Models;
 using System.Text;
 using FPS.Models.DTO;
+using FPS.UI.Common;
 
 namespace FPS.UI.Controllers
 {
     public class AlarmController : Controller
     {
         private readonly IAlarm _alarm;
-        
-        public AlarmController(IAlarm alarm)
+        private IPageHelper _pageHelper;
+
+        public AlarmController(IAlarm alarm, IPageHelper pageHelper)
         {
             _alarm = alarm;
+            _pageHelper = pageHelper;
         }
 
         /// <summary>
@@ -26,28 +29,15 @@ namespace FPS.UI.Controllers
         /// </summary>
         /// <returns></returns>
 
-        //public IActionResult Index(int pageindex=1)
-        //{
-        //    StringBuilder str = new StringBuilder();
-        //    str.Append(" 1=1");
-        //    //拼接字符串
-        //    PageParams param = new PageParams() { StrWhere =str.ToString() , TableName = "Student", Columns = "*",OrderCol = "ID desc", PageIndex = pageindex, PageSize = 5 };
-        //    PageList<Alarm> alarmList = PageCommon.PagingCommon<Alarm>(param);
-
-        //    return View(alarmList);
-        //}
-
-        public ActionResult Index()
+        public IActionResult Index()
         {
-            var alarmList = _alarm.GetAlarms();
-            return View(alarmList);
-            //StringBuilder str = new StringBuilder();
-            //str.Append(" 1=1");
-            ////拼接字符串
-            //PageParams param = new PageParams() { StrWhere = str.ToString(), TableName = "Student", Orderby = "ID desc", Page = pageindex, PageSize = 5 };
-            //PageList<Alarm> alarmList = PageCommon.PagingCommon<Alarm>(param);
+            StringBuilder str = new StringBuilder();
+            str.Append(" 1=1");
+            //拼接字符串
+            PageParams pageParams = new PageParams() { CurPage = 1, Fields = "ID,Name,Sex", Filter = "", PageSize = 4, Sort = "ID desc", TableName = "student" };
+            PageList<Alarm> alarmList = _pageHelper.InfoList<Alarm>(pageParams);
 
-            //return View(alarmList);
+            return View(alarmList);
         }
 
         /// <summary>
