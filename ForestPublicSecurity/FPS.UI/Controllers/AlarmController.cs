@@ -25,7 +25,7 @@ namespace FPS.UI.Controllers
         /// 报警显示
         /// </summary>
         /// <returns></returns>
-<<<<<<< HEAD
+
         //public IActionResult Index(int pageindex=1)
         //{
         //    StringBuilder str = new StringBuilder();
@@ -36,7 +36,7 @@ namespace FPS.UI.Controllers
 
         //    return View(alarmList);
         //}
-=======
+
         public ActionResult Index()
 
         {
@@ -50,7 +50,7 @@ namespace FPS.UI.Controllers
 
             //return View(alarmList);
         }
->>>>>>> b57e63695203ad7e6896a609262b9525b1435ec0
+
         /// <summary>
         /// 添加视图
         /// </summary>

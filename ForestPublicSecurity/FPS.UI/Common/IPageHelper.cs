@@ -8,6 +8,6 @@ namespace FPS.UI.Common
 {
     public interface IPageHelper
     {
-        List<T> InfoList<T>(PageParams pageParams);
+        PageList<T> InfoList<T>(PageParams pageParams);
     }
 }
