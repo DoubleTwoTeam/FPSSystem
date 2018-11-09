@@ -22,7 +22,7 @@ namespace FPS.IServices
         /// <returns></returns>
         int InsertAlarm(Alarm alarm);
 
-        List<Student> GetStudents();
+        List<Alarm> GetAlarms();
 
         /// <summary>
         /// 显示报警内容
