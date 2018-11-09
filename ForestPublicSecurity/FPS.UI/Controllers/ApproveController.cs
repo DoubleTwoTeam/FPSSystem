@@ -6,24 +6,46 @@ using Microsoft.AspNetCore.Mvc;
 
 using FPS.IServices;
 using FPS.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using FPS.Models.DTO;
 
 namespace FPS.UI.Controllers
 {
     public class ApproveController : Controller
     {
+        /// <summary>
+        /// 权限
+        /// </summary>
         private readonly IApprove _approve;
 
+        /// <summary>
+        /// 案件
+        /// </summary>
         private readonly IPoliceCase _policeCase;
 
-        public ApproveController(IApprove approve,IPoliceCase policeCase)
+
+        string loginRoleId = "1";//当前用户的权限ID
+        int pageSize = 8;//每页显示多少条数据
+        int curge = 1;//当前页
+
+        /// <summary>
+        /// 分页参数
+        /// </summary>
+        PageParams pageParams = new PageParams() { Fields = "Approve.ID,Instance.ID as InstanceID,Instance.RegisterPeopleID,Business.ID as BusinessID,Business.Name as BusinessName,Users.realName as UsersName,Role.Name as RoleName,Instance.InstanceTypes,Instance.InstanceTime,Instance.ApproveState", TableName = " Approve,Users,Instance,Business,Role", Filter = " Approve.ORIGINALID=Instance.ID and Approve.BUSINESSTYPEID=Business.ID and Approve.APPROVEPEOPLEID=USERS.ID and Approve.ROLEID=Role.ID and Approve.State=1 ", Orderby = " Approve.ID desc" };
+
+        public ApproveController(IApprove approve, IPoliceCase policeCase)
         {
             _approve = approve;
             _policeCase = policeCase;
         }
 
-        public IActionResult GetApproveList()
+        public IActionResult GetApproveList(int id=1)
         {
-            return View();
+            pageParams.CurPage = id;
+            pageParams.Filter += "  and Approve.RoleId=" + loginRoleId;
+            pageParams.PageSize = pageSize;
+            List<ApproveDataModel> list = _approve.GetApproveList(loginRole);
+            return View(list);
         }
 
         /// <summary>
@@ -32,7 +54,7 @@ namespace FPS.UI.Controllers
         /// <param name="id"></param>
         /// <param name="bussiness"></param>
         /// <returns></returns>
-        public void PassApprove(int id, int bussiness,int inStanceId)
+        public void PassApprove(int id, int bussiness, int inStanceId)
         {
             int loginRoleId = 2;
             int userID = 2;
@@ -48,16 +70,16 @@ namespace FPS.UI.Controllers
                     approve.ApprovePeopleId = userID;
                     approve.Time = DateTime.Now;
                     int result = _approve.UpdateApprove(approve);
-                    if (result>0)
+                    if (result > 0)
                     {
                         Instance instance = _policeCase.GetInstanceById(inStanceId);
                         instance.ApproveState = 2;
                         int i = _policeCase.UpdateinStance(instance);
-                        if (i>0)
+                        if (i > 0)
                         {
                             Content("<script>alert('审核通过！')</script>");
                         }
-                        
+
                     }
                 }
                 else
@@ -69,13 +91,13 @@ namespace FPS.UI.Controllers
                     approve.Time = DateTime.Now;
                     approve.PlaceID = approveCourse.PostpositionID;
                     int result = _approve.UpdateApprove(approve);
-                    if (result>0)
+                    if (result > 0)
                     {
-                        
+
                         Content("<script>alert('您的审核通过！正在进行下一级审核')</script>");
-                        PassApprove(approve.ID, approve.BusinesstypeId,inStanceId);
+                        PassApprove(approve.ID, approve.BusinesstypeId, inStanceId);
                     }
-                    
+
                 }
             }
         }
@@ -85,18 +107,18 @@ namespace FPS.UI.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <param name="inStanceId"></param>
-        public void NoApprove(int id,int inStanceId)
+        public void NoApprove(int id, int inStanceId)
         {
             Approve approve = _approve.GetApproveById(id);
             approve.State = "3";
             approve.Time = DateTime.Now;
             int result = _approve.UpdateApprove(approve);
-            if (result>0)
+            if (result > 0)
             {
                 Instance instance = _policeCase.GetInstanceById(inStanceId);
                 instance.ApproveState = 3;
                 int i = _policeCase.UpdateinStance(instance);
-                if (i>0)
+                if (i > 0)
                 {
                     Content("<script>alert('已驳回！')</script>");
                 }
@@ -107,11 +129,51 @@ namespace FPS.UI.Controllers
             }
         }
 
-
+        /// <summary>
+        /// 获取案件详情
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public IActionResult GetInstanceById(int id)
         {
-
+            GetBusinesses();
+            GetInstanceState();
             return View();
+        }
+
+        /// <summary>
+        /// 绑定立案、结案下拉
+        /// </summary>
+        public void GetBusinesses()
+        {
+            List<Business> list= _policeCase.GetBusinessesList();
+            var linq = from s in list
+                       select new SelectListItem
+                       {
+                           Text = s.Name,
+                           Value = s.ID.ToString()
+                       };
+            ViewBag.businesses = linq.ToList();
+        }
+
+        /// <summary>
+        /// 案件类型下拉（普通、重大、特大）
+        /// </summary>
+        public void GetInstanceState()
+        {
+            InstanceState[] instanceStates =
+            {
+                new InstanceState(){ ID = 1, Name = "普通" },
+                new InstanceState(){ID=2,Name="重大"},
+                new InstanceState(){ID=3,Name="特大" }
+            };
+            var linq = from s in instanceStates
+                       select new SelectListItem
+                       {
+                           Text = s.Name,
+                           Value = s.ID.ToString()
+                       };
+            ViewBag.InstanceTypes = linq.ToList();
         }
     }
 }

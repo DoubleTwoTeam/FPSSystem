@@ -84,7 +84,11 @@ namespace FPS.Services
             }
         }
 
-
-
+        public List<Business> GetBusinessesList()
+        {
+            var db = SugerBase.GetInstance();
+            List<Business> list= db.Queryable<Business>().ToList();
+            return list;
+        }
     }
 }
