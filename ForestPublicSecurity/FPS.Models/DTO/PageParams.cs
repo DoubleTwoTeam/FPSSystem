@@ -25,12 +25,11 @@ namespace FPS.Models.DTO
 
         public int PageSize { get; set; } = 10;
 
-
-        public string Orderby { get; set; } = "id desc";
-
         /// <summary>
         /// 当前页数
         /// </summary>
         public int CurPage { get; set; }
+
+        public int Sort { get; set; }
     }
 }
