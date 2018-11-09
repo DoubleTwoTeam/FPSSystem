@@ -34,10 +34,10 @@ namespace FPS.UI.Controllers
             StringBuilder str = new StringBuilder();
             str.Append(" 1=1");
             //拼接字符串
-            PageParams pageParams = new PageParams() { CurPage = 1, Fields = "ID,Name,Sex", Filter = "", PageSize = 4, Sort = "ID desc", TableName = "student" };
-            PageList<Alarm> alarmList = _pageHelper.InfoList<Alarm>(pageParams);
-
-            return View(alarmList);
+            PageParams pageParams = new PageParams() { CurPage = 1, Fields = "ID,ALARMREASON,DETAILSPLACE,ENCLOSURE,TIME,ALARMPEOPLE,PHONE,IDCARD,URL,SOLVEPEOPLEID,OUTID,OVERTIME,STATE", Filter =str.ToString(), PageSize = 4, Sort = "ID desc", TableName = "Alarm" };
+            PageList<Alarm> pList = _pageHelper.InfoList<Alarm>(pageParams);
+            var alarmlist = pList.ListData;
+            return View(alarmlist);
         }
 
         /// <summary>
