@@ -31,9 +31,7 @@ namespace FPS.Models.DTO
         /// <summary>
         /// 排序字段
         /// </summary>
-        public string Sort { get; set; }
-
-        public string Orderby { get; set; } = "id desc";
+        public string Sort { get; set; } = "id desc";
 
         /// <summary>
         /// 当前页数
