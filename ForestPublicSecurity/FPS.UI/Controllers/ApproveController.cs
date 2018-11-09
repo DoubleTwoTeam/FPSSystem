@@ -8,6 +8,8 @@ using FPS.IServices;
 using FPS.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using FPS.Models.DTO;
+using FPS.UI.Common;
+
 
 namespace FPS.UI.Controllers
 {
@@ -23,6 +25,8 @@ namespace FPS.UI.Controllers
         /// </summary>
         private readonly IPoliceCase _policeCase;
 
+        private readonly IPageHelper _pageHelper;
+
 
         string loginRoleId = "1";//当前用户的权限ID
         int pageSize = 8;//每页显示多少条数据
@@ -31,12 +35,17 @@ namespace FPS.UI.Controllers
         /// <summary>
         /// 分页参数
         /// </summary>
-        PageParams pageParams = new PageParams() { Fields = "Approve.ID,Instance.ID as InstanceID,Instance.RegisterPeopleID,Business.ID as BusinessID,Business.Name as BusinessName,Users.realName as UsersName,Role.Name as RoleName,Instance.InstanceTypes,Instance.InstanceTime,Instance.ApproveState", TableName = " Approve,Users,Instance,Business,Role", Filter = " Approve.ORIGINALID=Instance.ID and Approve.BUSINESSTYPEID=Business.ID and Approve.APPROVEPEOPLEID=USERS.ID and Approve.ROLEID=Role.ID and Approve.State=1 ", Orderby = " Approve.ID desc" };
+        PageParams pageParams = new PageParams() {
+            Fields = "Approve.ID,Instance.ID as InstanceID,Instance.RegisterPeopleID,Business.ID as BusinessID,Business.Name as BusinessName,Users.realName as UsersName,Role.Name as RoleName,Instance.InstanceTypes,Instance.InstanceTime,Instance.ApproveState",
+            TableName = " Approve,Users,Instance,Business,Role",
+            Filter = " Approve.ORIGINALID=Instance.ID and Approve.BUSINESSTYPEID=Business.ID and Approve.APPROVEPEOPLEID=USERS.ID and Approve.ROLEID=Role.ID and Approve.State=1 ",
+            Orderby = " Approve.ID desc" };
 
-        public ApproveController(IApprove approve, IPoliceCase policeCase)
+        public ApproveController(IApprove approve, IPoliceCase policeCase, IPageHelper pageHelper)
         {
             _approve = approve;
             _policeCase = policeCase;
+            _pageHelper = pageHelper;
         }
 
         public IActionResult GetApproveList(int id=1)
@@ -44,7 +53,8 @@ namespace FPS.UI.Controllers
             pageParams.CurPage = id;
             pageParams.Filter += "  and Approve.RoleId=" + loginRoleId;
             pageParams.PageSize = pageSize;
-            List<ApproveDataModel> list = _approve.GetApproveList(loginRole);
+            PageList<ApproveDataModel> pageList = _pageHelper.InfoList<ApproveDataModel>(pageParams);
+            List<ApproveDataModel> list = pageList.ListData;
             return View(list);
         }
 

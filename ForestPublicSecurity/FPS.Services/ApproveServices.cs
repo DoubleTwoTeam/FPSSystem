@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using FPS.IServices;
 using FPS.Models;
+using FPS.Models.DTO;
 using Newtonsoft.Json;
 
 namespace FPS.Services
@@ -30,15 +31,16 @@ namespace FPS.Services
         /// 审批页面显示
         /// </summary>
         /// <returns></returns>
-        public List<ApproveDataModel> GetApproveList(int loginRole)
-        {
-            var db = SugerBase.GetInstance();
-            List<ApproveDataModel> list= JsonConvert.DeserializeObject<List<ApproveDataModel>>(JsonConvert.SerializeObject(db.SqlQueryable<ApproveDataModel>(
-                "select Approve.ID,Instance.ID as InstanceID,Instance.RegisterPeopleID,Business.ID as BusinessID,Business.Name as BusinessName,Users.realName as UsersName,Role.Name as RoleName,Instance.InstanceTypes,Instance.InstanceTime,Instance.ApproveState " +
-                "from Approve,Users,Instance,Business,Role " +
-                "where Approve.ORIGINALID=Instance.ID and Approve.BUSINESSTYPEID=Business.ID and Approve.APPROVEPEOPLEID=USERS.ID and Approve.ROLEID=Role.ID and Approve.State=1 and Approve.RoleId="+loginRole)));
-            return list;
-        }
+        //PageList<ApproveDataModel> GetApproveList(PageParams pageParams)
+        //{
+        //    //var db = SugerBase.GetInstance();
+        //    //List<ApproveDataModel> list= JsonConvert.DeserializeObject<List<ApproveDataModel>>(JsonConvert.SerializeObject(db.SqlQueryable<ApproveDataModel>(
+        //    //    "select Approve.ID,Instance.ID as InstanceID,Instance.RegisterPeopleID,Business.ID as BusinessID,Business.Name as BusinessName,Users.realName as UsersName,Role.Name as RoleName,Instance.InstanceTypes,Instance.InstanceTime,Instance.ApproveState " +
+        //    //    "from Approve,Users,Instance,Business,Role " +
+        //    //    "where Approve.ORIGINALID=Instance.ID and Approve.BUSINESSTYPEID=Business.ID and Approve.APPROVEPEOPLEID=USERS.ID and Approve.ROLEID=Role.ID and Approve.State=1 and Approve.RoleId="+loginRole)));
+
+        //    return null;
+        //}
         
 
         /// <summary>
@@ -75,5 +77,6 @@ namespace FPS.Services
             int result= db.Updateable<Approve>(approve).ExecuteCommand();
             return result;
         }
+        
     }
 }
