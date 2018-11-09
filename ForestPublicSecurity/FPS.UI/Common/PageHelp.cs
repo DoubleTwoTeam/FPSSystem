@@ -17,7 +17,7 @@ namespace FPS.UI.Common
         {
             configuration = _configuration;
         }
-        public static PageList<T> InfoList<T>(PageParams pageParams)
+        public PageList<T> InfoList<T>(PageParams pageParams)
         {
             var connectionString = configuration.GetSection("ConnectionStrings").GetSection("EmployeeConnection").Value;
             var conn = new OracleConnection(connectionString);
