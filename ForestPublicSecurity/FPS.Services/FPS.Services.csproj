@@ -101,7 +101,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AlarmServices.cs" />
-    <Compile Include="PageCommon.cs" />
     <Compile Include="ApproveServices.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="JurisdictionService.cs" />
