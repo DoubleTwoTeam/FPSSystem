@@ -91,10 +91,10 @@ namespace FPS.Services
             return ruselt;
         }
 
-        public List<Student> GetStudents()
+        public List<Alarm> GetAlarms()
         {
             var db = SugerBase.GetInstance();
-            var getAll = db.Queryable<Student>().ToList();
+            var getAll = db.Queryable<Alarm>().ToList();
             return getAll;
         }
     }

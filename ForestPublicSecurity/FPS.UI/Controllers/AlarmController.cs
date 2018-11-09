@@ -38,10 +38,9 @@ namespace FPS.UI.Controllers
         //}
 
         public ActionResult Index()
-
         {
-            var studenList = _alarm.GetStudents();
-            return View(studenList);
+            var alarmList = _alarm.GetAlarms();
+            return View(alarmList);
             //StringBuilder str = new StringBuilder();
             //str.Append(" 1=1");
             ////拼接字符串

@@ -2,7 +2,7 @@
 @{
     Layout = null;
 }
-
+@model List<FPS.Models.Authority>
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -57,9 +57,39 @@
 
     <dl class="leftmenu">
 
-        <dd>
+        @foreach (var item in Model)
+        {
+            if (item.FatherId == 0)
+            {
+                <dd>
+                    <div class="title" style="padding-left:30px">
+                        @*<span><img src="~/police/images/leftico01.png" /></span>*@ @item.Name
+                    </div>
+                    <ul class="menuson">
+                        @foreach (var item2 in Model)
+                        {
+
+                            @if (item2.FatherId == item.ID)
+                            {
+                                <li>
+                                    <div class="header">
+                                        <cite></cite>
+                                        <a href="@item2.Url" target="rightFrame">@item2.Name</a>
+                                        <i></i>
+                                    </div>
+                                </li>
+                            }
+
+                        }
+                    </ul>
+                </dd>
+            }
+        }
+
+
+        @*<dd>
             <div class="title" style="padding-left:30px">
-                @*<span><img src="~/police/images/leftico01.png" /></span>*@110警情
+                110警情
             </div>
             <ul class="menuson">
 
@@ -91,7 +121,7 @@
         </dd>
 
         <dd>
-            <div class="title" style="padding-left:30px">@*<span><img src="~/police/images/leftico01.png" /></span>*@大数据预警</div>
+            <div class="title" style="padding-left:30px">大数据预警</div>
             <ul class="menuson">
                 <li>
                     <div class="header">
@@ -125,7 +155,7 @@
 
         <dd>
             <div class="title" style="padding-left:30px">
-                @*<span><img src="~/police/images/leftico01.png" /></span>*@主动排查
+                主动排查
             </div>
             <ul class="menuson">
 
@@ -160,7 +190,7 @@
 
 
         <dd>
-            <div class="title" style="padding-left:30px">@*<span><img src="~/police/images/leftico01.png" /></span>*@推送管理</div>
+            <div class="title" style="padding-left:30px">推送管理</div>
             <ul class="menuson">
                 <li>
                     <div class="header">
@@ -185,7 +215,7 @@
 
 
         <dd>
-            <div class="title" style="padding-left:30px">@*<span><img src="~/police/images/leftico01.png" /></span>*@短信督导</div>
+            <div class="title" style="padding-left:30px">短信督导</div>
             <ul class="menuson">
                 <li>
                     <div class="header">
@@ -205,7 +235,7 @@
 
 
         <dd>
-            <div class="title" style="padding-left:30px">@*<span><img src="~/police/images/leftico01.png" /></span>*@分析研判</div>
+            <div class="title" style="padding-left:30px">分析研判</div>
             <ul class="menuson">
                 <li>
                     <div class="header">
@@ -238,7 +268,7 @@
         </dd>
 
         <dd>
-            <div class="title" style="padding-left:30px">@*<span><img src="~/police/images/leftico01.png" /></span>*@系统管理</div>
+            <div class="title" style="padding-left:30px">系统管理</div>
             <ul class="menuson">
                 <li>
                     <div class="header">
@@ -276,7 +306,7 @@
 
             </ul>
 
-        </dd>
+        </dd>*@
 
 
     </dl>

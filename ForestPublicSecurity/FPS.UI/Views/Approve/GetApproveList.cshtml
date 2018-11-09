@@ -47,7 +47,9 @@
                     <td>@item.BusinessName</td>
                     <td>@item.RealName</td>
                     <td>@item.InstanceTypes</td>
-                    <td>@Html.ActionLink("查看详情", "GetInstanceById", new { id = item.InstanceID })</td>
+                    <td>
+                        <a href="javascript:;" onclick="Get_inStanceById('查看案情','/Approve/GetInstanceById/'+@item.InstanceID,'800','500')">查看案情</a>
+                    </td>
                     <td>@item.InstanceTime</td>
                     @{
                         if (item.ApproveState == 1)
@@ -98,6 +100,11 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
     <script type="text/javascript">
         $('.tablelist tbody tr:odd').addClass('odd');
+
+        /*队长/局长-查看案情*/
+        function Get_inStanceById(title, url, id, w, h) {
+            layer_show(title, url, w, h);
+        }
     </script>
 
 </body>

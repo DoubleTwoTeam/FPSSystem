@@ -23,26 +23,141 @@ namespace FPS.Services
             return i;
         }
         /// <summary>
+        /// 添加角色
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public int AddRole(string name,string qxid)
+        {
+            var db = SugerBase.GetInstance();
+            Role role = new Role();
+            role.RoleName = name;
+            int i = db.Insertable(role).ExecuteCommand();
+            if (i > 0)
+            {
+                var newId = db.Queryable<Role>().Where(m=>m.RoleName==name).OrderBy("ID desc").Single().ID;
+                string[] qxids = qxid.Split(',');
+                int state = 0;
+                foreach (var item in qxids)
+                {
+                    int id = Convert.ToInt32(item);
+                    RoleAuthority roleAuthority = new RoleAuthority();
+                        roleAuthority.AuthorityId = id;
+                        roleAuthority.RoleId = Convert.ToInt32(newId);
+                    state += db.Insertable(roleAuthority).ExecuteCommand();//记录成功条数
+                }
+                if(qxids.Length==state)
+                {
+                    return state;
+                }
+                else
+                {
+                    return -1;
+                }
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// 添加用户
+        /// </summary>
+        public int AddUser(Users users, string roleid)
+        {
+            var db = SugerBase.GetInstance();
+            db.Insertable(users);
+            users.Spare = "";
+            users.State = 0;
+            var addtime = DateTime.Now.ToString("yyyy-MM-dd hh24:mi:ss");
+           var x =  db.Insertable<Users>(users);
+            int i = db.Insertable(users).ExecuteCommand();
+            if (i > 0)
+            {
+                var newId = db.Queryable<Users>().Where(m => m.LoginName == users.LoginName).OrderBy("ID desc").Single().ID;
+                string[] ids = roleid.Split(',');
+
+                int state = 0;
+                foreach (var item in ids)
+                {
+                    int itemid = Convert.ToInt32(item);
+                    UserRole userRole = new UserRole();
+                    userRole.RoleId = Convert.ToInt32(roleid);
+                    state += db.Insertable(userRole).ExecuteCommand();
+
+                }
+                if (ids.Length == state)
+                {
+                    return state;
+                }
+                else
+                {
+                    return -1;
+                }
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        /// <summary>
         /// 获取权限列表
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
 
-        public List<Authority> GetAuthority(int id)
+        public List<Authority> GetAuthority()
         {
-            throw new NotImplementedException();
+            var db = SugerBase.GetInstance();
+            var authoritys = db.Queryable<Authority>().ToList();
+            return authoritys;
         }
+
         /// <summary>
         /// 获取权限下拉列表
         /// </summary>
         /// <param name="gid"></param>
         /// <returns></returns>
-
         public List<Authority> GetAuthorityList(int gid = 0)
         {
             var db = SugerBase.GetInstance();
             var authority0 = db.Queryable<Authority>().Where(c => c.FatherId == 0).ToList();
             return authority0;
+        }
+
+        /// <summary>
+        /// 角色显示
+        /// </summary>
+        /// <returns></returns>
+        public List<Role> GetRole()
+        {
+            var db = SugerBase.GetInstance();
+            var roles = db.Queryable<Role>().ToList();
+            return roles;
+        }
+
+        /// <summary>
+        /// 角色下拉列表
+        /// </summary>
+        /// <returns></returns>
+        public List<Role> GetRoleList(int gid)
+        {
+            var db = SugerBase.GetInstance();
+            var role = db.Queryable<Role>().ToList();
+            return role;
+        }
+
+        /// <summary>
+        /// 显示用户&&角色
+        /// </summary>
+        /// <returns></returns>
+        public List<UserAndRole> ShowUserAndRole()
+        {
+            var db = SugerBase.GetInstance();
+            var userlist = db.Queryable<UserAndRole>().ToList();
+            return userlist;
         }
     }
 }
