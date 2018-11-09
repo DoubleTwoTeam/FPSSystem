@@ -25,16 +25,16 @@ namespace FPS.UI.Controllers
         /// 报警显示
         /// </summary>
         /// <returns></returns>
-        public IActionResult Index(int pageindex=1)
-        {
-            StringBuilder str = new StringBuilder();
-            str.Append(" 1=1");
-            //拼接字符串
-            PageParams param = new PageParams() { StrWhere =str.ToString() , TableName = "Student", Columns = "*",OrderCol = "ID desc", PageIndex = pageindex, PageSize = 5 };
-            PageList<Alarm> alarmList = PageCommon.PagingCommon<Alarm>(param);
+        //public IActionResult Index(int pageindex=1)
+        //{
+        //    StringBuilder str = new StringBuilder();
+        //    str.Append(" 1=1");
+        //    //拼接字符串
+        //    PageParams param = new PageParams() { StrWhere =str.ToString() , TableName = "Student", Columns = "*",OrderCol = "ID desc", PageIndex = pageindex, PageSize = 5 };
+        //    PageList<Alarm> alarmList = PageCommon.PagingCommon<Alarm>(param);
 
-            return View(alarmList);
-        }
+        //    return View(alarmList);
+        //}
         /// <summary>
         /// 添加视图
         /// </summary>

@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 using FPS.Models;
 using FPS.IServices;
+using FPS.Models.DTO;
+using SQLiteSugar;
+using SqlSugar;
 
 namespace FPS.Services
 {
@@ -17,5 +20,22 @@ namespace FPS.Services
             var name = db.Queryable<Student>().Single(m => m.ID == 1).Name;
             return name;
         }
+
+        //public List<Student> Fen()
+        //{
+        //    var db = SugerBase.GetInstance();
+        //    PageParams parms = new PageParams();
+        //    parms.PageIndex = 1;
+        //    parms.PageSize = 1;
+        //    parms.StrWhere = "";
+        //    parms.TableName = "student";
+
+        //    var result1 = PageCommon.PagingCommon<Student>(parms);
+
+        //    var result0=db.Ado.SqlQuery<Student>("pager", parms);
+        //    var result=db.Ado.SqlQuery<Student>("pager", parms).ToList();
+        //    return result;
+
+        //}
     }
 }

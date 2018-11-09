@@ -22,21 +22,67 @@ namespace FPS.Services
         /// </summary>
         /// <param name="sysPaging">分页信息</param>
         /// <returns>查询结果</returns>
-        public static PageList<T> PagingCommon<T>(PageParams pageparams)
-        {
-            var db = SugerBase.GetInstance();
+        //public static PageList<T> PagingCommon<T>(PageParams pageparams)
+        //{
+        //    var db = SugerBase.GetInstance();
 
-            SugarParameter[] parameter = new SugarParameter[5];
-            parameter[0] = new SugarParameter("page",pageparams.PageIndex);
-            parameter[1] = new SugarParameter("pageSize",pageparams.PageSize);
-            parameter[2] = new SugarParameter("tableName", pageparams.TableName);
-            parameter[3] = new SugarParameter("strWhere ", pageparams.StrWhere);
-            parameter[4] = new SugarParameter("Orderby", pageparams.OrderCol);
+        //    //SugarParameter[] parameter = new SugarParameter[7];
+        //    //parameter[0] = new SugarParameter("page",pageparams.PageIndex);
+        //    //parameter[1] = new SugarParameter("pageSize", pageparams.PageSize);
+        //    //parameter[2] = new SugarParameter("tableName", pageparams.TableName);
+        //    //parameter[3] = new SugarParameter("strWhere ", pageparams.StrWhere);
+        //    //parameter[4] = new SugarParameter("Orderby", pageparams.OrderCol);
+        //    //parameter[5]=  new SugarParameter("numCount", pageparams.PageCount,true);
+        //    //parameter[6]=  new SugarParameter("v_cur", OracleDbType.RefCursor, true);
 
-            var pageList = JsonConvert.DeserializeObject<PageList<T>>(JsonConvert.SerializeObject(db.Ado.UseStoredProcedure().GetDataTable("pager", parameter)));
+        //    //var pageList = db.Ado.UseStoredProcedure().SqlQuery<T>("PAGER22", parameter);
 
-            return pageList;
 
-        }
+        //    SugarParameter[] parameter = new SugarParameter[6];
+        //    var page = new SugarParameter("page", pageparams.PageIndex);
+        //    var pageSize = new SugarParameter("pageSize", pageparams.PageSize);
+        //    var tableName = new SugarParameter("tableName", pageparams.TableName);
+        //    var strWhere = new SugarParameter("strWhere ", pageparams.StrWhere);
+        //    var Orderby = new SugarParameter("Orderby", pageparams.OrderCol);
+        //    var numCount = new SugarParameter("numCount", null, true);
+        //    //var v_cur = new SugarParameter("v_cur", null, true);
+
+        //    //var pageList = db.Ado.UseStoredProcedure().SqlQuery<dynamic>("PAGER22", parameter);
+        //    ////var dt = db.Ado.UseStoredProcedure().GetDataTable("PAGER22",
+        //    //      new SugarParameter[]  {
+        //    //          page,
+        //    //          pageSize,
+        //    //          tableName,
+        //    //          strWhere,
+        //    //          Orderby,
+        //    //          numCount,
+        //    //          v_cur
+        //    //      }
+        //    //    );
+
+        //    object outPutValue;
+        //    var outputResult = db.Ado.UseStoredProcedure<dynamic>(() =>
+        //   {
+        //       string spName = "PAGER22";
+        //       var dbResult = db.Ado.SqlQueryDynamic(spName, new SugarParameter[] {   page,
+        //              pageSize,
+        //              tableName,
+        //              strWhere,
+        //              Orderby,
+        //              numCount });
+        //       outPutValue = numCount.Value;
+        //       return dbResult;
+        //   });
+
+
+
+        //    //var pageList = JsonConvert.DeserializeObject<PageList<T>>(JsonConvert.SerializeObject(db.Ado.UseStoredProcedure().GetDataTable("pager", parameter)));
+
+        //    PageList<T> pagelist = new PageList<T>();
+        //    //  pagelist.listData = pageList;
+
+        //    return pagelist;
+
+        //}
     }
 }
