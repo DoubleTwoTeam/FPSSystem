@@ -89,6 +89,7 @@ namespace FPS.UI.Controllers
         {
             Approve approve = _approve.GetApproveById(id);
             approve.State = "3";
+            approve.Time = DateTime.Now;
             int result = _approve.UpdateApprove(approve);
             if (result>0)
             {
