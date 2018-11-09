@@ -33,13 +33,14 @@ namespace FPS.Models
         /// </summary>
         public string Ideas { get; set; }
         /// <summary>
-        /// 状态
+        /// 审批状态
         /// </summary>
-        public string State { get; set; }
+        public int ApproveState { get; set; }
         /// <summary>
         /// 时间
         /// </summary>
         public DateTime Time { get; set; }
+
         /// <summary>
         /// 后置ID4
         /// </summary>
@@ -49,18 +50,22 @@ namespace FPS.Models
         /// 案件ID
         /// </summary>
         public int InstanceID { get; set; }
+
         /// <summary>
         /// 立案人ID
         /// </summary>
         public int RegisterPeopleID { get; set; }
+
         /// <summary>
         /// 业务表ID
         /// </summary>
         public int BusinessID { get; set; }
+
         /// <summary>
         /// 业务名称
         /// </summary>
         public string BusinessName { get; set; }
+
         /// <summary>
         /// ID
         /// </summary>
@@ -77,5 +82,13 @@ namespace FPS.Models
         /// 名字
         /// </summary>
         public string RoleName { get; set; }
+        /// <summary>
+        /// 立案类型
+        /// </summary>
+        public string InstanceTypes { get; set; }
+        /// <summary>
+        /// 立案时间
+        /// </summary>
+        public DateTime InstanceTime { get; set; }
     }
 }

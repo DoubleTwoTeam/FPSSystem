@@ -37,7 +37,8 @@ namespace FPS.UI.Controllers
         /// <returns></returns>
         public IActionResult GetInstanceList()
         {
-            return View();
+            List<InstanceDataModel> list= _policeCase.GetInstanceList();
+            return View(list);
         }
 
         /// <summary>
@@ -77,7 +78,8 @@ namespace FPS.UI.Controllers
             int result= _policeCase.InsertInstance(instance);
             if (result > 0)
             {
-                Approve approve = new Approve() { OriginalId = instance.ID, Ideas = "", State = Convert.ToString(instance.ApproveState), BusinesstypeId = 1 };
+                //Approve approve = new Approve() { OriginalId = instance.ID, Ideas = "", State = Convert.ToString(instance.ApproveState), BusinesstypeId = 1 };
+                Approve approve = _policeCase.GetApprove(instance);
                 int i= _approve.InsertApprove(approve);
                 if (i>0)
                 {
@@ -86,11 +88,6 @@ namespace FPS.UI.Controllers
             }
             return View();
         }
-
-
-        public int  InsertApprove(int id)
-        {
-            return 0;
-        }
+        
     }
 }

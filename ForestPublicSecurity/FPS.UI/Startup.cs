@@ -32,6 +32,7 @@ namespace FPS.UI
             services.AddTransient<IStudent, StudentServices>();
             services.AddTransient<IJurisdiction, JurisdictionService>();
             services.AddTransient<IPoliceCase, PoliceCaseServices>();
+            services.AddTransient<IApprove, ApproveServices>();
             services.AddTransient<IAlarm, AlarmServices>();
             services.AddSingleton<IConfiguration>(Configuration);
             var dbConnectionString = "Data Source=169.254.159.216/orcl;User ID=scott;Password=tiger;";

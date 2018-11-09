@@ -28,7 +28,7 @@ namespace FPS.IServices
         /// 审批显示
         /// </summary>
         /// <returns></returns>
-        List<ApproveDataModel> GetApproveList();
+        List<ApproveDataModel> GetApproveList(int loginRole);
 
         /// <summary>
         /// 点击审批页面的某个详情进入查看案情
@@ -36,6 +36,21 @@ namespace FPS.IServices
         /// <param name="id"></param>
         /// <returns></returns>
         InstanceDataModel GetInstanceById(int id);
+
+        /// <summary>
+        /// 获取配置表符合条件的第一个
+        /// </summary>
+        /// <param name="placed"></param>
+        /// <returns></returns>
+        ApproveCourse GetApproveCoursesList(int placed);
+
+        /// <summary>
+        /// 根据ID查询审批表
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Approve GetApproveById(int id);
+        
 
 
     }
