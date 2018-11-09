@@ -17,7 +17,7 @@ namespace FPS.UI.Common
         {
             configuration = _configuration;
         }
-        public List<T> InfoList<T>(PageParams pageParams)
+        public PageList<T> InfoList<T>(PageParams pageParams)
         {
             var connectionString = configuration.GetSection("ConnectionStrings").GetSection("EmployeeConnection").Value;
             var conn = new OracleConnection(connectionString);
@@ -30,7 +30,7 @@ namespace FPS.UI.Common
             cmd.Parameters.Add("p_tableName", OracleDbType.Varchar2).Value = pageParams.TableName;
             cmd.Parameters.Add("p_fields", OracleDbType.Varchar2).Value = pageParams.Fields;
             cmd.Parameters.Add("p_filter", OracleDbType.Varchar2).Value = pageParams.Filter;
-            cmd.Parameters.Add("p_sort", OracleDbType.Varchar2).Value = pageParams.CurPage;
+            cmd.Parameters.Add("p_sort", OracleDbType.Varchar2).Value = pageParams.Sort;
             cmd.Parameters.Add("p_curPage", OracleDbType.Int32).Value = pageParams.CurPage;
             cmd.Parameters.Add("p_pageSize", OracleDbType.Int32).Value = pageParams.PageSize;
             cmd.Parameters.Add("p_cursor", OracleDbType.RefCursor).Direction = ParameterDirection.Output;
@@ -39,6 +39,7 @@ namespace FPS.UI.Common
             conn.Open();
             OracleDataReader dr = cmd.ExecuteReader();
 
+            PageList<T> info = new PageList<T>();
             List<T> list = new List<T>();
             while (dr.Read())
             {
@@ -70,8 +71,11 @@ namespace FPS.UI.Common
                 temp = JsonConvert.DeserializeObject<T>(tempStr);
                 list.Add(temp);
             }
+            info.ListData = list;
+            info.TotalCount = Convert.ToInt32(cmd.Parameters["p_totalRecords"].Value.ToString());
+
             //获取输出的值
-            return list;
+            return info;
         }
     }
 }

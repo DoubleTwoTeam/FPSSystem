@@ -22,12 +22,18 @@ namespace FPS.Models.DTO
         /// 过滤条件
         /// </summary>
         public string Filter { get; set; }
+<<<<<<< HEAD
 
+=======
+        
+        /// <summary>
+>>>>>>> 8c03c35bf8d87a07adc4f65a7931bfbfc9374258
         /// 页的大小
         /// </summary>
         public int PageSize { get; set; } = 10;
 
         /// <summary>
+<<<<<<< HEAD
         /// 排序字段
         /// </summary>
         public string Orderby { get; set; } = "id desc";
@@ -36,5 +42,12 @@ namespace FPS.Models.DTO
         /// 当前页数
         /// </summary>
         public int CurPage { get; set; }
+=======
+        /// 当前页数
+        /// </summary>
+        public int CurPage { get; set; }
+
+        public int Sort { get; set; }
+>>>>>>> 8c03c35bf8d87a07adc4f65a7931bfbfc9374258
     }
 }

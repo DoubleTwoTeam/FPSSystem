@@ -31,7 +31,7 @@ namespace FPS.UI.Controllers
         /// <summary>
         /// 分页参数
         /// </summary>
-        PageParams pageParams = new PageParams() { Fields = "Approve.ID,Instance.ID as InstanceID,Instance.RegisterPeopleID,Business.ID as BusinessID,Business.Name as BusinessName,Users.realName as UsersName,Role.Name as RoleName,Instance.InstanceTypes,Instance.InstanceTime,Instance.ApproveState", TableName = " Approve,Users,Instance,Business,Role", Filter = " Approve.ORIGINALID=Instance.ID and Approve.BUSINESSTYPEID=Business.ID and Approve.APPROVEPEOPLEID=USERS.ID and Approve.ROLEID=Role.ID and Approve.State=1 and Approve.RoleId=", Orderby = " Approve.ID desc" };
+        PageParams pageParams = new PageParams() { Fields = "Approve.ID,Instance.ID as InstanceID,Instance.RegisterPeopleID,Business.ID as BusinessID,Business.Name as BusinessName,Users.realName as UsersName,Role.Name as RoleName,Instance.InstanceTypes,Instance.InstanceTime,Instance.ApproveState", TableName = " Approve,Users,Instance,Business,Role", Filter = " Approve.ORIGINALID=Instance.ID and Approve.BUSINESSTYPEID=Business.ID and Approve.APPROVEPEOPLEID=USERS.ID and Approve.ROLEID=Role.ID and Approve.State=1 ", Orderby = " Approve.ID desc" };
 
         public ApproveController(IApprove approve, IPoliceCase policeCase)
         {
@@ -39,9 +39,11 @@ namespace FPS.UI.Controllers
             _policeCase = policeCase;
         }
 
-        public IActionResult GetApproveList()
+        public IActionResult GetApproveList(int id=1)
         {
-            int loginRole = 1;
+            pageParams.CurPage = id;
+            pageParams.Filter += "  and Approve.RoleId=" + loginRoleId;
+            pageParams.PageSize = pageSize;
             List<ApproveDataModel> list = _approve.GetApproveList(loginRole);
             return View(list);
         }
