@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
 using FPS.Models;
+using FPS.UI;
 using FPS.IServices;
 using FPS.Services;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -26,7 +27,6 @@ namespace FPS.UI.Controllers
         /// <returns></returns>
         public IActionResult AddAuthority()
         {
-            //AddAuthority();
              GetAuthorityList();
             return View();
         }
@@ -71,5 +71,74 @@ namespace FPS.UI.Controllers
                        };
             ViewBag.Authority = linq.ToList();
         }
+       /// <summary>
+       /// 添加角色&&角色赋予权限显示
+       /// </summary>
+       /// <returns></returns>
+        public IActionResult AddRole()
+        {
+            GetRoleList();
+            List<Authority> authoritylist = new List<Authority>();
+            authoritylist = _jurisdiction.GetAuthority();
+            return View(authoritylist);
+        }
+        [HttpPost]
+        public int AddRole(string name, string qxid)
+        {
+            AddRole();
+            int i = _jurisdiction.AddRole(name, qxid);
+            return i;
+        }
+        /// <summary>
+        /// 显示角色
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult GetRole()
+        {
+            List<Role> role = new List<Role>();
+            role = _jurisdiction.GetRole();
+            return View(role);
+        }
+        /// <summary>
+        /// 获取角色下拉
+        /// </summary>
+        /// <param name="gid"></param>
+        public void GetRoleList(int gid=0)
+        {
+            List<Role> list = new List<Role>();
+            list = _jurisdiction.GetRoleList(gid);
+            var linq = from s in list
+                       select new SelectListItem
+                       {
+                           Text = s.RoleName,
+                           Value = s.ID.ToString()
+                       };
+            ViewBag.role = linq.ToList();
+        }
+        /// <summary>
+        /// 添加用户
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult AddUser()
+        {
+            GetRoleList();
+            return View();
+        }
+        [HttpPost]
+        public int AddUser(Users users, string role)
+        {
+            GetRoleList();
+            int i = _jurisdiction.AddUser(users,role);
+            return i;
+        }
+
+        /// <summary>
+        /// 显示用户
+        /// </summary>
+        /// <returns></returns>
+        //public IActionResult GetUser()
+        //{
+        //    List<>
+        //}
     }
 }

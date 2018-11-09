@@ -20,7 +20,7 @@ namespace FPS.Models
         /// </summary>
         public int UserId { get; set; }
         /// <summary>
-        /// 状态
+        /// 角色名
         /// </summary>
         public int RoleId { get; set; }
     }
