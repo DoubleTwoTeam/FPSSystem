@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using FPS.Models;
+using FPS.Models.DTO;
 
 namespace FPS.IServices
 {
@@ -28,7 +29,7 @@ namespace FPS.IServices
         /// 审批显示
         /// </summary>
         /// <returns></returns>
-        List<ApproveDataModel> GetApproveList(int loginRole);
+        PageList<ApproveDataModel> GetApproveList(PageParams pageParams);
 
         /// <summary>
         /// 点击审批页面的某个详情进入查看案情

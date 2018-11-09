@@ -12,13 +12,7 @@ namespace FPS.Models.DTO
     /// <typeparam name="T"></typeparam>
     public class PageList<T>
     {
-<<<<<<< HEAD
         public List<T> ListData { get; set; }
         public int TotalCount { get; set; }
-=======
-        public List<T> listData { get; set; }
-
-        public int totalCount { get; set; }
->>>>>>> b57e63695203ad7e6896a609262b9525b1435ec0
     }
 }

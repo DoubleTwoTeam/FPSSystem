@@ -43,5 +43,11 @@ namespace FPS.IServices
         /// <param name="instance"></param>
         /// <returns></returns>
         int UpdateinStance(Instance instance);
+
+        /// <summary>
+        /// 获取类型表(立案、结案)
+        /// </summary>
+        /// <returns></returns>
+        List<Business> GetBusinessesList();
     }
 }

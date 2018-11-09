@@ -26,23 +26,6 @@ namespace FPS.Services
         //{
         //    var db = SugerBase.GetInstance();
 
-<<<<<<< HEAD
-        //    //SugarParameter[] parameter = new SugarParameter[7];
-        //    //parameter[0] = new SugarParameter("page",pageparams.PageIndex);
-        //    //parameter[1] = new SugarParameter("pageSize", pageparams.PageSize);
-        //    //parameter[2] = new SugarParameter("tableName", pageparams.TableName);
-        //    //parameter[3] = new SugarParameter("strWhere ", pageparams.StrWhere);
-        //    //parameter[4] = new SugarParameter("Orderby", pageparams.OrderCol);
-        //    //parameter[5]=  new SugarParameter("numCount", pageparams.PageCount,true);
-        //    //parameter[6]=  new SugarParameter("v_cur", OracleDbType.RefCursor, true);
-=======
-            SugarParameter[] parameter = new SugarParameter[5];
-            parameter[0] = new SugarParameter("page",pageparams.Page);
-            parameter[1] = new SugarParameter("pageSize",pageparams.PageSize);
-            parameter[2] = new SugarParameter("tableName", pageparams.TableName);
-            parameter[3] = new SugarParameter("strWhere ", pageparams.StrWhere);
-            parameter[4] = new SugarParameter("Orderby", pageparams.Orderby);
->>>>>>> b57e63695203ad7e6896a609262b9525b1435ec0
 
         //    //var pageList = db.Ado.UseStoredProcedure().SqlQuery<T>("PAGER22", parameter);
 
