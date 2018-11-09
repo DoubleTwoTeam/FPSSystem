@@ -24,33 +24,6 @@
 
     <div class="rightinfo">
 
-        <ul class="prosearch">
-            <li>
-                <i>转递时间</i><a><input name="" type="text" class="scinput" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" /></a>
-                <i>身份证号</i><a><input name="" type="text" class="scinput" /></a>
-                <i>姓名</i><a><input name="" type="text" class="scinput" /></a>
-
-                <a><input name="" type="button" class="sure" value="查询" style="background:#417EB5;" /></a>
-            </li>
-
-        </ul>
-
-        <ul class="prosearch">
-            <li>
-                <i>联系电话</i><a><input name="" type="text" class="scinput" /></a>
-                <i>反馈编号</i><a><input name="" type="text" class="scinput" /></a>
-
-            </li>
-            <li>
-                性别：
-                <input name="sex" type="radio" value="1" id="sex1" />&nbsp;&nbsp;<label for="sex1">男</label>&nbsp;&nbsp;
-                <input name="sex" type="radio" value="2" id="sex2" />&nbsp;&nbsp;<label for="sex2">女</label>&nbsp;&nbsp;
-
-            </li>
-            <li>
-                <a><input name="reset" type="reset" class="sure" value="清空" style="background:#417EB5;margin-left: 25px;" /></a>
-            </li>
-        </ul>
         <table class="tablelist">
             <thead>
                 <tr>
@@ -92,8 +65,8 @@
                     }
 
                     <td>
-                        @Html.ActionLink("通过", "PassApprove", new { id = item.ID, bussiness = item.BusinessID })
-                        @Html.ActionLink("驳回", "NoApprove", new { id = item.ID })
+                        @Html.ActionLink("通过", "PassApprove", new { id = item.ID, bussiness = item.BusinessID,inStanceId=item.InstanceID })
+                        @Html.ActionLink("驳回", "NoApprove", new { id = item.ID,inStanceId = item.InstanceID })
                     </td>
                 </tr>
                 }

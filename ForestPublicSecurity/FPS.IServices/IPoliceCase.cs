@@ -29,5 +29,19 @@ namespace FPS.IServices
         /// </summary>
         /// <returns></returns>
         List<InstanceDataModel> GetInstanceList();
+
+        /// <summary>
+        /// 根据ID查询对应的案件
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Instance GetInstanceById(int id);
+
+        /// <summary>
+        /// 对相应的案件进行更改
+        /// </summary>
+        /// <param name="instance"></param>
+        /// <returns></returns>
+        int UpdateinStance(Instance instance);
     }
 }
