@@ -37,8 +37,18 @@ namespace FPS.IServices
         /// <returns></returns>
         InstanceDataModel GetInstanceById(int id);
 
+        /// <summary>
+        /// 获取配置表符合条件的第一个
+        /// </summary>
+        /// <param name="placed"></param>
+        /// <returns></returns>
         ApproveCourse GetApproveCoursesList(int placed);
 
+        /// <summary>
+        /// 根据ID查询审批表
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         Approve GetApproveById(int id);
         
 

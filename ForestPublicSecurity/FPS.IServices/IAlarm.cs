@@ -28,7 +28,7 @@ namespace FPS.IServices
         /// 显示报警内容
         /// </summary>
         /// <returns></returns>
-        PageList<T> PagingCommon<T>(PageParams pageparams);
+       // PageList<T> PagingCommon<T>(PageParams pageparams);
 
         /// <summary>
         /// 反填显示

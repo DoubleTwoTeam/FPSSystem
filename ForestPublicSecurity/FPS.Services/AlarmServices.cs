@@ -18,11 +18,11 @@ namespace FPS.Services
         /// 显示功能
         /// </summary>
         /// <returns></returns>
-        public PageList<Alarm> PagingCommon<Alarm>(PageParams pageparams)
-        {
-            var reimbursepagedList = PageCommon.PagingCommon<Alarm>(pageparams);
-            return reimbursepagedList;
-        }
+        //public PageList<Alarm> PagingCommon<Alarm>(PageParams pageparams)
+        //{
+        //    var reimbursepagedList = PageCommon.PagingCommon<Alarm>(pageparams);
+        //    return reimbursepagedList;
+        //}
         /// <summary>
         /// 反填显示
         /// </summary>

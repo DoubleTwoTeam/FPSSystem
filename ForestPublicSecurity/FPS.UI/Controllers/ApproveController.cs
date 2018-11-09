@@ -13,9 +13,12 @@ namespace FPS.UI.Controllers
     {
         private readonly IApprove _approve;
 
-        public ApproveController(IApprove approve)
+        private readonly IPoliceCase _policeCase;
+
+        public ApproveController(IApprove approve,IPoliceCase policeCase)
         {
             _approve = approve;
+            _policeCase = policeCase;
         }
 
         public IActionResult GetApproveList()
@@ -29,7 +32,7 @@ namespace FPS.UI.Controllers
         /// <param name="id"></param>
         /// <param name="bussiness"></param>
         /// <returns></returns>
-        public void PassApprove(int id, int bussiness)
+        public void PassApprove(int id, int bussiness,int inStanceId)
         {
             int loginRoleId = 2;
             int userID = 2;
@@ -40,14 +43,21 @@ namespace FPS.UI.Controllers
                 if (approveCourse.PostpositionID == 0)
                 {
                     approve.Ideas = "";
-                    approve.State = "3";
+                    approve.State = "2";
                     approve.RoleId = loginRoleId;
                     approve.ApprovePeopleId = userID;
                     approve.Time = DateTime.Now;
                     int result = _approve.UpdateApprove(approve);
                     if (result>0)
                     {
-                        Content("<script>alert('审核通过！')</script>");
+                        Instance instance = _policeCase.GetInstanceById(inStanceId);
+                        instance.ApproveState = 2;
+                        int i = _policeCase.UpdateinStance(instance);
+                        if (i>0)
+                        {
+                            Content("<script>alert('审核通过！')</script>");
+                        }
+                        
                     }
                 }
                 else
@@ -63,11 +73,44 @@ namespace FPS.UI.Controllers
                     {
                         
                         Content("<script>alert('您的审核通过！正在进行下一级审核')</script>");
-                        PassApprove(approve.ID, approve.BusinesstypeId);
+                        PassApprove(approve.ID, approve.BusinesstypeId,inStanceId);
                     }
                     
                 }
             }
+        }
+
+        /// <summary>
+        /// 驳回
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="inStanceId"></param>
+        public void NoApprove(int id,int inStanceId)
+        {
+            Approve approve = _approve.GetApproveById(id);
+            approve.State = "3";
+            int result = _approve.UpdateApprove(approve);
+            if (result>0)
+            {
+                Instance instance = _policeCase.GetInstanceById(inStanceId);
+                instance.ApproveState = 3;
+                int i = _policeCase.UpdateinStance(instance);
+                if (i>0)
+                {
+                    Content("<script>alert('已驳回！')</script>");
+                }
+            }
+            else
+            {
+                Content("<script>alert('驳回失败！')</script>");
+            }
+        }
+
+
+        public IActionResult GetInstanceById(int id)
+        {
+
+            return View();
         }
     }
 }

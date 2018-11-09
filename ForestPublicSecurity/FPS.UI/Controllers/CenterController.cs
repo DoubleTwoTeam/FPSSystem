@@ -12,16 +12,23 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using System.Net.Http.Headers;
 using System.IO;
+using FPS.Models.DTO;
+using System.Data.OracleClient;
+using System.Data;
+using Newtonsoft.Json;
+using FPS.UI.Common;
 
 namespace FPS.UI.Controllers
 {
     public class CenterController : Controller
     {
         private IHostingEnvironment hostingEnvironment;
+        private IPageHelper _pageHelper;
         private readonly IStudent _student;
 
-        public CenterController(IStudent student, IHostingEnvironment env)
+        public CenterController(IStudent student, IPageHelper pageHelper, IHostingEnvironment env)
         {
+            _pageHelper = pageHelper;
             _student = student;
             this.hostingEnvironment = env;
         }
@@ -32,6 +39,9 @@ namespace FPS.UI.Controllers
         /// <returns></returns>
         public IActionResult Index()
         {
+            //PageParams pageParams = new PageParams() { CurPage=1,Fields="ID,Name,Sex",Filter="",PageSize=4,Sort="ID desc",TableName="student"};
+            //var result=_pageHelper.InfoList<Student>(pageParams);
+
             ViewBag.Name = _student.GetStudentName();
             return View();
         }
