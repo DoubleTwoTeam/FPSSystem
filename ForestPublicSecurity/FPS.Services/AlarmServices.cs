@@ -15,15 +15,6 @@ namespace FPS.Services
     public class AlarmServices : IAlarm
     {
         /// <summary>
-        /// 显示功能
-        /// </summary>
-        /// <returns></returns>
-        //public PageList<Alarm> PagingCommon<Alarm>(PageParams pageparams)
-        //{
-        //    var reimbursepagedList = PageCommon.PagingCommon<Alarm>(pageparams);
-        //    return reimbursepagedList;
-        //}
-        /// <summary>
         /// 反填显示
         /// </summary>
         /// <param name="id"></param>
@@ -66,7 +57,6 @@ namespace FPS.Services
         /// </summary>
         /// <param name="alarm"></param>
         /// <returns></returns>
-
         public int UptAlarm(Alarm alarm)
         {
             var db = SugerBase.GetInstance();
@@ -89,13 +79,6 @@ namespace FPS.Services
             };
             var ruselt = db.Updateable(updateAlarm).ExecuteCommand();
             return ruselt;
-        }
-
-        public List<Alarm> GetAlarms()
-        {
-            var db = SugerBase.GetInstance();
-            var getAll = db.Queryable<Alarm>().ToList();
-            return getAll;
         }
     }
 }
