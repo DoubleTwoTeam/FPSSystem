@@ -29,7 +29,7 @@ namespace FPS.IServices
         /// 审批显示
         /// </summary>
         /// <returns></returns>
-        PageList<ApproveDataModel> GetApproveList(PageParams pageParams);
+        //PageList<ApproveDataModel> GetApproveList(PageParams pageParams);
 
         /// <summary>
         /// 点击审批页面的某个详情进入查看案情
