@@ -22,21 +22,17 @@ namespace FPS.Models.DTO
         /// 过滤条件
         /// </summary>
         public string Filter { get; set; }
-
+        
         /// <summary>
         /// 页的大小
         /// </summary>
         public int PageSize { get; set; } = 10;
 
         /// <summary>
-        /// 当前页面
-        /// </summary>
-        public int Page { get; set; } = 0;
-
-        /// <summary>
         /// 排序字段
         /// </summary>
         public string Sort { get; set; }
+
         public string Orderby { get; set; } = "id desc";
 
         /// <summary>

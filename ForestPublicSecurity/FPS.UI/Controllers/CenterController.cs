@@ -39,7 +39,7 @@ namespace FPS.UI.Controllers
         /// <returns></returns>
         public IActionResult Index()
         {
-            //PageParams pageParams = new PageParams() { CurPage=1,Fields="ID,Name,Sex",Filter="",PageSize=4,Sort="ID desc",TableName="student"};
+            //PageParams pageParams = new PageParams() { CurPage=1,Fields="ID,Name,Sex",Filter="",PageSize=4,Orderby="ID desc",TableName="student"};
             //var result=_pageHelper.InfoList<Student>(pageParams);
 
             ViewBag.Name = _student.GetStudentName();
@@ -91,7 +91,7 @@ namespace FPS.UI.Controllers
         public ActionResult CallPolice(Alarm alarm, IFormFile fileinput)
         {
             // 文件大小
-            long size = 0;
+            //long size = 0;
             // 原文件名（包括路径）
             var filename = ContentDispositionHeaderValue.Parse(fileinput.ContentDisposition).FileName;
             // 扩展名

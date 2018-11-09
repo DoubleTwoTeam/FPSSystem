@@ -17,24 +17,26 @@
 <body onLoad="sendRequest()">
 
     <div class="videozz"></div>
-    <video autoplay muted loop poster="~/assets/images/fallba1ck.jpg"  style="width: 100%; height:100%; object-fit: fill">
-        <source src="~/assets/images/bg.mp4" >
-        你的游览器不支持video支持
-    </video>
+    @*<video autoplay muted loop poster="~/assets/images/fallba1ck.jpg"  style="width: 100%; height:100%; object-fit: fill">
+            <source src="~/assets/images/bg.mp4" >
+            你的游览器不支持video支持
+        </video>*@
+    <figure class="absolute-bg" style="background-image: url('/police/images/photo.jpg');"></figure>
+
 
     <div class="box">
         <div class="box-a">
             <div class="m-2">
                 <div class="m-2-1">
-                    <form action="/BackWebSet/Login" method="post">
+                    <form action="/BackWebSet/Log`in" method="post">
                         <div class="m-2-2">
-                            <input type="text" placeholder="请输入账号" name="name"/>
+                            <input type="text" placeholder="请输入账号" autocomplete="off" name="name" />
                         </div>
                         <div class="m-2-2">
-                            <input type="password" placeholder="请输入密码" name="pwd"/>
+                            <input type="password" placeholder="请输入密码" autocomplete="off" name="pwd" />
                         </div>
                         <div class="m-2-2-1">
-                            <input type="text" placeholder="请输入验证码" />
+                            <input type="text" autocomplete="off" placeholder="请输入验证码" />
                             <img src="~/assets/images/1.png" />
                         </div>
                         <div class="m-2-2">
