@@ -61,5 +61,13 @@ namespace FPS.IServices
         /// </summary>
         /// <returns></returns>
         List<UserAndRole> ShowUserAndRole();
+        /// <summary>
+        /// 修改用户状态
+        /// </summary>
+        /// <param name="tablename"></param>
+        /// <param name="byid"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        int UpdateUserState(string tablename, string byid, string id);
     }
 }
