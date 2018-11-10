@@ -15,7 +15,7 @@
 <body>
     @using (Html.BeginForm())
     {
-        
+
         <div class="place">
             <span>位置：</span>
             <ul class="placeul">
@@ -27,41 +27,18 @@
             </ul>
         </div>
 
-        <div class="formbody">
-
-
+        <div class="formbody" id="app">
             <div id="usual1" class="usual">
-
-
                 <div id="tab1" class="tabson">
 
                     <ul class="forminfo">
                         <li>
                             <label>案件等级<b>*</b></label>
-
-                            <select name="" style="border: 1px solid #C3AB7D;padding:7px 10px 7px 10px;">
-                                <option value="0">请选择</option>
-                                <option value="1">一级</option>
-                                <option value="2">二级</option>
-                                <option value="3">三级</option>
-                                <option value="4">四级</option>
-                                <option value="5">五级</option>
-                            </select>
                             @Html.DropDownListFor(m => m.InstanceTypes, ViewBag.inStanceType as List<SelectListItem>, new { style = "border: 1px solid #C3AB7D;padding:7px 10px 7px 10px;" })
                         </li>
                         <li>
-                            <label>预警颜色<b>*</b></label>
-
-                            <select name="" style="border: 1px solid #C3AB7D;padding:7px 10px 7px 10px;">
-                                <option value="0">请选择</option>
-                                <option value="1" style="background:red;color:red;">红色</option>
-                                <option value="2" style="background:orangered;color:orangered;">橙色</option>
-                                <option value="3" style="background:yellow;color:yellow;">黄色</option>
-                                <option value="4" style="background:blue;color:blue;">蓝色</option>
-                                <option value="5" style="background:green;color:green;">绿色</option>
-                                <option value="6" style="background:black;color:black;">黑色</option>
-                            </select>
-
+                            <label>案件状态<b>*</b></label>
+                            @Html.DropDownListFor(m => m.InstanceState, ViewBag.businesses as List<SelectListItem>, new { style = "border: 1px solid #C3AB7D;padding:7px 10px 7px 10px;" })
                         </li>
                     </ul>
                 </div>
@@ -71,9 +48,9 @@
 
     <script src="~/js/jquery-3.3.1.js"></script>
     <script src="~/js/jquery.unobtrusive-ajax.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    <script src="~/vue/vue.js"></script>
+    <script src="~/vue/axios.js"></script>
     <script>
-
     </script>
 
 </body>

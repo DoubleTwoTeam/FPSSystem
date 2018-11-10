@@ -22,20 +22,13 @@ namespace FPS.IServices
         /// <returns></returns>
         int InsertAlarm(Alarm alarm);
 
-        List<Alarm> GetAlarms();
-
-        /// <summary>
-        /// 显示报警内容
-        /// </summary>
-        /// <returns></returns>
-       // PageList<T> PagingCommon<T>(PageParams pageparams);
-
         /// <summary>
         /// 反填显示
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         DataTable GetUptAlarm(int id);
+
         /// <summary>
         /// 操作报警内容
         /// </summary>
