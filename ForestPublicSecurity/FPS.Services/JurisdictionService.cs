@@ -117,9 +117,10 @@ namespace FPS.Services
             foreach (var item in ids)
             {
                 int intId = Convert.ToInt32(item);
-                var updateUserState = db.SqlQueryable<int>("update "+ tablename + " set state=0 where "+ byid + "= "+ intId).First();
+                //var updateUserState = db.SqlQueryable<int>("update "+ tablename + " set state=0 where "+ byid + "= "+ intId).First();
                 
             }
+            return 1;
         }
 
         /// <summary>

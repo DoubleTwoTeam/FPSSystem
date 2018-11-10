@@ -90,7 +90,7 @@ namespace FPS.UI.Controllers
                             Content("<script>alert('审核通过！')</script>");
                         }
                     }
-                }+
+                }
                 else
                 {
                     approve.Ideas = "";
