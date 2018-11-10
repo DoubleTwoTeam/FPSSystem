@@ -2,7 +2,7 @@
 @{
     Layout = null;
 }
-@model List<FPS.Models.RoleAndAuthority>
+@model List<FPS.Models.UserAndRole>
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -25,7 +25,7 @@
         </ul>
     </div>
     <div id="divData">
-        @{ await Html.RenderPartialAsync("_ShowGetRole", Model); }
+        @{ await Html.RenderPartialAsync("_ShowGetUser", Model); }
     </div>
 </body>
 

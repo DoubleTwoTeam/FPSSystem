@@ -41,6 +41,17 @@ namespace FPS.UI.Controllers
             return View(alarmlist);
         }
 
+        /// <summary>
+        /// 添加
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="phone"></param>
+        /// <param name="idcard"></param>
+        /// <param name="detailSplace"></param>
+        /// <param name="beginTime"></param>
+        /// <param name="endTime"></param>
+        /// <param name="pageIndex"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Index(string name="",string phone="",string idcard="",string detailSplace = "",string beginTime="",string endTime="",int pageIndex = 1)
         {

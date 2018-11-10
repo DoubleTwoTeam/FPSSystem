@@ -13,22 +13,41 @@
     <link href="~/assets/css/style.css" rel="stylesheet" />
     <script type="text/javascript" src="~/assets/js/jquery-1.8.3.min.js"></script>
     <script type="text/javascript" src="~/js/jquery-3.3.1.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="~/dist/Layer/js/css/default.css" />
+    <link rel="stylesheet" type="text/css" href="~/dist/Layer/js/css/component.css" />
+    <script src="~/dist/Layer/js/modernizr.custom.js"></script>
+    <script src="~/dist/Layer/js/js/classie.js"></script>
+    <script src="~/dist/Layer/js/js/modalEffects.js"></script>
 </head>
 <body onLoad="sendRequest()">
 
     <div class="videozz"></div>
-    @*<video autoplay muted loop poster="~/assets/images/fallba1ck.jpg"  style="width: 100%; height:100%; object-fit: fill">
-            <source src="~/assets/images/bg.mp4" >
-            你的游览器不支持video支持
-        </video>*@
-    <figure class="absolute-bg" style="background-image: url('/police/images/photo.jpg');"></figure>
-
+    <video autoplay muted loop poster="~/assets/images/fallba1ck.jpg" style="width: 100%; height:100%; object-fit: fill">
+        <source src="~/assets/images/bg.mp4">
+        你的游览器不支持video支持
+    </video>
+    @*<figure class="absolute-bg" style="background-image: url('/police/images/photo.jpg');"></figure>*@
+    <div class="md-modal md-effect-20" id="modal-20">
+        <div class="md-content">
+            <h3>登录成功!</h3>
+            <div>
+                <p>登录成功。登录成功:</p>
+                <ul>
+                    <li><strong>登录成功:</strong> 登录成功，登录成功</li>
+                    <li><strong>登录成功:</strong> 登录成功,登录成功,登录成功。</li>
+                    <li><strong>登录成功:</strong> 登录成功</li>
+                </ul>
+                <button class="md-close">关 闭</button>
+            </div>
+        </div>
+    </div>
 
     <div class="box">
         <div class="box-a">
             <div class="m-2">
                 <div class="m-2-1">
-                    <form action="/BackWebSet/Log`in" method="post">
+                    <form action="/BackWebSet/Login" method="post">
                         <div class="m-2-2">
                             <input type="text" placeholder="请输入账号" autocomplete="off" name="name" />
                         </div>

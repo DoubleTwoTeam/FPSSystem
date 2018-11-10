@@ -21,6 +21,18 @@ namespace FPS.Services
             return name;
         }
 
+        /// <summary>
+        /// 添加报警
+        /// </summary>
+        /// <param name="alarm"></param>
+        /// <returns></returns>
+        public int AddCallPolice(Alarm alarm)
+        {
+            var db = SugerBase.GetInstance();
+            var result = db.Insertable<Alarm>(alarm);
+            return result.ExecuteCommand();
+        }
+
         //public List<Student> Fen()
         //{
         //    var db = SugerBase.GetInstance();

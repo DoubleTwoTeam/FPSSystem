@@ -89,14 +89,13 @@ namespace FPS.UI.Controllers
                         {
                             Content("<script>alert('审核通过！')</script>");
                         }
-
                     }
                 }
                 else
                 {
                     approve.Ideas = "";
                     approve.State = "1";
-                    approve.RoleId = loginRoleId;
+                    approve.RoleId = approveCourse.ApproveRoleId; 
                     approve.ApprovePeopleId = approveCourse.ApproveRoleId;
                     approve.Time = DateTime.Now;
                     approve.PlaceID = approveCourse.PostpositionID;
@@ -105,7 +104,7 @@ namespace FPS.UI.Controllers
                     {
 
                         Content("<script>alert('您的审核通过！正在进行下一级审核')</script>");
-                        PassApprove(approve.ID, approve.BusinesstypeId, inStanceId);
+                        //PassApprove(approve.ID, approve.BusinesstypeId, inStanceId);
                     }
 
                 }
