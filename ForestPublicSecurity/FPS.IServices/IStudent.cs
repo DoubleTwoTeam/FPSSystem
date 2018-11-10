@@ -11,5 +11,6 @@ namespace FPS.IServices
     {
         string GetStudentName();
         //List<Student> Fen();
+        int AddCallPolice(Alarm alarm);
     }
 }
