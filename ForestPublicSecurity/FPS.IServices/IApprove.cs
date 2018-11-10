@@ -24,11 +24,15 @@ namespace FPS.IServices
         /// <param name="approve"></param>
         /// <returns></returns>
         int UpdateApprove(Approve approve);
-
+        
         /// <summary>
         /// 审批显示
         /// </summary>
         /// <returns></returns>
+        ///// <summary>
+        ///// 审批显示
+        ///// </summary>
+        ///// <returns></returns>
         //PageList<ApproveDataModel> GetApproveList(PageParams pageParams);
 
         /// <summary>

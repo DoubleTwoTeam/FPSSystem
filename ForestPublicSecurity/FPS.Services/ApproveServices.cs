@@ -26,7 +26,6 @@ namespace FPS.Services
             ApproveCourse approveCourse = db.Queryable<ApproveCourse>().Where(m=>m.ID==placed).Single();
             return approveCourse;
         }
-
         /// <summary>
         /// 审批页面显示
         /// </summary>
@@ -41,7 +40,7 @@ namespace FPS.Services
 
         //    return null;
         //}
-        
+
 
         /// <summary>
         /// 审批页面点击查看案件详情页面
