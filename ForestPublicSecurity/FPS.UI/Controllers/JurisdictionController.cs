@@ -21,6 +21,7 @@ namespace FPS.UI.Controllers
         {
             return View();
         }
+
         /// <summary>
         /// 添加权限
         /// </summary>
@@ -71,6 +72,7 @@ namespace FPS.UI.Controllers
                        };
             ViewBag.Authority = linq.ToList();
         }
+
        /// <summary>
        /// 添加角色&&角色赋予权限显示
        /// </summary>
@@ -89,6 +91,7 @@ namespace FPS.UI.Controllers
             int i = _jurisdiction.AddRole(name, qxid);
             return i;
         }
+
         /// <summary>
         /// 显示角色
         /// </summary>
@@ -99,6 +102,7 @@ namespace FPS.UI.Controllers
             role = _jurisdiction.GetRole();
             return View(role);
         }
+
         /// <summary>
         /// 获取角色下拉
         /// </summary>
@@ -115,6 +119,7 @@ namespace FPS.UI.Controllers
                        };
             ViewBag.role = linq.ToList();
         }
+
         /// <summary>
         /// 添加用户
         /// </summary>
@@ -136,9 +141,22 @@ namespace FPS.UI.Controllers
         /// 显示用户
         /// </summary>
         /// <returns></returns>
-        //public IActionResult GetUser()
-        //{
-        //    List<>
-        //}
+        public IActionResult GetUser()
+        {
+            List<UserAndRole> userAndRoles = new List<UserAndRole>();
+            userAndRoles = _jurisdiction.ShowUserAndRole();
+            return View(userAndRoles);
+        }
+        /// <summary>
+        /// 显示用户
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public IActionResult GetUser(int id=1)
+        {
+            List<UserAndRole> userAndRoles = new List<UserAndRole>();
+            userAndRoles = _jurisdiction.ShowUserAndRole();
+            return PartialView("_ShowGetUser", userAndRoles);
+        }
     }
 }

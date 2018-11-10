@@ -71,11 +71,11 @@ namespace FPS.Services
             users.Spare = "";
             users.State = 0;
             var addtime = DateTime.Now.ToString("yyyy-MM-dd hh24:mi:ss");
-           var x =  db.Insertable<Users>(users);
+            var x =  db.Insertable<Users>(users);
             int i = db.Insertable(users).ExecuteCommand();
             if (i > 0)
             {
-                var newId = db.Queryable<Users>().Where(m => m.LoginName == users.LoginName).OrderBy("ID desc").Single().ID;
+                var newId = db.Queryable<Users>().Where(m => m.LoginName == users.LoginName).First();
                 string[] ids = roleid.Split(',');
 
                 int state = 0;
@@ -83,7 +83,7 @@ namespace FPS.Services
                 {
                     int itemid = Convert.ToInt32(item);
                     UserRole userRole = new UserRole();
-                    userRole.RoleId = Convert.ToInt32(roleid);
+                    userRole.RoleId = itemid;
                     state += db.Insertable(userRole).ExecuteCommand();
 
                 }
@@ -99,6 +99,26 @@ namespace FPS.Services
             else
             {
                 return 0;
+            }
+        }
+        
+        /// <summary>
+        /// 批量停用&用户
+        /// </summary>
+        /// <param name="tablename"></param>
+        /// <param name="byid"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public int UpdateUserState(string tablename, string byid, string id) 
+        {
+            var db = SugerBase.GetInstance();
+            string[] ids = id.Split(',');
+            int state = 0;
+            foreach (var item in ids)
+            {
+                int intId = Convert.ToInt32(item);
+                var updateUserState = db.SqlQueryable<int>("update "+ tablename + " set state=0 where "+ byid + "= "+ intId).First();
+                
             }
         }
 
@@ -156,8 +176,9 @@ namespace FPS.Services
         public List<UserAndRole> ShowUserAndRole()
         {
             var db = SugerBase.GetInstance();
-            var userlist = db.Queryable<UserAndRole>().ToList();
-            return userlist;
+            var userlist = db.SqlQueryable<UserAndRole>("select a.*,c.rolename from users a,userrole b,role c where a.id=b.userid and b.roleid=c.id");
+            return userlist.ToList();
         }
+
     }
 }
