@@ -98,9 +98,21 @@ namespace FPS.UI.Controllers
         /// <returns></returns>
         public IActionResult GetRole()
         {
-            List<Role> role = new List<Role>();
-            role = _jurisdiction.GetRole();
-            return View(role);
+            List<RoleAndAuthority> roleAuthorities = new List<RoleAndAuthority>();
+            roleAuthorities = _jurisdiction.GetRole();
+            return View(roleAuthorities);
+        }
+        /// <summary>
+        /// 显示角色
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public IActionResult GetRole(int id = 1)
+        {
+            List<UserAndRole> roleAuthorities = new List<UserAndRole>();
+            roleAuthorities = _jurisdiction.ShowUserAndRole();
+            return PartialView("_ShowGetRole", roleAuthorities);
         }
 
         /// <summary>

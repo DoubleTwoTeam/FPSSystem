@@ -35,7 +35,7 @@ namespace FPS.IServices
         /// 显示角色
         /// </summary>
         /// <returns></returns>
-        List<Role> GetRole();
+        List<RoleAndAuthority> GetRole();
 
         /// <summary>
         /// 添加角色
@@ -61,6 +61,7 @@ namespace FPS.IServices
         /// </summary>
         /// <returns></returns>
         List<UserAndRole> ShowUserAndRole();
+
         /// <summary>
         /// 修改用户状态
         /// </summary>

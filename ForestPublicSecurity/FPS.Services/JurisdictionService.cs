@@ -152,11 +152,11 @@ namespace FPS.Services
         /// 角色显示
         /// </summary>
         /// <returns></returns>
-        public List<Role> GetRole()
+        public List<RoleAndAuthority> GetRole()
         {
             var db = SugerBase.GetInstance();
-            var roles = db.Queryable<Role>().ToList();
-            return roles;
+            var rolelist = db.SqlQueryable<RoleAndAuthority>("select a.*,c.Name from role a,RoleAuthority b,Authority c where a.id=b.roleid and b.roleid=c.id");
+            return rolelist.ToList();
         }
 
         /// <summary>
