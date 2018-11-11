@@ -1,4 +1,4 @@
-﻿
+﻿@model  List<FPS.Models.InstanceDataModel>
 @{
     Layout = null;
 }
@@ -8,8 +8,90 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
+    <link href="~/police/css/style.css" rel="stylesheet" type="text/css" />
     <title>GetInstanceList</title>
 </head>
 <body>
+    <div class="place">
+        <span>位置：</span>
+        <ul class="placeul">
+            <li><a href="home.html">首页</a></li>
+            <li><a href="#">主动排查</a></li>
+            <li><a href="#">多元化排查</a></li>
+            <li><a href="#">转递记录管理</a></li>
+        </ul>
+    </div>
+
+    <div class="rightinfo">
+
+        <table class="tablelist">
+            <thead>
+                <tr>
+
+                    <th>案件ID<i class="sort"><img src="images/px.gif" /></i></th>
+                    <th>报警人</th>
+                    <th>报警地点</th>
+                    <th>立案人</th>
+                    <th>立案类型</th>
+                    <th>审批状态</th>
+                    <th>立案状态</th>
+                    <th>案件时间</th>
+                    <th>下载附件</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+
+                    <td>@item.ID</td>
+                    <td>@item.AlarmReason</td>
+                    <td>@item.DetailSplace</td>
+                    <td>@item.RealName</td>
+                    <td>@item.InstanceTypes</td>
+                    <td>@item.ApproveState</td>
+                    <td>@item.InstanceTime</td>
+                    <td>@item.Space</td>
+                    <td>
+                        @Html.ActionLink("结案", "PassApprove", new { id = item.ID})
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+
+
+        @*<div class="pagin">
+                <div class="message">共<i class="blue">1256</i>条记录，当前显示第&nbsp;<i class="blue">2&nbsp;</i>页</div>
+                <ul class="paginList">
+                    <li class="paginItem"><a href="javascript:;"><span class="pagepre"></span></a></li>
+                    <li class="paginItem"><a href="javascript:;">1</a></li>
+                    <li class="paginItem current"><a href="javascript:;">2</a></li>
+                    <li class="paginItem"><a href="javascript:;">3</a></li>
+                    <li class="paginItem"><a href="javascript:;">4</a></li>
+                    <li class="paginItem"><a href="javascript:;">5</a></li>
+                    <li class="paginItem more"><a href="javascript:;">...</a></li>
+                    <li class="paginItem"><a href="javascript:;">10</a></li>
+                    <li class="paginItem"><a href="javascript:;"><span class="pagenxt"></span></a></li>
+                </ul>
+            </div>*@
+
+
+
+    </div>
+    <script src="~/js/jquery-3.3.1.js"></script>
+    <script src="~/js/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/js/dist/lib/layer/2.4/layer.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    <script type="text/javascript">
+        $('.tablelist tbody tr:odd').addClass('odd');
+
+        /*队长/局长-查看案情*/
+        function Get_inStanceById(title, url, id, w, h) {
+            layer_show(title, url, w, h);
+        }
+    </script>
+
 </body>
 </html>

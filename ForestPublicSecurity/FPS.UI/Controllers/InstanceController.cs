@@ -51,7 +51,7 @@ namespace FPS.UI.Controllers
         /// </summary>
         PageParams pageParams = new PageParams()
         {
-            Fields = "select Instance.ID,Alarm.AlarmReason,Alarm.DetailSplace,Users.RealName,Instance.InstanceTypes,Instance.ApproveState,Instance.InstanceState,Instance.Time as InstanceTime",
+            Fields = "Instance.ID,Alarm.AlarmReason,Alarm.DetailSplace,Users.RealName,Instance.InstanceTypes,Instance.ApproveState,Instance.InstanceState,Instance.Time as InstanceTime,Instance.Space",
             TableName = " Instance,Alarm,Users",
             Filter = " Instance.AlterID=Alarm.ID and Instance.RegisterPeopleID=Users.ID",
             Orderby = "  Instance.ID desc"
