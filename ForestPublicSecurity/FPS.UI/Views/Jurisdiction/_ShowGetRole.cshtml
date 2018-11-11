@@ -1,0 +1,27 @@
+﻿@model List<FPS.Models.RoleAndAuthority>
+<table class="tablelist">
+    <tr>
+        <th>用户信息</th>
+    </tr>
+    <tr>
+        <th>ID</th>
+        <th>角色名称</th>
+        <th>权限名称</th>
+        <th>状态</th>
+        <th>操作</th>
+    </tr>
+    @{
+        if (Model != null)
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.ID</td>
+                    <td>@item.RoleName</td>
+                    <td>@item.Name</td>
+                    <td>@(item.State == 0 ? "启用" : "停用")</td>
+                    <td><a href="">修改</a><a href="">删除</a></td>
+                </tr>
+            }}
+    }
+</table>

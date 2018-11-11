@@ -78,6 +78,7 @@ namespace FPS.UI.Controllers
             {
                 str.Append(" and TIME between '" + beginTime + "' end '" + endTime + "'");
             }
+
             //拼接语句
             PageParams pageParams = new PageParams() { CurPage = pageIndex, Fields = "ID,ALARMREASON,DETAILSPLACE,ENCLOSURE,TIME,ALARMPEOPLE,PHONE,IDCARD,URL,SOLVEPEOPLEID,OUTID,OVERTIME,STATE", Filter = str.ToString(), PageSize = 4, Sort = "ID desc", TableName = "Alarm" };
             PageList<Alarm> pList = _pageHelper.InfoList<Alarm>(pageParams);

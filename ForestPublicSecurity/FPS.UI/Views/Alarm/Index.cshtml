@@ -12,20 +12,19 @@
     <link href="~/dist/layerStyle/css/component.css" type="text/css" rel="stylesheet" />
     <script src="~/dist/layerStyle/js/modernizr.custom.js"></script>
 
-
     <script src="~/js/jquery-3.3.1.js"></script>
     <script src="~/js/jquery.unobtrusive-ajax.js"></script>
     <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
     <script src="~/dist/My97DatePicker/WdatePicker.js"></script>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
 
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    @*Vue使用*@
+    <script src="~/vue/vue.js"></script>
+    <script src="~/vue/axios.js"></script>
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>天津市滨海新区公安塘沽分局矛盾纠纷系统</title>
     <link href="/police/css/style.css" rel="stylesheet" type="text/css" />
-
-
 
     <script type="text/javascript">
         $(document).ready(function () {
@@ -76,20 +75,20 @@
                 <i>报警时间</i><a><input name="beginTime" type="text" class="scinput" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" />—<input name="endTime" type="text" class="scinput" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" /></a>
             </li>
         </ul>
-        <table class="tablelist">
+        <table class="table table-bordered">
             <thead>
-                <tr>
-                    <td style="width:3%;">序号</td>
-                    <td style="width:15%;">报警地点</td>
-                    <td style="width:100px;">申报事项</td>
-                    <td style="width:5%;">报警人</td>
+                <tr class="text-center">
+                    <td style="width:5%;">序号</td>
+                    <td style="width:10%;">报警地点</td>
+                    <td style="width:15px;">申报事项</td>
+                    <td style="width:6%;">报警人</td>
                     <td style="width:8%;">联系方式</td>
-                    <td style="width:15%;">身份证号</td>
-                    <td style="width:9%;">报警时间</td>
-                    <td style="width:5%;">出警人</td>
-                    <td style="width:9%;">处理时间</td>
-                    <td style="width:5%;">状态</td>
-                    <td style="width:20px;">操作</td>
+                    <td style="width:10%;">身份证号</td>
+                    <td style="width:12%;">报警时间</td>
+                    <td style="width:6%;">出警人</td>
+                    <td style="width:12%;">处理时间</td>
+                    <td style="width:7%;">状态</td>
+                    <td style="width:9%;">操作</td>
                 </tr>
             </thead>
             <tbody>
@@ -105,10 +104,10 @@
                         <td>@item.Time.ToString("yyyy-MM-dd hh:mm")</td>
                         <td>@item.SolvePeopleId</td>
                         <td>@item.OverTime.ToString("yyyy-MM-dd hh:mm")</td>
-                        <td>@item.State</td>
+                        <td>@(item.State==0?"等待处理":(item.State==1?"处理中":(item.State == 2?"出警中":"已处理")))</td>
                         <td>
-                            <button class="md-trigger" data-modal="modal-2">从右侧滑动</button>
-                            <a><input name="" type="button" class="sure" value="出警" style="background:#ff0000;" /></a>
+                            <a><input type="button" class="md-trigger" style="background:#ff0000;height:25px;" data-modal="modal-2" value="从右侧滑动"></a>
+                            <a style="display:none;"><input name="" type="button" class="sure" value="出警" style="background:#ff0000;" /></a>
                             <a style="display:none;"><input name="" type="button" class="sure" value="归队" style="background:#417EB5;" /></a>
                         </td>
                     </tr>
@@ -116,6 +115,7 @@
             </tbody>
         </table>
         <div class="pagin">
+
             <div class="message">共<i class="blue">1256</i>条记录，当前显示第&nbsp;<i class="blue">2&nbsp;</i>页</div>
             <ul class="paginList">
                 <li class="paginItem"><a href="javascript:;"><span class="pagepre"></span></a></li>

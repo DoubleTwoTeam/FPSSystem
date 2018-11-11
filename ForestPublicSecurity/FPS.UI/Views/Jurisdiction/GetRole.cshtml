@@ -2,18 +2,31 @@
 @{
     Layout = null;
 }
-@model List<FPS.Models.Role>
-
+@model List<FPS.Models.RoleAndAuthority>
 <!DOCTYPE html>
 
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>GetRole</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>天津市滨海新区公安塘沽分局矛盾纠纷系统</title>
+    <link href="~/police/css/style.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <script src="~/js/dist/My97DatePicker/WdatePicker.js"></script>
 </head>
 <body>
-    <div>
 
+    <div class="place">
+        <span>位置：</span>
+        <ul class="placeul">
+            <li><a href="home.html">首页</a></li>
+            <li><a href="#">主动排查</a></li>
+            <li><a href="#">民警排查</a></li>
+            <li><a href="#">转递记录管理</a></li>
+        </ul>
+    </div>
+    <div id="divData">
+        @{ await Html.RenderPartialAsync("_ShowGetRole", Model); }
     </div>
 </body>
+
 </html>
