@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Http;
 using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
+using FPS.Models.DTO;
+using FPS.UI.Common;
 
 namespace FPS.UI.Controllers
 {
@@ -24,20 +26,47 @@ namespace FPS.UI.Controllers
 
         private readonly IApprove _approve;
 
-        public InstanceController(IPoliceCase policeCase,IHostingEnvironment hostingEnvironment,IApprove approve)
+        private readonly IPageHelper _pageHelper;
+
+        /// <summary>
+        /// 依赖注入
+        /// </summary>
+        /// <param name="policeCase"></param>
+        /// <param name="hostingEnvironment"></param>
+        /// <param name="approve"></param>
+        /// <param name="pageHelper"></param>
+        public InstanceController(IPoliceCase policeCase,IHostingEnvironment hostingEnvironment,IApprove approve, IPageHelper pageHelper)
         {
             _policeCase = policeCase;
             _hostingEnvironment = hostingEnvironment;
             _approve = approve;
+            _pageHelper = pageHelper;
         }
+
+        string loginRoleId = "1";//当前用户的权限ID
+        int pageSize = 8;//每页显示多少条数据
+
+        /// <summary>
+        /// 分页参数
+        /// </summary>
+        PageParams pageParams = new PageParams()
+        {
+            Fields = "Instance.ID,Alarm.AlarmReason,Alarm.DetailSplace,Users.RealName,Instance.InstanceTypes,Instance.ApproveState,Instance.InstanceState,Instance.Time as InstanceTime,Instance.Space",
+            TableName = " Instance,Alarm,Users",
+            Filter = " Instance.AlterID=Alarm.ID and Instance.RegisterPeopleID=Users.ID",
+            Orderby = "  Instance.ID desc"
+        };
 
         /// <summary>
         /// 案件显示页面
         /// </summary>
         /// <returns></returns>
-        public IActionResult GetInstanceList()
+        public IActionResult GetInstanceList(int id=1)
         {
-            List<InstanceDataModel> list= _policeCase.GetInstanceList();
+            pageParams.CurPage = id;
+            pageParams.PageSize = pageSize;
+            PageList<InstanceDataModel> pageList = _pageHelper.InfoList<InstanceDataModel>(pageParams);
+            List<InstanceDataModel> list = pageList.ListData;
             return View(list);
         }
 

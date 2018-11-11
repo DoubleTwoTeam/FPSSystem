@@ -14,8 +14,10 @@ namespace FPS.UI.Controllers
 {
     public class JurisdictionController : Controller
     {
+        /// <summary>
+        /// 依赖注入接口
+        /// </summary>
         public IJurisdiction _jurisdiction { get; set; }
-
         public JurisdictionController(IJurisdiction jurisdiction) => _jurisdiction = jurisdiction;
         public IActionResult Index()
         {
@@ -141,6 +143,7 @@ namespace FPS.UI.Controllers
             GetRoleList();
             return View();
         }
+
         [HttpPost]
         public int AddUser(Users users, string role)
         {
@@ -170,6 +173,18 @@ namespace FPS.UI.Controllers
             List<UserAndRole> userAndRoles = new List<UserAndRole>();
             userAndRoles = _jurisdiction.ShowUserAndRole();
             return PartialView("_ShowGetUser", userAndRoles);
+        }
+
+        /// <summary>
+        /// 修改用户状态为停用
+        /// </summary>
+        /// <param name="tablename"></param>
+        /// <param name="byid"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public void DeleteUser(string tablename,string byid, string id)
+        {
+            int state = _jurisdiction.DeleteUser(tablename, byid, id);
         }
     }
 }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using FPS.Models;
 using FPS.IServices;
+using SqlSugar;
 
 namespace FPS.Services
 {
@@ -27,7 +28,7 @@ namespace FPS.Services
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public int AddRole(string name,string qxid)
+        public int AddRole(string name, string qxid)
         {
             var db = SugerBase.GetInstance();
             Role role = new Role();
@@ -35,18 +36,18 @@ namespace FPS.Services
             int i = db.Insertable(role).ExecuteCommand();
             if (i > 0)
             {
-                var newId = db.Queryable<Role>().Where(m=>m.RoleName==name).OrderBy("ID desc").Single().ID;
+                var newId = db.Queryable<Role>().Where(m => m.RoleName == name).OrderBy("ID desc").Single().ID;
                 string[] qxids = qxid.Split(',');
                 int state = 0;
                 foreach (var item in qxids)
                 {
                     int id = Convert.ToInt32(item);
                     RoleAuthority roleAuthority = new RoleAuthority();
-                        roleAuthority.AuthorityId = id;
-                        roleAuthority.RoleId = Convert.ToInt32(newId);
+                    roleAuthority.AuthorityId = id;
+                    roleAuthority.RoleId = Convert.ToInt32(newId);
                     state += db.Insertable(roleAuthority).ExecuteCommand();//记录成功条数
                 }
-                if(qxids.Length==state)
+                if (qxids.Length == state)
                 {
                     return state;
                 }
@@ -71,7 +72,7 @@ namespace FPS.Services
             users.Spare = "";
             users.State = 0;
             var addtime = DateTime.Now.ToString("yyyy-MM-dd hh24:mi:ss");
-            var x =  db.Insertable<Users>(users);
+            var x = db.Insertable<Users>(users);
             int i = db.Insertable(users).ExecuteCommand();
             if (i > 0)
             {
@@ -101,7 +102,7 @@ namespace FPS.Services
                 return 0;
             }
         }
-        
+
         /// <summary>
         /// 批量停用&用户
         /// </summary>
@@ -109,18 +110,27 @@ namespace FPS.Services
         /// <param name="byid"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        public int UpdateUserState(string tablename, string byid, string id) 
+        public int DeleteUser(string tablename, string byid, string id)
         {
+            SqlSugarClient context = new SqlSugarClient(new ConnectionConfig()
+            {
+                ConnectionString = "Data Source=169.254.159.216/orcl;User ID=scott;Password=tiger;",
+                DbType = DbType.Oracle
+            });
+            context.Ado.IsEnableLogEvent = true;
+
+            SimpleClient<Users> simple = new SimpleClient<Users>(context);
+
             var db = SugerBase.GetInstance();
             string[] ids = id.Split(',');
             int state = 0;
             foreach (var item in ids)
             {
                 int intId = Convert.ToInt32(item);
-                //var updateUserState = db.SqlQueryable<int>("update "+ tablename + " set state=0 where "+ byid + "= "+ intId).First();
-                
+                //var updateUserState = db.SqlQueryable<int>("update " + tablename + " set state=0 where " + byid + "= " + intId).First();
+                state += (simple.Update(m => new Users() { State = 1 }, m => m.ID == intId)) ? 1 : 0;
             }
-            return 1;
+            return state;
         }
 
         /// <summary>
@@ -180,6 +190,28 @@ namespace FPS.Services
             var userlist = db.SqlQueryable<UserAndRole>("select a.*,c.rolename from users a,userrole b,role c where a.id=b.userid and b.roleid=c.id");
             return userlist.ToList();
         }
-
+        /// <summary>
+        /// 修改用户保存
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="users"></param>
+        /// <param name="roleid"></param>
+        /// <returns></returns>
+        public int UpdateUser(int id, Users users, string roleid)
+        {
+            var db = SugerBase.GetInstance();
+            UserAndRole userAndRole = new UserAndRole();
+            db.Updateable(userAndRole);
+            return 1;
+        }
+        /// <summary>
+        /// 修改用户反填
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public UserAndRole UpdateUserShow(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -12,6 +12,21 @@
     <link href="~/police/css/style.css" rel="stylesheet" />
     <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
     <script src="~/js/dist/My97DatePicker/WdatePicker.js"></script>
+    <script src="~/js/dist/lib/jquery/1.9.1/jquery.js"></script>
+
+    <script>
+        function stop(id) {
+            if (confirm("确认要停用用户吗？")) {
+                $.ajax({
+                    url: "/Jurisdiction/DeleteUser?tablename=USERS&byid=ID&id="+id,
+                    type: "get",
+                    success: function (data) {
+                        alert('停用成功');
+                    }
+                })
+            }     
+        }
+    </script>
 </head>
 <body>
 

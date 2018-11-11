@@ -69,6 +69,19 @@ namespace FPS.IServices
         /// <param name="byid"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        int UpdateUserState(string tablename, string byid, string id);
+        int DeleteUser(string tablename, string byid, string id);
+
+        /// <summary>
+        /// 修改用户反填
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        UserAndRole UpdateUserShow(int id);
+
+        /// <summary>
+        /// 修改用户保存
+        /// </summary>
+        /// <returns></returns>
+        int UpdateUser(int id,Users users, string roleid);
     }
 }
