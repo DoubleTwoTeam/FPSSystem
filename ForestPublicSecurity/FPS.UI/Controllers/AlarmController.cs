@@ -24,67 +24,87 @@ namespace FPS.UI.Controllers
             _pageHelper = pageHelper;
         }
 
-        /// <summary>
-        /// 报警显示
-        /// </summary>
-        /// <returns></returns>
-        public IActionResult Index(int pageIndex=1)
+        public JsonResult GetAlarmLis()
         {
+
+            //当前第几页
+            var pageIndex = 1;
+
             StringBuilder str = new StringBuilder();
             str.Append(" 1=1");
             //拼接字符串
-            PageParams pageParams = new PageParams() { CurPage = pageIndex, Fields = "ID,ALARMREASON,DETAILSPLACE,ENCLOSURE,TIME,ALARMPEOPLE,PHONE,IDCARD,URL,SOLVEPEOPLEID,OUTID,OVERTIME,STATE", Filter =str.ToString(), PageSize = 4, Sort = "ID desc", TableName = "Alarm" };
+            PageParams pageParams = new PageParams() { CurPage = pageIndex, Fields = "ID,ALARMREASON,DETAILSPLACE,ENCLOSURE,TIME,ALARMPEOPLE,PHONE,IDCARD,URL,SOLVEPEOPLEID,OUTID,OVERTIME,STATE", Filter = str.ToString(), PageSize = 5, Sort = "ID desc", TableName = "Alarm" };
             PageList<Alarm> pList = _pageHelper.InfoList<Alarm>(pageParams);
             var alarmlist = pList.ListData;
-            
+
             ViewBag.totalNumber = pList.TotalCount;
-            return View(alarmlist);
+            return Json(alarmlist);
         }
 
-        /// <summary>
-        /// 添加
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="phone"></param>
-        /// <param name="idcard"></param>
-        /// <param name="detailSplace"></param>
-        /// <param name="beginTime"></param>
-        /// <param name="endTime"></param>
-        /// <param name="pageIndex"></param>
-        /// <returns></returns>
-        [HttpPost]
-        public ActionResult Index(string name="",string phone="",string idcard="",string detailSplace = "",string beginTime="",string endTime="",int pageIndex = 1)
-        {
-            //拼接条件
-            StringBuilder str = new StringBuilder();
-            str.Append("");
-            if (!string.IsNullOrWhiteSpace(name))
-            {
-                str.Append(" and ALARMPEOPLE='" + name + "'");
-            }
-            if (!string.IsNullOrWhiteSpace(phone))
-            {
-                str.Append(" and PHONE='"+phone+"'");
-            }
-            if (!string.IsNullOrWhiteSpace(idcard))
-            {
-                str.Append(" and IDCARD='" + idcard + "'");
-            }
-            if (!string.IsNullOrWhiteSpace(detailSplace))
-            {
-                str.Append(" and DETAILSPLACE='" + detailSplace + "'");
-            }
-            if (!string.IsNullOrWhiteSpace(beginTime)&&!string.IsNullOrWhiteSpace(endTime))
-            {
-                str.Append(" and TIME between '" + beginTime + "' end '" + endTime + "'");
-            }
+    /// <summary>
+    /// 报警显示
+    /// </summary>
+    /// <returns></returns>
+    public IActionResult Index()
+    {
+        //当前第几页
+        var pageIndex = 1;
 
-            //拼接语句
-            PageParams pageParams = new PageParams() { CurPage = pageIndex, Fields = "ID,ALARMREASON,DETAILSPLACE,ENCLOSURE,TIME,ALARMPEOPLE,PHONE,IDCARD,URL,SOLVEPEOPLEID,OUTID,OVERTIME,STATE", Filter = str.ToString(), PageSize = 4, Sort = "ID desc", TableName = "Alarm" };
-            PageList<Alarm> pList = _pageHelper.InfoList<Alarm>(pageParams);
-            var alarmlist = pList.ListData;
+        StringBuilder str = new StringBuilder();
+        str.Append(" 1=1");
+        //拼接字符串
+        PageParams pageParams = new PageParams() { CurPage = pageIndex, Fields = "ID,ALARMREASON,DETAILSPLACE,ENCLOSURE,TIME,ALARMPEOPLE,PHONE,IDCARD,URL,SOLVEPEOPLEID,OUTID,OVERTIME,STATE", Filter = str.ToString(), PageSize = 5, Sort = "ID desc", TableName = "Alarm" };
+        PageList<Alarm> pList = _pageHelper.InfoList<Alarm>(pageParams);
+        var alarmlist = pList.ListData;
 
-            return View();
-        }
+        ViewBag.totalNumber = pList.TotalCount;
+        return View(alarmlist);
     }
+
+    /// <summary>
+    /// 添加
+    /// </summary>
+    /// <param name="name"></param>
+    /// <param name="phone"></param>
+    /// <param name="idcard"></param>
+    /// <param name="detailSplace"></param>
+    /// <param name="beginTime"></param>
+    /// <param name="endTime"></param>
+    /// <param name="pageIndex"></param>
+    /// <returns></returns>
+    [HttpPost]
+    public ActionResult Index(string name = "", string phone = "", string idcard = "", string detailSplace = "", string beginTime = "", string endTime = "", int pageIndex = 1)
+    {
+        //拼接条件
+        StringBuilder str = new StringBuilder();
+        str.Append("");
+        if (!string.IsNullOrWhiteSpace(name))
+        {
+            str.Append(" and ALARMPEOPLE='" + name + "'");
+        }
+        if (!string.IsNullOrWhiteSpace(phone))
+        {
+            str.Append(" and PHONE='" + phone + "'");
+        }
+        if (!string.IsNullOrWhiteSpace(idcard))
+        {
+            str.Append(" and IDCARD='" + idcard + "'");
+        }
+        if (!string.IsNullOrWhiteSpace(detailSplace))
+        {
+            str.Append(" and DETAILSPLACE='" + detailSplace + "'");
+        }
+        if (!string.IsNullOrWhiteSpace(beginTime) && !string.IsNullOrWhiteSpace(endTime))
+        {
+            str.Append(" and TIME between '" + beginTime + "' end '" + endTime + "'");
+        }
+
+        //拼接语句
+        PageParams pageParams = new PageParams() { CurPage = pageIndex, Fields = "ID,ALARMREASON,DETAILSPLACE,ENCLOSURE,TIME,ALARMPEOPLE,PHONE,IDCARD,URL,SOLVEPEOPLEID,OUTID,OVERTIME,STATE", Filter = str.ToString(), PageSize = 4, Sort = "ID desc", TableName = "Alarm" };
+        PageList<Alarm> pList = _pageHelper.InfoList<Alarm>(pageParams);
+        var alarmlist = pList.ListData;
+
+        return View();
+    }
+}
 }
