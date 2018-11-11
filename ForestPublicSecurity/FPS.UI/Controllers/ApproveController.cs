@@ -33,7 +33,6 @@ namespace FPS.UI.Controllers
 
         string loginRoleId = "1";//当前用户的权限ID
         int pageSize = 8;//每页显示多少条数据
-        int curge = 1;//当前页
         
         /// <summary>
         /// 依赖注入
@@ -53,10 +52,10 @@ namespace FPS.UI.Controllers
         /// </summary>
         PageParams pageParams = new PageParams()
         {
-            Fields = "Approve.ID,Instance.ID as InstanceID,Instance.RegisterPeopleID,Business.ID as BusinessID,Business.Name as BusinessName,Users.realName as UsersName,Role.Name as RoleName,Instance.InstanceTypes,Instance.InstanceTime,Instance.ApproveState",
+            Fields = "Approve.ID,Instance.ID as InstanceID,Instance.RegisterPeopleID,Business.ID as BusinessID,Business.Name as BusinessName,Users.realName as UsersName,Role.Rolename as RoleName,Instance.InstanceTypes,Instance.Time as InstanceTime,Instance.ApproveState",
             TableName = " Approve,Users,Instance,Business,Role",
             Filter = " Approve.ORIGINALID=Instance.ID and Approve.BUSINESSTYPEID=Business.ID and Approve.APPROVEPEOPLEID=USERS.ID and Approve.ROLEID=Role.ID and Approve.State=1 ",
-            Orderby = " Approve.ID desc"
+            Sort = " Approve.ID desc"
         };
 
         /// <summary>
@@ -153,17 +152,7 @@ namespace FPS.UI.Controllers
                 Content("<script>alert('驳回失败！')</script>");
             }
         }
-
-        /// <summary>
-        /// 分页参数
-        /// </summary>
-        PageParams pageParam = new PageParams()
-        {
-            Fields = "select Instance.ID,Alarm.AlarmReason,Alarm.DetailSplace,Users.RealName,Instance.InstanceTypes,Instance.ApproveState,Instance.InstanceState,Instance.Time as InstanceTime",
-            TableName = " Instance,Alarm,Users",
-            Filter = " where Instance.AlterID=Alarm.ID and Instance.RegisterPeopleID=Users.ID",
-            Orderby = " Approve.ID desc"
-        };
+        
 
         /// <summary>
         /// 获取案件详情
@@ -174,8 +163,8 @@ namespace FPS.UI.Controllers
         {
             GetBusinesses();
             GetInstanceState();
-            List<InstanceDataModel> list = _policeCase.GetInstanceList();
-            return View();
+            InstanceDataModel instance = _approve.GetInstanceById(id);
+            return View(instance);
         }
 
         /// <summary>

@@ -13,37 +13,46 @@
     <title>GetInstanceById</title>
 </head>
 <body>
+
+    <div class="place">
+        <span>位置：</span>
+        <ul class="placeul">
+            <li><a href="home.html">首页</a></li>
+            <li><a href="#">大数据预警</a></li>
+            <li><a href="#">预警级别管理</a></li>
+            <li><a href="#">新增预警级别</a></li>
+            <li><a href="javascript:history.go(-1)">返回</a></li>
+        </ul>
+    </div>
     @using (Html.BeginForm())
     {
-
-        <div class="place">
-            <span>位置：</span>
-            <ul class="placeul">
-                <li><a href="home.html">首页</a></li>
-                <li><a href="#">大数据预警</a></li>
-                <li><a href="#">预警级别管理</a></li>
-                <li><a href="#">新增预警级别</a></li>
-                <li><a href="javascript:history.go(-1)">返回</a></li>
-            </ul>
-        </div>
 
         <div class="formbody" id="app">
             <div id="usual1" class="usual">
                 <div id="tab1" class="tabson">
 
                     <ul class="forminfo">
+                        <li><label>报警事由<b>*</b></label>@Html.TextBoxFor(m => m.AlarmReason, new { @class = "dfinput", style = "width:300px;" })</li>
+                        <li><label>案情地点<b>*</b></label>@Html.TextBoxFor(m => m.DetailSplace, new { @class = "dfinput", style = "width:300px;" })</li>
+                        <li><label>立案人姓名<b>*</b></label>@Html.TextBoxFor(m => m.RealName, new { @class = "dfinput", style = "width:300px;" })</li>
+                        <li><label>立案时间<b>*</b></label>@Html.TextBoxFor(m => m.InstanceTime, new { @class = "dfinput", style = "width:300px;" })</li>
                         <li>
                             <label>案件等级<b>*</b></label>
-                            @Html.DropDownListFor(m => m.InstanceTypes, ViewBag.inStanceType as List<SelectListItem>, new { style = "border: 1px solid #C3AB7D;padding:7px 10px 7px 10px;" })
+                            @Html.DropDownListFor(m => m.InstanceTypes, ViewBag.businesses as List<SelectListItem>, new { style = "border: 1px solid #C3AB7D;padding:7px 10px 7px 10px;" })
                         </li>
                         <li>
                             <label>案件状态<b>*</b></label>
-                            @Html.DropDownListFor(m => m.InstanceState, ViewBag.businesses as List<SelectListItem>, new { style = "border: 1px solid #C3AB7D;padding:7px 10px 7px 10px;" })
+                            @Html.DropDownListFor(m => m.InstanceState, ViewBag.inStanceType as List<SelectListItem>, new { style = "border: 1px solid #C3AB7D;padding:7px 10px 7px 10px;" })
+                        </li>
+                        <li>
+                            <label>下载附件<b>*</b></label>
+                            <a href=""></a>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
+        <input type="button" onclick="ShutDown()" value="关闭" />
     }
 
     <script src="~/js/jquery-3.3.1.js"></script>
