@@ -23,6 +23,7 @@ namespace FPS.Services
             int i = db.Insertable(model).ExecuteCommand();
             return i;
         }
+
         /// <summary>
         /// 添加角色
         /// </summary>
@@ -47,19 +48,9 @@ namespace FPS.Services
                     roleAuthority.RoleId = Convert.ToInt32(newId);
                     state += db.Insertable(roleAuthority).ExecuteCommand();//记录成功条数
                 }
-                if (qxids.Length == state)
-                {
-                    return state;
-                }
-                else
-                {
-                    return -1;
-                }
+                return qxids.Length == state ? state : -1;
             }
-            else
-            {
-                return 0;
-            }
+            return 0;
         }
 
         /// <summary>
@@ -85,22 +76,13 @@ namespace FPS.Services
                     int itemid = Convert.ToInt32(item);
                     UserRole userRole = new UserRole();
                     userRole.RoleId = itemid;
+                    userRole.UserId = newId.ID;//用户ID
                     state += db.Insertable(userRole).ExecuteCommand();
 
                 }
-                if (ids.Length == state)
-                {
-                    return state;
-                }
-                else
-                {
-                    return -1;
-                }
+                return ids.Length == state ? state : 0;
             }
-            else
-            {
-                return 0;
-            }
+            return 0;
         }
 
         /// <summary>
@@ -108,9 +90,26 @@ namespace FPS.Services
         /// </summary>
         /// <param name="ids"></param>
         /// <returns></returns>
-        public int DeleteAuthority(string ids)
+        public int DeleteAuthority(string id)
         {
-            throw new NotImplementedException();
+            SqlSugarClient context = new SqlSugarClient(new ConnectionConfig()
+            {
+                ConnectionString = "Data Source=169.254.159.216/orcl;User ID=scott;Password=tiger;",
+                DbType = DbType.Oracle
+            });
+            context.Ado.IsEnableLogEvent = true;
+
+            SimpleClient<Authority> simple = new SimpleClient<Authority>(context);
+
+            var db = SugerBase.GetInstance();
+            string[] ids = id.Split(',');
+            int state = 0;
+            foreach (var item in ids)
+            {
+                int intId = Convert.ToInt32(item);
+                state += (simple.Update(m => new Authority() { State = 1 }, m => m.ID == intId)) ? 1 : 0;
+            }
+            return state;
         }
 
         /// <summary>
@@ -118,11 +117,28 @@ namespace FPS.Services
         /// </summary>
         /// <param name="ids"></param>
         /// <returns></returns>
-        public int DeleteRole(string ids)
+        public int DeleteRole(string id)
         {
-            throw new NotImplementedException();
-        }
+            SqlSugarClient context = new SqlSugarClient(new ConnectionConfig()
+            {
+                ConnectionString = "Data Source=169.254.159.216/orcl;User ID=scott;Password=tiger;",
+                DbType = DbType.Oracle
+            });
+            context.Ado.IsEnableLogEvent = true;
 
+            SimpleClient<Role> simple = new SimpleClient<Role>(context);
+
+            var db = SugerBase.GetInstance();
+            string[] ids = id.Split(',');
+            int state = 0;
+            foreach (var item in ids)
+            {
+                int intId = Convert.ToInt32(item);
+                state += (simple.Update(m => new Role() { State = 1 }, m => m.ID == intId)) ? 1 : 0;
+            }
+            return state;
+        }
+        
         /// <summary>
         /// 批量停用&用户
         /// </summary>
@@ -218,7 +234,10 @@ namespace FPS.Services
         /// <returns></returns>
         public int UpdateAuthority(Authority authority)
         {
-            throw new NotImplementedException();
+            var db = SugerBase.GetInstance();
+            var client = SimpleClientBase.GetSimpleClient<Authority>();
+            var result = db.Updateable(authority).Where(m => m.ID == authority.ID).ExecuteCommand();
+            return result;
         }
 
         /// <summary>
@@ -228,17 +247,29 @@ namespace FPS.Services
         /// <returns></returns>
         public Authority UpdateAuthorityShow(int id)
         {
-            throw new NotImplementedException();
+            var db = SugerBase.GetInstance();
+            var client = SimpleClientBase.GetSimpleClient<Authority>();
+            return UpdateAuthorityShow(id);
         }
-        
+
         /// <summary>
         /// 修改角色保存
         /// </summary>
         /// <param name="role"></param>
         /// <returns></returns>
-        public int UpdateRole(Role role)
+        public int UpdateRole(Authority authority, string qxid,int id)
         {
-            throw new NotImplementedException();
+            var db = SugerBase.GetInstance();
+            var client = SimpleClientBase.GetSimpleClient<Role>();
+            var result = db.Updateable(authority).Where(m => m.ID == authority.ID).ExecuteCommand();
+            //update关联表
+            if (result > 0)
+            {
+                var linkClient = SimpleClientBase.GetSimpleClient<RoleAuthority>();
+                var res = linkClient.Update(m => new RoleAuthority { RoleId = Convert.ToInt32(qxid) }, m => m.RoleId == authority.ID);
+                return res ? 1 : 0;
+            }
+            return 0;
         }
 
         /// <summary>
@@ -246,9 +277,11 @@ namespace FPS.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public Role UpdateRoleShow(int id)
+        public RoleAndAuthority UpdateRoleShow(int id)
         {
-            throw new NotImplementedException();
+            var db = SugerBase.GetInstance();
+            var role = db.SqlQueryable<RoleAndAuthority>("select a.*,c.name from role a,ROLEAUTHORITY b,Authority c where a.id=b.roleid and b.Authorityid=c.id and a.ID=" + id).Single();
+            return role;
         }
 
         /// <summary>
@@ -258,13 +291,36 @@ namespace FPS.Services
         /// <param name="users"></param>8x
         /// <param name="roleid"></param>
         /// <returns></returns>
-        public int UpdateUser(int id, Users users, string roleid)
+        public int UpdateUser(Users users, string roleid, int id)
         {
             var db = SugerBase.GetInstance();
-            UserAndRole userAndRole = new UserAndRole();
-            db.Updateable(userAndRole);
-            return 1;
+            var client = SimpleClientBase.GetSimpleClient<Users>();
+            var result = db.Updateable(users).Where(m=>m.ID==users.ID).ExecuteCommand();
+            //update关联表
+            if (result > 0)
+            {
+                var linkClient = SimpleClientBase.GetSimpleClient<UserRole>();
+                var res = linkClient.Update(m => new UserRole { RoleId = Convert.ToInt32(roleid) }, m => m.UserId == users.ID);
+                return res?1:0;
+            }
+            return 0;
+            //if (i > 0)
+            //{
+            //    string[] qxids = roleid.Split(',');
+            //    int state = 0;
+            //    foreach (var item in qxids)
+            //    {
+            //        int newId = Convert.ToInt32(item);
+            //        RoleAuthority roleAuthority = new RoleAuthority();
+            //        roleAuthority.AuthorityId = id;
+            //        roleAuthority.RoleId = newId;
+            //        state += db.Insertable(roleAuthority).ExecuteCommand();//记录成功条数
+            //    }
+            //    return qxids.Length == state ? 1 : 0;
+            //}
+            //return result ? 1 : 0;
         }
+
         /// <summary>
         /// 修改用户反填
         /// </summary>
@@ -272,7 +328,9 @@ namespace FPS.Services
         /// <returns></returns>
         public UserAndRole UpdateUserShow(int id)
         {
-            throw new NotImplementedException();
+            var db = SugerBase.GetInstance();
+            var user = db.SqlQueryable<UserAndRole>("select a.*,c.rolename from users a,userrole b,role c where a.id=b.userid and b.roleid=c.id and a.ID=" + id).Single();
+            return user;
         }
     }
 }

@@ -1,27 +1,22 @@
 ﻿@model List<FPS.Models.Alarm>
+
 @{
     Layout = null;
 }
 
 <!DOCTYPE html>
+
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
+    <title>警员管理</title>
+    <link href="/police/css/style.css" rel="stylesheet" type="text/css" />
 
     <script src="~/js/jquery-3.3.1.js"></script>
     <script src="~/js/jquery.unobtrusive-ajax.js"></script>
     <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
     <script src="~/dist/My97DatePicker/WdatePicker.js"></script>
     <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
-
-    @*Vue使用*@
-    <script src="~/vue/vue.js"></script>
-    <script src="~/vue/axios.js"></script>
-
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>天津市滨海新区公安塘沽分局矛盾纠纷系统</title>
-    <link href="/police/css/style.css" rel="stylesheet" type="text/css" />
 
     <script type="text/javascript">
         $(document).ready(function () {
@@ -64,10 +59,6 @@
             <li>
                 <a><input name="" type="button" class="sure" value="查询" style="background:#417EB5;" /></a>
                 <a><input name="reset" type="reset" class="sure" value="清空" style="background:#417EB5;margin-left: 25px;" /></a>
-                @if (ViewBag.userName == "警员")
-                {
-                    <a><input name="" onclick="location.href='/Alarm/ConstableOperation'" type="button" class="sure" value="我的任务" style="background:#ff0000;" /></a>
-                }
             </li>
         </ul>
         <ul class="prosearch">
@@ -81,15 +72,15 @@
                 <thead>
                     <tr class="text-center">
                         <td style="width:5%;">序号</td>
-                        <td style="width:11%;">报警地点</td>
+                        <td style="width:10%;">报警地点</td>
                         <td style="width:15px;">申报事项</td>
-                        <td style="width:7%;">报警人</td>
-                        <td style="width:10%;">联系方式</td>
-                        <td style="width:12%;">身份证号</td>
+                        <td style="width:6%;">报警人</td>
+                        <td style="width:8%;">联系方式</td>
+                        <td style="width:10%;">身份证号</td>
                         <td style="width:12%;">报警时间</td>
-                        <td style="width:7%;">出警人</td>
                         <td style="width:12%;">处理时间</td>
                         <td style="width:7%;">状态</td>
+                        <td style="width:9%;">操作</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -103,56 +94,24 @@
                             <td>@item.Phone</td>
                             <td>@item.IdCard</td>
                             <td>@item.Time.ToString("yyyy-MM-dd hh:mm")</td>
-                            <td>@item.SolvePeopleId</td>
                             <td>@item.OverTime.ToString("yyyy-MM-dd hh:mm")</td>
                             <td>@(item.State == 0 ? "等待处理" : (item.State == 1 ? "出警中" : "已处理"))</td>
+                            <td>
+                                @if (item.State == 2)
+                                {
+                                    <a pointer-events: none>归 队</a>
+                                }
+                                @if (item.State == 1)
+                                {
+                                    @Html.ActionLink("归队", "OverOperation", new { id = @item.ID })
+                                }
+                            </td>
                         </tr>
                     }
-                    @*<tr v-for="item in content" v-bind:key="item.id" class="text-center">
-                            <td>{{item.id}}</td>
-                            <td>{{item.detailSplace}}</td>
-                            <td>{{item.alarmReason}}</td>
-                            <td>{{item.alarmPeople}}</td>
-                            <td>{{item.phone}}</td>
-                            <td>{{item.idCard}}</td>
-                            <td>{{item.time | formatDate}})</td>
-                            <td>{{item.solvePeopleId}}</td>
-                            <td>{{item.overTime}}</td>
-                            <td>{{item.state==0?"等待处理":"处理中"}}</td>
-                            <td>
-                                <a><input type="button" class="md-trigger" style="background:#ff0000;height:25px;" data-modal="modal-2" value="从右侧滑动"></a>
-                            </td>
-                        </tr>*@
                 </tbody>
             </table>
         </div>
     </div>
-    @*<script>
-            var vm = new Vue({
-                el: '#alarmList',
-                data: {
-                    content: null
-                },
-                mounted: function () {
-                    var that = this;
-                    axios({
-                        url: "/Alarm/GetAlarmLis",
-                        method: "get",
-                    }).then(function (res) {
-                        console.log(res.data)
-                        that.content = res.data;
-                    })
-                },
-                methods: { //获取列表的全部信息
-                    getAllList: function (res) {
-                        axios
-                            .get('/Alarm/GetAlarmLis')
-                            .then(response => (this.content = response.data))
-                    }
-                },
-            });
-        </script>*@
-
     <script type="text/javascript">
         $('.tablelist tbody tr:odd').addClass('odd');
     </script>

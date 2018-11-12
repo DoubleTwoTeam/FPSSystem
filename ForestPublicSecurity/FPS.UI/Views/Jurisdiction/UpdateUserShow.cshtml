@@ -3,7 +3,7 @@
     Layout = null;
 }
 
-@model FPS.Models.Users
+@model FPS.Models.UserAndRole
 <!DOCTYPE html>
 
 <html>
@@ -16,6 +16,7 @@
     <div>
         @using (Html.BeginForm())
         {
+            @Html.HiddenFor(m=>m.ID)
             <h1>修改用户信息</h1>
             <table class="table table-bordered">
                 <tr>

@@ -82,7 +82,7 @@ namespace FPS.IServices
         /// 修改用户保存
         /// </summary>
         /// <returns></returns>
-        int UpdateUser(int id,Users users, string roleid);
+        int UpdateUser(Users users, string roleid,int id);
 
         /// <summary>
         /// 批量停用权限
@@ -117,14 +117,14 @@ namespace FPS.IServices
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Role UpdateRoleShow(int id);
+        RoleAndAuthority UpdateRoleShow(int id);
 
         /// <summary>
         /// 修改角色保存
         /// </summary>
         /// <param name="authority"></param>
         /// <returns></returns>
-        int UpdateRole(Role role);
+        int UpdateRole(Authority authority, string qxid, int id);
 
     }
 }
