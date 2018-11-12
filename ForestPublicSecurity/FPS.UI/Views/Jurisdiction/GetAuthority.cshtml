@@ -1,0 +1,32 @@
+﻿
+@{
+    Layout = null;
+}
+@model List<FPS.Models.Authority>
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>GetAuthority</title>
+    <link href="~/police/css/style.css" rel="stylesheet" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <script src="~/js/dist/My97DatePicker/WdatePicker.js"></script>
+</head>
+<body>
+
+    <div class="place">
+        <span>位置：</span>
+        <ul class="placeul">
+            <li><a href="home.html">首页</a></li>
+            <li><a href="#">主动排查</a></li>
+            <li><a href="#">民警排查</a></li>
+            <li><a href="#">转递记录管理</a></li>
+        </ul>
+    </div>
+    <div id="divData">
+        @{ await Html.RenderPartialAsync("_ShowGetAuthority", Model); }
+    </div>
+</body>
+</html>
+
