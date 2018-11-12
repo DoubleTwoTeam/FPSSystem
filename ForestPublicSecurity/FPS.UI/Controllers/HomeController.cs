@@ -10,18 +10,26 @@ namespace FPS.UI.Controllers
 {
     public class HomeController : Controller
     {
+        /// <summary>
+        /// 首页
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Index()
         {
             return View();
         }
 
+        /// <summary>
+        /// 详情界面
+        /// </summary>
+        /// <returns></returns>
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
 
             return View();
         }
-
+        
         public IActionResult Contact()
         {
             ViewData["Message"] = "Your contact page.";

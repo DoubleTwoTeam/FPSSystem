@@ -10,7 +10,9 @@ namespace FPS.IServices
     public interface IStudent
     {
         string GetStudentName();
-        //List<Student> Fen();
+
         int AddCallPolice(Alarm alarm);
+
+        UserAndRole Login(string name, string pwd);
     }
 }

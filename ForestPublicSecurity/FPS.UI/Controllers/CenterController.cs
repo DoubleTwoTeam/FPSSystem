@@ -39,8 +39,8 @@ namespace FPS.UI.Controllers
         /// <returns></returns>
         public IActionResult Index()
         {
-            //PageParams pageParams = new PageParams() { CurPage=1,Fields="ID,Name,Sex",Filter="",PageSize=4,Orderby="ID desc",TableName="student"};
-            //var result=_pageHelper.InfoList<Student>(pageParams);
+            PageParams pageParams = new PageParams() { CurPage=1,Fields="ID,Name,Sex",Filter="",PageSize=4,Orderby="ID desc",TableName="student"};
+            var result=_pageHelper.InfoList<Student>(pageParams);
 
             ViewBag.Name = _student.GetStudentName();
             return View();
