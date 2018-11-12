@@ -23,6 +23,7 @@ namespace FPS.UI.Controllers
         {
             return View();
         }
+        #region 权限增删查改
         /// <summary>
         /// 权限显示
         /// </summary>
@@ -33,11 +34,6 @@ namespace FPS.UI.Controllers
             authority = _jurisdiction.GetAuthority();
             return View(authority);
         }
-        /// <summary>
-        /// 显示权限
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
         [HttpPost]
         public IActionResult GetAuthority(int id = 1)
         {
@@ -51,11 +47,11 @@ namespace FPS.UI.Controllers
         /// <returns></returns>
         public IActionResult AddAuthority()
         {
-             GetAuthorityList();
+            GetAuthorityList();
             return View();
         }
         [HttpPost]
-        public IActionResult AddAuthority(string newname, string newurl, int authority,int fatherid)
+        public IActionResult AddAuthority(string newname, string newurl, int authority, int fatherid)
         {
             AddAuthority();
 
@@ -69,9 +65,9 @@ namespace FPS.UI.Controllers
 
             int i = _jurisdiction.AddAuthority(authoritys);
 
-            if(i>0)
+            if (i > 0)
             {
-                return Content("<script>alert('新权限添加成功!');location.href='/Jurisdiction/Index'</script>","text/html;charset=utf-8");
+                return Content("<script>alert('新权限添加成功!');location.href='/Jurisdiction/Index'</script>", "text/html;charset=utf-8");
             }
             else
             {
@@ -83,7 +79,7 @@ namespace FPS.UI.Controllers
         /// 获取权限下拉
         /// </summary>
         /// <param name="gid"></param>
-        public void GetAuthorityList(int gid=0)
+        public void GetAuthorityList(int gid = 0)
         {
             List<Authority> list = new List<Authority>();
             list = _jurisdiction.GetAuthorityList(gid);
@@ -95,11 +91,37 @@ namespace FPS.UI.Controllers
                        };
             ViewBag.Authority = linq.ToList();
         }
+        /// <summary>
+        /// 修改权限反填
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public IActionResult UpdateAuthorityShow(int id)
+        {
+            Authority authority = _jurisdiction.UpdateAuthorityShow(id);
+            return View(authority);
+        }
 
-       /// <summary>
-       /// 添加角色&&角色赋予权限显示
-       /// </summary>
-       /// <returns></returns>
+        /// <summary>
+        /// 修改权限保存
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="users"></param>
+        /// <param name="roleid"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public int UpdateAuthorityShow(Authority authority)
+        {
+            int i = _jurisdiction.UpdateAuthority(authority);
+            return i;
+        }
+        #endregion
+
+        #region 角色增删查改
+        /// <summary>
+        /// 添加角色&&角色赋予权限显示
+        /// </summary>
+        /// <returns></returns>
         public IActionResult AddRole()
         {
             GetRoleList();
@@ -125,11 +147,7 @@ namespace FPS.UI.Controllers
             roleAuthorities = _jurisdiction.GetRole();
             return View(roleAuthorities);
         }
-        /// <summary>
-        /// 显示角色
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+
         [HttpPost]
         public IActionResult GetRole(int id = 1)
         {
@@ -142,7 +160,7 @@ namespace FPS.UI.Controllers
         /// 获取角色下拉
         /// </summary>
         /// <param name="gid"></param>
-        public void GetRoleList(int gid=0)
+        public void GetRoleList(int gid = 0)
         {
             List<Role> list = new List<Role>();
             list = _jurisdiction.GetRoleList(gid);
@@ -153,95 +171,6 @@ namespace FPS.UI.Controllers
                            Value = s.ID.ToString()
                        };
             ViewBag.role = linq.ToList();
-        }
-
-        /// <summary>
-        /// 添加用户
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult AddUser()
-        {
-            GetRoleList();
-            return View();
-        }
-
-        [HttpPost]
-        public int AddUser(Users users, string role)
-        {
-            GetRoleList();
-            int i = _jurisdiction.AddUser(users,role);
-            return i;
-        }
-
-        /// <summary>
-        /// 显示用户
-        /// </summary>
-        /// <returns></returns>
-        public IActionResult GetUser()
-        {
-            List<UserAndRole> userAndRoles = new List<UserAndRole>();
-            userAndRoles = _jurisdiction.ShowUserAndRole();
-            return View(userAndRoles);
-        }
-
-        /// <summary>
-        /// 显示用户
-        /// </summary>
-        /// <returns></returns>
-        [HttpPost]
-        public IActionResult GetUser(int id=1)
-        {
-            List<UserAndRole> userAndRoles = new List<UserAndRole>();
-            userAndRoles = _jurisdiction.ShowUserAndRole();
-            return PartialView("_ShowGetUser", userAndRoles);
-        }
-
-        /// <summary>
-        /// 修改用户状态为停用
-        /// </summary>
-        /// <param name="tablename"></param>
-        /// <param name="byid"></param>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public void DeleteUser(string tablename,string byid, string id)
-        {
-            int state = _jurisdiction.DeleteUser(tablename, byid, id);
-        }
-
-        /// <summary>
-        /// 修改角色状态为停用
-        /// </summary>
-        /// <param name="id"></param>
-        public void DeleteRole(string id)
-        {
-            int state = _jurisdiction.DeleteRole(id);
-        }
-
-        /// <summary>
-        /// 修改用户反填
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public IActionResult UpdateUserShow(int id)
-        {
-            GetRoleList();
-            UserAndRole userAndRole = _jurisdiction.UpdateUserShow(id);
-            return View(userAndRole);
-        }
-
-        /// <summary>
-        /// 修改用户保存
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="users"></param>
-        /// <param name="roleid"></param>
-        /// <returns></returns>
-        [HttpPost]
-        public int UpdateUserShow(Users users, int role, int id)
-        {
-            GetRoleList();
-            int i = _jurisdiction.UpdateUser(users,role.ToString(),id);
-            return i;
         }
 
         /// <summary>
@@ -272,28 +201,95 @@ namespace FPS.UI.Controllers
         }
 
         /// <summary>
-        /// 修改权限反填
+        /// 修改角色状态为停用
         /// </summary>
         /// <param name="id"></param>
-        /// <returns></returns>
-        public IActionResult UpdateAuthorityShow(int id)
+        public void DeleteRole(string id)
         {
-            Authority authority = _jurisdiction.UpdateAuthorityShow(id);
-            return View(authority);
+            int state = _jurisdiction.DeleteRole(id);
+        }
+        #endregion
+
+        #region 用户增删查改
+        /// <summary>
+        /// 添加用户
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult AddUser()
+        {
+            GetRoleList();
+            return View();
+        }
+
+        [HttpPost]
+        public int AddUser(Users users, string role)
+        {
+            GetRoleList();
+            int i = _jurisdiction.AddUser(users, role);
+            return i;
         }
 
         /// <summary>
-        /// 修改权限保存
+        /// 显示用户
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult GetUser()
+        {
+            List<UserAndRole> userAndRoles = new List<UserAndRole>();
+            userAndRoles = _jurisdiction.ShowUserAndRole();
+            return View(userAndRoles);
+        }
+
+        /// <summary>
+        /// 显示用户
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public IActionResult GetUser(int id = 1)
+        {
+            List<UserAndRole> userAndRoles = new List<UserAndRole>();
+            userAndRoles = _jurisdiction.ShowUserAndRole();
+            return PartialView("_ShowGetUser", userAndRoles);
+        }
+
+        /// <summary>
+        /// 修改用户状态为停用
+        /// </summary>
+        /// <param name="tablename"></param>
+        /// <param name="byid"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public void DeleteUser(string tablename, string byid, string id)
+        {
+            int state = _jurisdiction.DeleteUser(tablename, byid, id);
+        }
+
+        /// <summary>
+        /// 修改用户反填
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public IActionResult UpdateUserShow(int id)
+        {
+            GetRoleList();
+            UserAndRole userAndRole = _jurisdiction.UpdateUserShow(id);
+            return View(userAndRole);
+        }
+
+        /// <summary>
+        /// 修改用户保存
         /// </summary>
         /// <param name="id"></param>
         /// <param name="users"></param>
         /// <param name="roleid"></param>
         /// <returns></returns>
         [HttpPost]
-        public int UpdateAuthorityShow(Authority authority)
+        public int UpdateUserShow(Users users, int role, int id)
         {
-            int i = _jurisdiction.UpdateAuthority(authority);
+            GetRoleList();
+            int i = _jurisdiction.UpdateUser(users, role.ToString(), id);
             return i;
         }
+        #endregion
     }
 }
