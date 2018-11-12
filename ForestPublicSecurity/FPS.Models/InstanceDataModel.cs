@@ -49,5 +49,10 @@ namespace FPS.Models
         /// 立案时间
         /// </summary>
         public DateTime InstanceTime { get; set; }
+
+        /// <summary>
+        /// 案件备用字段
+        /// </summary>
+        public string Space { get; set; }
     }
 }

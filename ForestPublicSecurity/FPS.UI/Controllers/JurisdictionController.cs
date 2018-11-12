@@ -14,8 +14,10 @@ namespace FPS.UI.Controllers
 {
     public class JurisdictionController : Controller
     {
+        /// <summary>
+        /// 依赖注入接口
+        /// </summary>
         public IJurisdiction _jurisdiction { get; set; }
-
         public JurisdictionController(IJurisdiction jurisdiction) => _jurisdiction = jurisdiction;
         public IActionResult Index()
         {
@@ -98,9 +100,21 @@ namespace FPS.UI.Controllers
         /// <returns></returns>
         public IActionResult GetRole()
         {
-            List<Role> role = new List<Role>();
-            role = _jurisdiction.GetRole();
-            return View(role);
+            List<RoleAndAuthority> roleAuthorities = new List<RoleAndAuthority>();
+            roleAuthorities = _jurisdiction.GetRole();
+            return View(roleAuthorities);
+        }
+        /// <summary>
+        /// 显示角色
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public IActionResult GetRole(int id = 1)
+        {
+            List<UserAndRole> roleAuthorities = new List<UserAndRole>();
+            roleAuthorities = _jurisdiction.ShowUserAndRole();
+            return PartialView("_ShowGetRole", roleAuthorities);
         }
 
         /// <summary>
@@ -129,6 +143,7 @@ namespace FPS.UI.Controllers
             GetRoleList();
             return View();
         }
+
         [HttpPost]
         public int AddUser(Users users, string role)
         {
@@ -158,6 +173,18 @@ namespace FPS.UI.Controllers
             List<UserAndRole> userAndRoles = new List<UserAndRole>();
             userAndRoles = _jurisdiction.ShowUserAndRole();
             return PartialView("_ShowGetUser", userAndRoles);
+        }
+
+        /// <summary>
+        /// 修改用户状态为停用
+        /// </summary>
+        /// <param name="tablename"></param>
+        /// <param name="byid"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public void DeleteUser(string tablename,string byid, string id)
+        {
+            int state = _jurisdiction.DeleteUser(tablename, byid, id);
         }
     }
 }

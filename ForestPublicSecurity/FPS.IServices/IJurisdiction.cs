@@ -35,7 +35,7 @@ namespace FPS.IServices
         /// 显示角色
         /// </summary>
         /// <returns></returns>
-        List<Role> GetRole();
+        List<RoleAndAuthority> GetRole();
 
         /// <summary>
         /// 添加角色
@@ -61,6 +61,7 @@ namespace FPS.IServices
         /// </summary>
         /// <returns></returns>
         List<UserAndRole> ShowUserAndRole();
+
         /// <summary>
         /// 修改用户状态
         /// </summary>
@@ -68,6 +69,19 @@ namespace FPS.IServices
         /// <param name="byid"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        int UpdateUserState(string tablename, string byid, string id);
+        int DeleteUser(string tablename, string byid, string id);
+
+        /// <summary>
+        /// 修改用户反填
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        UserAndRole UpdateUserShow(int id);
+
+        /// <summary>
+        /// 修改用户保存
+        /// </summary>
+        /// <returns></returns>
+        int UpdateUser(int id,Users users, string roleid);
     }
 }

@@ -25,22 +25,21 @@ namespace FPS.UI.Controllers
         /// </summary>
         private readonly IPoliceCase _policeCase;
 
+        /// <summary>
+        /// 分页
+        /// </summary>
         private readonly IPageHelper _pageHelper;
 
 
         string loginRoleId = "1";//当前用户的权限ID
         int pageSize = 8;//每页显示多少条数据
-        int curge = 1;//当前页
-
+        
         /// <summary>
-        /// 分页参数
+        /// 依赖注入
         /// </summary>
-        PageParams pageParams = new PageParams() {
-            Fields = "Approve.ID,Instance.ID as InstanceID,Instance.RegisterPeopleID,Business.ID as BusinessID,Business.Name as BusinessName,Users.realName as UsersName,Role.Name as RoleName,Instance.InstanceTypes,Instance.InstanceTime,Instance.ApproveState",
-            TableName = " Approve,Users,Instance,Business,Role",
-            Filter = " Approve.ORIGINALID=Instance.ID and Approve.BUSINESSTYPEID=Business.ID and Approve.APPROVEPEOPLEID=USERS.ID and Approve.ROLEID=Role.ID and Approve.State=1 ",
-            Orderby = " Approve.ID desc" };
-
+        /// <param name="approve"></param>
+        /// <param name="policeCase"></param>
+        /// <param name="pageHelper"></param>
         public ApproveController(IApprove approve, IPoliceCase policeCase, IPageHelper pageHelper)
         {
             _approve = approve;
@@ -48,6 +47,22 @@ namespace FPS.UI.Controllers
             _pageHelper = pageHelper;
         }
 
+        /// <summary>
+        /// 分页参数
+        /// </summary>
+        PageParams pageParams = new PageParams()
+        {
+            Fields = "Approve.ID,Instance.ID as InstanceID,Instance.RegisterPeopleID,Business.ID as BusinessID,Business.Name as BusinessName,Users.realName as UsersName,Role.Rolename as RoleName,Instance.InstanceTypes,Instance.Time as InstanceTime,Instance.ApproveState",
+            TableName = " Approve,Users,Instance,Business,Role",
+            Filter = " Approve.ORIGINALID=Instance.ID and Approve.BUSINESSTYPEID=Business.ID and Approve.APPROVEPEOPLEID=USERS.ID and Approve.ROLEID=Role.ID and Approve.State=1 ",
+            Sort = " Approve.ID desc"
+        };
+
+        /// <summary>
+        /// 审批页面
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public IActionResult GetApproveList(int id=1)
         {
             pageParams.CurPage = id;
@@ -137,6 +152,7 @@ namespace FPS.UI.Controllers
                 Content("<script>alert('驳回失败！')</script>");
             }
         }
+        
 
         /// <summary>
         /// 获取案件详情
@@ -147,7 +163,8 @@ namespace FPS.UI.Controllers
         {
             GetBusinesses();
             GetInstanceState();
-            return View();
+            InstanceDataModel instance = _approve.GetInstanceById(id);
+            return View(instance);
         }
 
         /// <summary>
@@ -172,9 +189,9 @@ namespace FPS.UI.Controllers
         {
             InstanceState[] instanceStates =
             {
-                new InstanceState(){ ID = 1, Name = "普通" },
+                new InstanceState(){ID=1,Name="普通"},
                 new InstanceState(){ID=2,Name="重大"},
-                new InstanceState(){ID=3,Name="特大" }
+                new InstanceState(){ID=3,Name="特大"}
             };
             var linq = from s in instanceStates
                        select new SelectListItem
