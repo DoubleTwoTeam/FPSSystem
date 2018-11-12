@@ -34,7 +34,9 @@ namespace FPS.Services
         public Approve GetApprove(Instance instance)
         {
             var db = SugerBase.GetInstance();
-            ApproveCourse approveCourse= db.Queryable<ApproveCourse>().Where(m => (m.Condition.Contains(instance.InstanceState.ToString()) && m.BusinesstypeId == Convert.ToInt32(instance.InstanceTypes))).Single();
+            List<ApproveCourse> course = db.SqlQueryable<ApproveCourse>("select * from ApproveCourse where Condition like '%" + instance.InstanceState + "%' and BusinesstypeId=" + instance.InstanceTypes).ToList();
+            ApproveCourse approveCourse = course[0];
+            //ApproveCourse approveCourse= db.Queryable<ApproveCourse>().Where(m => (m.Condition.Contains(instance.InstanceState.ToString()) && m.BusinesstypeId == Convert.ToInt32(instance.InstanceTypes))).Single();
             Approve approve = new Approve() { RoleId = approveCourse.ApproveRoleId, BusinesstypeId = approveCourse.BusinesstypeId, PlaceID = approveCourse.PostpositionID, OriginalId=instance.ID, Ideas="", State="0" };
             return approve;
         }
@@ -61,13 +63,14 @@ namespace FPS.Services
         /// <returns></returns>
         public Instance GetInstanceById(int id)
         {
-            using (var db = SugerBase.GetInstance())
-            {
+            var db = SugerBase.GetInstance();
+            
 
-                Instance instance = db.Queryable<Instance>().Single(m => m.ID == id);
+            List<Instance> instances = db.SqlQueryable<Instance>("select * from Instance where ID="+id).ToList();
+            Instance instance = instances[0];
 
-                return instance;
-            }
+            return instance;
+            
         }
 
         /// <summary>
@@ -77,11 +80,12 @@ namespace FPS.Services
         /// <returns></returns>
         public int UpdateinStance(Instance instance)
         {
-            using (var db = SugerBase.GetInstance())
-            {
-                int result= db.Updateable<Instance>(instance).ExecuteCommand();
-                return result;
-            }
+            var db = SugerBase.GetInstance();
+            
+            int result= db.Updateable(instance).Where(m=>m.ID==instance.ID).ExecuteCommand();
+
+             return result;
+            
         }
 
         public List<Business> GetBusinessesList()

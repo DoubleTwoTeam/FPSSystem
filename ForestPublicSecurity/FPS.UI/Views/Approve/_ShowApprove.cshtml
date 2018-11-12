@@ -25,7 +25,6 @@
 
                 <td>@item.ID</td>
                 <td>@item.BusinessName</td>
-                <td>@item.RealName</td>
                 <td>@item.InstanceTypes</td>
                 <td>
                     <a href="javascript:;" onclick="Get_inStanceById('查看案情','/Approve/GetInstanceById/'+@item.InstanceID,'800','500')">查看案情</a>
@@ -47,7 +46,7 @@
                 }
 
                 <td>
-                    @Html.ActionLink("通过", "PassApprove", new { id = item.ID, bussiness = item.BusinessID, inStanceId = item.InstanceID })&nbsp;&nbsp;
+                    @Html.ActionLink("通过", "PassApprove", new { id = item.ID, bussiness = item.InstanceTypes, inStanceId = item.InstanceID })&nbsp;&nbsp;
                     @Html.ActionLink("驳回", "NoApprove", new { id = item.ID, inStanceId = item.InstanceID })
                 </td>
             </tr>

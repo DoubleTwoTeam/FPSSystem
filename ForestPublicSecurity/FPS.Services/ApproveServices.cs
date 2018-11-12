@@ -8,6 +8,7 @@ using FPS.IServices;
 using FPS.Models;
 using FPS.Models.DTO;
 using Newtonsoft.Json;
+using SqlSugar;
 
 namespace FPS.Services
 {
@@ -21,7 +22,8 @@ namespace FPS.Services
         public Approve GetApproveById(int id)
         {
             var db = SugerBase.GetInstance();
-            Approve approve = JsonConvert.DeserializeObject<Approve>(JsonConvert.SerializeObject(db.SqlQueryable<Approve>("select * from Approve where ID=" + id)));
+            List<Approve> list = db.SqlQueryable<Approve>("select * from Approve where ID=" + id).ToList();
+            Approve approve = list[0];
             return approve;
         }
 
@@ -96,7 +98,9 @@ namespace FPS.Services
         public int UpdateApprove(Approve approve)
         {
             var db = SugerBase.GetInstance();
-            int result= db.Updateable<Approve>(approve).ExecuteCommand();
+            
+            int result= db.Updateable(approve).Where(m=>m.ID==approve.ID).ExecuteCommand();
+
             return result;
         }
 
@@ -104,10 +108,20 @@ namespace FPS.Services
         /// 审批页面显示
         /// </summary>
         /// <returns></returns>
-        PageList<ApproveDataModel> IApprove.GetApproveList(PageParams pageParams)
+        PageList<ApproveDataModel> IApprove.GetApproveList()
         {
-            PageList<ApproveDataModel> pageList = Parameters<ApproveDataModel>.GetpageList(pageParams);
+            var db = SugerBase.GetInstance();
+            List<ApproveDataModel> list = db.SqlQueryable<ApproveDataModel>(
+                "select Approve.ID,Instance.ID as InstanceID,Business.Name as BusinessName,Role.RoleName as RoleName,Instance.InstanceTypes,Instance.Time as InstanceTime,Instance.ApproveState " +
+                "from Approve,Instance,Business,Role " +
+                "where Approve.ORIGINALID=Instance.ID and Approve.BUSINESSTYPEID=Business.ID and Approve.ROLEID=Role.ID and Approve.State=1 ").ToList();
 
+            int i=db.SqlQueryable<ApproveDataModel>(
+                "select Approve.ID,Instance.ID as InstanceID,Instance.RegisterPeopleID,Business.ID as BusinessID,Business.Name as BusinessName,Role.RoleName as RoleName,Instance.InstanceTypes,Instance.Time as InstanceTime,Instance.ApproveState " +
+                "from Approve,Instance,Business,Role " +
+                "where Approve.ORIGINALID=Instance.ID and Approve.BUSINESSTYPEID=Business.ID and Approve.ROLEID=Role.ID and Approve.State=1 " ).Count();
+            PageList<ApproveDataModel> pageList = new PageList<ApproveDataModel>() { ListData = list, TotalCount = i };
+            
             return pageList;
         }
     }

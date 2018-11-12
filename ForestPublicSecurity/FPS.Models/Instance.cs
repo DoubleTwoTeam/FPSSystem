@@ -18,7 +18,7 @@ namespace FPS.Models
         /// <summary>
         /// 报警ID
         /// </summary>
-        public int AlterD { get; set; }
+        public int AlterID { get; set; }
         /// <summary>
         /// 立案人ID
         /// </summary>

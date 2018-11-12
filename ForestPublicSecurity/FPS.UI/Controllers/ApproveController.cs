@@ -62,9 +62,9 @@ namespace FPS.UI.Controllers
         /// </summary>
         PageParams pageParams = new PageParams()
         {
-            Fields = "Approve.ID,Instance.ID as InstanceID,Instance.RegisterPeopleID,Business.ID as BusinessID,Business.Name as BusinessName,Users.realName as UsersName,Role.Rolename as RoleName,Instance.InstanceTypes,Instance.Time as InstanceTime,Instance.ApproveState",
-            TableName = " Approve,Users,Instance,Business,Role",
-            Filter = " Approve.ORIGINALID=Instance.ID and Approve.BUSINESSTYPEID=Business.ID and Approve.APPROVEPEOPLEID=USERS.ID and Approve.ROLEID=Role.ID and Approve.State=1 ",
+            Fields = "select Approve.ID,Instance.ID as InstanceID,Business.Name as BusinessName,Role.Rolename as RoleName,Instance.Time as InstanceTime,Instance.ApproveState,Instance.Instancetypes ",
+            TableName = "from Approve,Instance,Business,Role ",
+            Filter = "where Approve.ORIGINALID=Instance.ID and Approve.BUSINESSTYPEID=Business.ID and Approve.ROLEID=Role.ID and Approve.State=1",
             Sort = " Approve.ID desc"
         };
 
@@ -80,7 +80,7 @@ namespace FPS.UI.Controllers
             pageParams.CurPage = id;
             pageParams.Filter += "  and Approve.RoleId=" + userAndRole.RID;
             pageParams.PageSize = pageSize;
-            PageList<ApproveDataModel> pageList =_approve.GetApproveList(pageParams);
+            PageList<ApproveDataModel> pageList =_approve.GetApproveList();
             PagedList<ApproveDataModel> pagedList = new PagedList<ApproveDataModel>(pageList.ListData, id, pageParams.PageSize);
             pagedList = pageList.ListData.ToPagedList(id - 1, pageParams.PageSize);
             pagedList.TotalItemCount = pageList.TotalCount;
@@ -101,7 +101,7 @@ namespace FPS.UI.Controllers
             pageParams.CurPage = id;
             pageParams.Filter += "  and Approve.RoleId=" + userAndRole.RID;
             pageParams.PageSize = pageSize;
-            PageList<ApproveDataModel> pageList = _approve.GetApproveList(pageParams);
+            PageList<ApproveDataModel> pageList = _approve.GetApproveList();
             PagedList<ApproveDataModel> pagedList = new PagedList<ApproveDataModel>(pageList.ListData, id, pageParams.PageSize);
             pagedList = pageList.ListData.ToPagedList(id - 1, pageParams.PageSize);
             pagedList.TotalItemCount = pageList.TotalCount;
@@ -117,7 +117,7 @@ namespace FPS.UI.Controllers
         /// <returns></returns>
         public void PassApprove(int id, int bussiness, int inStanceId)
         {
-            string user = HttpContext.Session.GetString("users");
+            string user = HttpContext.Session.GetString("user");
             UserAndRole userAndRole = JsonConvert.DeserializeObject<UserAndRole>(user);
             int userID = userAndRole.ID;
             Approve approve = _approve.GetApproveById(id);

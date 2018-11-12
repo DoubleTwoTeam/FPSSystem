@@ -18,15 +18,15 @@ namespace FPS.Services
         public static PageList<T> GetpageList(PageParams pageParams)    
         {
             var db = SugerBase.GetInstance();
-            List<T> list = db.SqlQueryable<T>(
-                "select  " + pageParams.Fields +
-                " from " + pageParams.TableName +
-                " where " + pageParams.Filter).Skip(pageParams.CurPage).Take(pageParams.PageSize).ToList();
+            List<T> list = db.Ado.SqlQuery<T>(
+                 pageParams.Fields +
+                 pageParams.TableName +
+                 pageParams.Filter).Skip(pageParams.CurPage).Take(pageParams.PageSize).ToList();
 
-            int count = db.SqlQueryable<T>(
-               "select  " + pageParams.Fields +
-                " from " + pageParams.TableName +
-                " where " + pageParams.Filter).Count();
+            int count = db.Ado.SqlQuery<T>(
+               pageParams.Fields +
+               pageParams.TableName +
+               pageParams.Filter).Count();
 
             PageList<T> pagelist = new PageList<T>() { ListData = list, TotalCount = count };
 
