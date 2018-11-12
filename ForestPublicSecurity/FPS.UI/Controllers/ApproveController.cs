@@ -9,7 +9,12 @@ using FPS.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using FPS.Models.DTO;
 using FPS.UI.Common;
-
+using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
+using System.IO;
+using System.Web;
+using Microsoft.AspNetCore.Hosting;
+using Webdiyer.WebControls.Mvc;
 
 namespace FPS.UI.Controllers
 {
@@ -30,21 +35,26 @@ namespace FPS.UI.Controllers
         /// </summary>
         private readonly IPageHelper _pageHelper;
 
-
+        /// <summary>
+        /// 映射路径
+        /// </summary>
+        private readonly IHostingEnvironment _hostingEnvironment;
+        
         string loginRoleId = "1";//当前用户的权限ID
         int pageSize = 8;//每页显示多少条数据
-        
+
         /// <summary>
         /// 依赖注入
         /// </summary>
         /// <param name="approve"></param>
         /// <param name="policeCase"></param>
         /// <param name="pageHelper"></param>
-        public ApproveController(IApprove approve, IPoliceCase policeCase, IPageHelper pageHelper)
+        public ApproveController(IApprove approve, IPoliceCase policeCase, IPageHelper pageHelper, IHostingEnvironment hostingEnvironment)
         {
             _approve = approve;
             _policeCase = policeCase;
             _pageHelper = pageHelper;
+            _hostingEnvironment = hostingEnvironment;
         }
 
         /// <summary>
@@ -52,9 +62,9 @@ namespace FPS.UI.Controllers
         /// </summary>
         PageParams pageParams = new PageParams()
         {
-            Fields = "Approve.ID,Instance.ID as InstanceID,Instance.RegisterPeopleID,Business.ID as BusinessID,Business.Name as BusinessName,Users.realName as UsersName,Role.Rolename as RoleName,Instance.InstanceTypes,Instance.Time as InstanceTime,Instance.ApproveState",
-            TableName = " Approve,Users,Instance,Business,Role",
-            Filter = " Approve.ORIGINALID=Instance.ID and Approve.BUSINESSTYPEID=Business.ID and Approve.APPROVEPEOPLEID=USERS.ID and Approve.ROLEID=Role.ID and Approve.State=1 ",
+            Fields = "select Approve.ID,Instance.ID as InstanceID,Business.Name as BusinessName,Role.Rolename as RoleName,Instance.Time as InstanceTime,Instance.ApproveState,Instance.Instancetypes ",
+            TableName = "from Approve,Instance,Business,Role ",
+            Filter = "where Approve.ORIGINALID=Instance.ID and Approve.BUSINESSTYPEID=Business.ID and Approve.ROLEID=Role.ID and Approve.State=1",
             Sort = " Approve.ID desc"
         };
 
@@ -63,14 +73,40 @@ namespace FPS.UI.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public IActionResult GetApproveList(int id=1)
+        public IActionResult GetApproveList(int id = 1)
         {
+            string user = HttpContext.Session.GetString("user");
+            UserAndRole userAndRole = JsonConvert.DeserializeObject<UserAndRole>(user);
             pageParams.CurPage = id;
-            pageParams.Filter += "  and Approve.RoleId=" + loginRoleId;
+            pageParams.Filter += "  and Approve.RoleId=" + userAndRole.RID;
             pageParams.PageSize = pageSize;
-            PageList<ApproveDataModel> pageList = _pageHelper.InfoList<ApproveDataModel>(pageParams);
-            List<ApproveDataModel> list = pageList.ListData;
-            return View(list);
+            PageList<ApproveDataModel> pageList =_approve.GetApproveList();
+            PagedList<ApproveDataModel> pagedList = new PagedList<ApproveDataModel>(pageList.ListData, id, pageParams.PageSize);
+            pagedList = pageList.ListData.ToPagedList(id - 1, pageParams.PageSize);
+            pagedList.TotalItemCount = pageList.TotalCount;
+            pagedList.CurrentPageIndex = id;
+            return View(pagedList);
+        }
+
+        /// <summary>
+        /// 查询与分页
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public IActionResult NextPage(int id=1)
+        {
+            string user = HttpContext.Session.GetString("users");
+            UserAndRole userAndRole = JsonConvert.DeserializeObject<UserAndRole>(user);
+            pageParams.CurPage = id;
+            pageParams.Filter += "  and Approve.RoleId=" + userAndRole.RID;
+            pageParams.PageSize = pageSize;
+            PageList<ApproveDataModel> pageList = _approve.GetApproveList();
+            PagedList<ApproveDataModel> pagedList = new PagedList<ApproveDataModel>(pageList.ListData, id, pageParams.PageSize);
+            pagedList = pageList.ListData.ToPagedList(id - 1, pageParams.PageSize);
+            pagedList.TotalItemCount = pageList.TotalCount;
+            pagedList.CurrentPageIndex = id;
+            return PartialView("_ShowApprove", pagedList);
         }
 
         /// <summary>
@@ -81,7 +117,9 @@ namespace FPS.UI.Controllers
         /// <returns></returns>
         public void PassApprove(int id, int bussiness, int inStanceId)
         {
-            int userID = 2;
+            string user = HttpContext.Session.GetString("user");
+            UserAndRole userAndRole = JsonConvert.DeserializeObject<UserAndRole>(user);
+            int userID = userAndRole.ID;
             Approve approve = _approve.GetApproveById(id);
             ApproveCourse approveCourse = _approve.GetApproveCoursesList(approve.PlaceID);
             approve.Ideas = "";
@@ -89,7 +127,7 @@ namespace FPS.UI.Controllers
             approve.ApprovePeopleId = userID;
             approve.Time = DateTime.Now;
             int i = _approve.UpdateApprove(approve);
-            if (i>0)
+            if (i > 0)
             {
                 if (approveCourse != null)
                 {
@@ -102,13 +140,13 @@ namespace FPS.UI.Controllers
                         //int result = _approve.UpdateApprove(approve);
                         //if (result > 0)
                         //{
-                            Instance instance = _policeCase.GetInstanceById(inStanceId);
-                            instance.ApproveState = 2;
-                            int a = _policeCase.UpdateinStance(instance);
-                            if (a > 0)
-                            {
-                                Content("<script>alert('审核通过！')</script>");
-                            }
+                        Instance instance = _policeCase.GetInstanceById(inStanceId);
+                        instance.ApproveState = 2;
+                        int a = _policeCase.UpdateinStance(instance);
+                        if (a > 0)
+                        {
+                            Content("<script>alert('审核通过！')</script>");
+                        }
                         //}
                     }
                     else
@@ -121,13 +159,12 @@ namespace FPS.UI.Controllers
                             Content("<script>alert('您的审核通过！正在进行下一级审核')</script>");
                             //PassApprove(approve.ID, approve.BusinesstypeId, inStanceId);
                         }
-
                     }
                 }
             }
             else
             {
-                Content("<script>alert('您的审核未通过！正在进行下一级审核')</script>");
+                Content("<script>alert('您的审核未成功')</script>");
             }
         }
 
@@ -138,7 +175,11 @@ namespace FPS.UI.Controllers
         /// <param name="inStanceId"></param>
         public void NoApprove(int id, int inStanceId)
         {
+            string user = HttpContext.Session.GetString("users");
+            UserAndRole userAndRole = JsonConvert.DeserializeObject<UserAndRole>(user);
+            int userID = userAndRole.ID;
             Approve approve = _approve.GetApproveById(id);
+            approve.ApprovePeopleId = userID;
             approve.State = "3";
             approve.Time = DateTime.Now;
             int result = _approve.UpdateApprove(approve);
@@ -157,7 +198,6 @@ namespace FPS.UI.Controllers
                 Content("<script>alert('驳回失败！')</script>");
             }
         }
-        
 
         /// <summary>
         /// 获取案件详情
@@ -173,11 +213,29 @@ namespace FPS.UI.Controllers
         }
 
         /// <summary>
+        /// 附件下载
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns></returns>
+        public IActionResult DownLoad(string file)
+        {
+            var addrUrl = file;
+            //转换成文件流
+            var stream = System.IO.File.OpenRead(addrUrl);
+            //获取文件的后缀名
+            string fileExt = Path.GetExtension(addrUrl);
+            //获取文件的ContentType
+            var provider = new Microsoft.AspNetCore.StaticFiles.FileExtensionContentTypeProvider();
+            var memi = provider.Mappings[fileExt];
+            return File(stream, memi, Path.GetFileName(addrUrl));
+        }
+
+        /// <summary>
         /// 绑定立案、结案下拉
         /// </summary>
         public void GetBusinesses()
         {
-            List<Business> list= _policeCase.GetBusinessesList();
+            List<Business> list = _policeCase.GetBusinessesList();
             var linq = from s in list
                        select new SelectListItem
                        {

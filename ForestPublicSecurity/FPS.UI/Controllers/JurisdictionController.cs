@@ -23,7 +23,28 @@ namespace FPS.UI.Controllers
         {
             return View();
         }
-
+        /// <summary>
+        /// 权限显示
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult GetAuthority()
+        {
+            List<Authority> authority = new List<Authority>();
+            authority = _jurisdiction.GetAuthority();
+            return View(authority);
+        }
+        /// <summary>
+        /// 显示权限
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public IActionResult GetAuthority(int id = 1)
+        {
+            List<Authority> authorities = new List<Authority>();
+            authorities = _jurisdiction.GetAuthority();
+            return PartialView("_ShowGetAuthority", authorities);
+        }
         /// <summary>
         /// 添加权限
         /// </summary>
@@ -50,11 +71,11 @@ namespace FPS.UI.Controllers
 
             if(i>0)
             {
-                return Content("<script>alert('新权限添加成功!');location.href='/Jurisdiction/Index'</script>");
+                return Content("<script>alert('新权限添加成功!');location.href='/Jurisdiction/Index'</script>","text/html;charset=utf-8");
             }
             else
             {
-                return Content("<script>alert('新权限添加失败!');location.href='/Jurisdiction/AddDroit'</script>");
+                return Content("<script>alert('新权限添加失败!');location.href='/Jurisdiction/AddDroit'</script>", "text/html;charset=utf-8");
             };
         }
 
@@ -188,14 +209,24 @@ namespace FPS.UI.Controllers
         }
 
         /// <summary>
+        /// 修改角色状态为停用
+        /// </summary>
+        /// <param name="id"></param>
+        public void DeleteRole(string id)
+        {
+            int state = _jurisdiction.DeleteRole(id);
+        }
+
+        /// <summary>
         /// 修改用户反填
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public IActionResult UpdateUserShow(string id)
+        public IActionResult UpdateUserShow(int id)
         {
             GetRoleList();
-            return View();
+            UserAndRole userAndRole = _jurisdiction.UpdateUserShow(id);
+            return View(userAndRole);
         }
 
         /// <summary>
@@ -205,10 +236,63 @@ namespace FPS.UI.Controllers
         /// <param name="users"></param>
         /// <param name="roleid"></param>
         /// <returns></returns>
-        public int AddUUpdateUser(int id, Users users, string roleid)
+        [HttpPost]
+        public int UpdateUserShow(Users users, int role, int id)
         {
             GetRoleList();
-            int i = _jurisdiction.UpdateUser(id, users,roleid);
+            int i = _jurisdiction.UpdateUser(users,role.ToString(),id);
+            return i;
+        }
+
+        /// <summary>
+        /// 修改角色反填
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public IActionResult UpdateRoleShow(int id)
+        {
+            GetAuthorityList();
+            RoleAndAuthority roleAndAuthority = _jurisdiction.UpdateRoleShow(id);
+            return View(roleAndAuthority);
+        }
+
+        /// <summary>
+        /// 修改角色保存
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="users"></param>
+        /// <param name="roleid"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public int UpdateRoleShow(Authority authority, string qxid, int id)
+        {
+            GetAuthorityList();
+            int i = _jurisdiction.UpdateRole(authority, qxid.ToString(), id);
+            return i;
+        }
+
+        /// <summary>
+        /// 修改权限反填
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public IActionResult UpdateAuthorityShow(int id)
+        {
+            Authority authority = _jurisdiction.UpdateAuthorityShow(id);
+            return View(authority);
+        }
+
+        /// <summary>
+        /// 修改权限保存
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="users"></param>
+        /// <param name="roleid"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public int UpdateAuthorityShow(Authority authority)
+        {
+            int i = _jurisdiction.UpdateAuthority(authority);
             return i;
         }
     }

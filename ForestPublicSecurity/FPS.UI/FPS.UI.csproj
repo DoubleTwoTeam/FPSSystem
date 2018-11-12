@@ -99,4 +99,10 @@
     <Folder Include="Images\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="Webdiyer.MvcPager">
+      <HintPath>..\Dlls\Webdiyer.MvcPager.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
