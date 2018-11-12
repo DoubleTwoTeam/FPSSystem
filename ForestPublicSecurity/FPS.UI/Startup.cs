@@ -35,14 +35,18 @@ namespace FPS.UI
             services.AddTransient<IApprove, ApproveServices>();
             services.AddTransient<IAlarm, AlarmServices>();
             services.AddSingleton<IConfiguration>(Configuration);
+
+            services.AddDistributedMemoryCache();
+            services.AddSession();
+
             var dbConnectionString = "Data Source=169.254.159.216/orcl;User ID=scott;Password=tiger;";
             SugerBase.DBConnectionString = dbConnectionString;
-            services.Configure<CookiePolicyOptions>(options =>
-            {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => true;
-                options.MinimumSameSitePolicy = SameSiteMode.None;
-            });
+            //services.Configure<CookiePolicyOptions>(options =>
+            //{
+            //    // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+            //    options.CheckConsentNeeded = context => true;
+            //    options.MinimumSameSitePolicy = SameSiteMode.None;
+            //});
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
@@ -65,6 +69,7 @@ namespace FPS.UI
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            app.UseSession();
 
             app.UseMvc(routes =>
             {

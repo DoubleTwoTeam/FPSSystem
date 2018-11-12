@@ -107,6 +107,7 @@
     <Compile Include="JurisdictionService.cs" />
     <Compile Include="PoliceCaseServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SimpleClientBase.cs" />
     <Compile Include="StudentServices.cs" />
     <Compile Include="SugerBase.cs" />
   </ItemGroup>
