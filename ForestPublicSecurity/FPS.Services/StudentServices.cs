@@ -42,7 +42,7 @@ namespace FPS.Services
         public UserAndRole Login(string name,string pwd)
         {
             var db = SugerBase.GetInstance();
-            var userlist = db.SqlQueryable<UserAndRole>("select a.*,c.rolename from users a,userrole b,role c where a.id=b.userid and b.roleid=c.id and a.LoginName='"+name+"' and a.password='"+pwd+"'").Single();
+            var userlist = db.SqlQueryable<UserAndRole>("select a.*,c.rolename from users a,userrole b,role c where a.id=b.userid and b.roleid=c.id").Where(m=>(m.LoginName==name && m.Password==pwd)).Single();
             return userlist;
         }
 

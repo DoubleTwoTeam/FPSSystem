@@ -30,8 +30,7 @@ namespace FPS.UI.Controllers
         /// <returns></returns>
         public IActionResult Index()
         {
-            //var seesi = HttpContext.Session.GetString("user");
-            //var user = JsonConvert.DeserializeObject<Users>(seesi);
+            //var user = JsonConvert.DeserializeObject<Users>(HttpContext.Session.GetString("user"));
             //return Content(string.Format("<script>alert('获取用户信息成功,用户名:{0}');</script>",user.LoginName), "text/html;charset=utf-8");
             return View();
         }
@@ -95,7 +94,7 @@ namespace FPS.UI.Controllers
             if (users==null)
                 return Content("<script>alert('登录失败,请检查账号密码!');</script>", "text/html;charset=utf-8");
             //存储用户信息
-            HttpContext.Session.SetString("user", JsonConvert.SerializeObject(users));
+            HttpContext.Session.SetString("user",JsonConvert.SerializeObject(users));
 
             //.net Core返回一个弹窗需要制定文本类型与编码格式
             return Content("<script>alert('登录成功');location.href='/BackWebSet/Index'</script>", "text/html;charset=utf-8");
