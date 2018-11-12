@@ -1,0 +1,119 @@
+﻿@model List<FPS.Models.Alarm>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>警员管理</title>
+    <link href="/police/css/style.css" rel="stylesheet" type="text/css" />
+
+    <script src="~/js/jquery-3.3.1.js"></script>
+    <script src="~/js/jquery.unobtrusive-ajax.js"></script>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <script src="~/dist/My97DatePicker/WdatePicker.js"></script>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".click").click(function () {
+                $(".tip").fadeIn(200);
+            });
+
+            $(".tiptop a").click(function () {
+                $(".tip").fadeOut(200);
+            });
+
+            $(".sure").click(function () {
+                $(".tip").fadeOut(100);
+            });
+
+            $(".cancel").click(function () {
+                $(".tip").fadeOut(100);
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="place">
+        <span>位置：</span>
+        <ul class="placeul">
+            <li><a href="home.html">首页</a></li>
+            <li><a href="#">主动排查</a></li>
+            <li><a href="#">多元化排查</a></li>
+            <li><a href="#">转递记录管理</a></li>
+        </ul>
+    </div>
+    <div class="rightinfo">
+        <ul class="prosearch">
+            <li>
+                <i>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</i>
+                <a><input name="name" type="text" class="scinput" /></a>
+                <i>联系电话</i><a><input name="phone" type="text" class="scinput" /></a>
+                <i>身份证号</i><a><input name="idcard" type="text" class="scinput" /></a>
+            </li>
+            <li>
+                <a><input name="" type="button" class="sure" value="查询" style="background:#417EB5;" /></a>
+                <a><input name="reset" type="reset" class="sure" value="清空" style="background:#417EB5;margin-left: 25px;" /></a>
+            </li>
+        </ul>
+        <ul class="prosearch">
+            <li>
+                <i>案情地点</i><a><input name="detailSplace" type="text" class="scinput" /></a>
+                <i>报警时间</i><a><input name="beginTime" type="text" class="scinput" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" />—<input name="endTime" type="text" class="scinput" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" /></a>
+            </li>
+        </ul>
+        <div id="alarmList">
+            <table class="table table-bordered">
+                <thead>
+                    <tr class="text-center">
+                        <td style="width:5%;">序号</td>
+                        <td style="width:10%;">报警地点</td>
+                        <td style="width:15px;">申报事项</td>
+                        <td style="width:6%;">报警人</td>
+                        <td style="width:8%;">联系方式</td>
+                        <td style="width:10%;">身份证号</td>
+                        <td style="width:12%;">报警时间</td>
+                        <td style="width:12%;">处理时间</td>
+                        <td style="width:7%;">状态</td>
+                        <td style="width:9%;">操作</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr class="text-center">
+                            <td>@item.ID</td>
+                            <td>@item.DetailSplace</td>
+                            <td>@item.AlarmReason</td>
+                            <td>@item.AlarmPeople</td>
+                            <td>@item.Phone</td>
+                            <td>@item.IdCard</td>
+                            <td>@item.Time.ToString("yyyy-MM-dd hh:mm")</td>
+                            <td>@item.OverTime.ToString("yyyy-MM-dd hh:mm")</td>
+                            <td>@(item.State == 0 ? "等待处理" : (item.State == 1 ? "出警中" : "已处理"))</td>
+                            <td>
+                                @if (item.State == 2)
+                                {
+                                    <a pointer-events: none>归 队</a>
+                                }
+                                @if (item.State == 1)
+                                {
+                                    @Html.ActionLink("归队", "OverOperation", new { id = @item.ID })
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $('.tablelist tbody tr:odd').addClass('odd');
+    </script>
+</body>
+</html>
