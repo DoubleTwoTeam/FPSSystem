@@ -63,7 +63,7 @@ namespace FPS.IServices
         List<UserAndRole> ShowUserAndRole();
 
         /// <summary>
-        /// 修改用户状态
+        /// 批量停用用户
         /// </summary>
         /// <param name="tablename"></param>
         /// <param name="byid"></param>
@@ -83,5 +83,48 @@ namespace FPS.IServices
         /// </summary>
         /// <returns></returns>
         int UpdateUser(int id,Users users, string roleid);
+
+        /// <summary>
+        /// 批量停用权限
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
+        int DeleteAuthority(string ids);
+
+        /// <summary>
+        /// 修改权限反填
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Authority UpdateAuthorityShow(int id);
+
+        /// <summary>
+        /// 修改权限保存
+        /// </summary>
+        /// <param name="authority"></param>
+        /// <returns></returns>
+        int UpdateAuthority(Authority authority);
+
+        /// <summary>
+        /// 批量停用角色
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
+        int DeleteRole(string ids);
+
+        /// <summary>
+        /// 修改角色反填
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Role UpdateRoleShow(int id);
+
+        /// <summary>
+        /// 修改角色保存
+        /// </summary>
+        /// <param name="authority"></param>
+        /// <returns></returns>
+        int UpdateRole(Role role);
+
     }
 }

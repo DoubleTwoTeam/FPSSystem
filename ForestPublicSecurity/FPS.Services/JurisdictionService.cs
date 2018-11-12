@@ -104,6 +104,26 @@ namespace FPS.Services
         }
 
         /// <summary>
+        /// 批量停用权限
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
+        public int DeleteAuthority(string ids)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 批量停用角色
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
+        public int DeleteRole(string ids)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
         /// 批量停用&用户
         /// </summary>
         /// <param name="tablename"></param>
@@ -190,11 +210,52 @@ namespace FPS.Services
             var userlist = db.SqlQueryable<UserAndRole>("select a.*,c.rolename from users a,userrole b,role c where a.id=b.userid and b.roleid=c.id");
             return userlist.ToList();
         }
+
+        /// <summary>
+        /// 修改权限保存
+        /// </summary>
+        /// <param name="authority"></param>
+        /// <returns></returns>
+        public int UpdateAuthority(Authority authority)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 修改权限反填
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public Authority UpdateAuthorityShow(int id)
+        {
+            throw new NotImplementedException();
+        }
+        
+        /// <summary>
+        /// 修改角色保存
+        /// </summary>
+        /// <param name="role"></param>
+        /// <returns></returns>
+        public int UpdateRole(Role role)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// 修改角色反填
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public Role UpdateRoleShow(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// 修改用户保存
         /// </summary>
         /// <param name="id"></param>
-        /// <param name="users"></param>
+        /// <param name="users"></param>8x
         /// <param name="roleid"></param>
         /// <returns></returns>
         public int UpdateUser(int id, Users users, string roleid)

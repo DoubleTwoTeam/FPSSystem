@@ -186,5 +186,30 @@ namespace FPS.UI.Controllers
         {
             int state = _jurisdiction.DeleteUser(tablename, byid, id);
         }
+
+        /// <summary>
+        /// 修改用户反填
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public IActionResult UpdateUserShow(string id)
+        {
+            GetRoleList();
+            return View();
+        }
+
+        /// <summary>
+        /// 修改用户保存
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="users"></param>
+        /// <param name="roleid"></param>
+        /// <returns></returns>
+        public int AddUUpdateUser(int id, Users users, string roleid)
+        {
+            GetRoleList();
+            int i = _jurisdiction.UpdateUser(id, users,roleid);
+            return i;
+        }
     }
 }

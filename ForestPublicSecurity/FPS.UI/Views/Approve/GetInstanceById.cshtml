@@ -46,7 +46,7 @@
                         </li>
                         <li>
                             <label>下载附件<b>*</b></label>
-                            <a href=""></a>
+                            @Html.TextBoxFor(m => m.Space, new { @class = "dfinput", style = "width:300px;" })<button onclick="downLoad()">下载</button>
                         </li>
                     </ul>
                 </div>
@@ -60,6 +60,10 @@
     <script src="~/vue/vue.js"></script>
     <script src="~/vue/axios.js"></script>
     <script>
+        function downLoad() {
+             var filename = $("[name='Space']").val();
+             window.location.href = "@Url.Action("DownLoad")?file=" + filename;
+        }
     </script>
 
 </body>
