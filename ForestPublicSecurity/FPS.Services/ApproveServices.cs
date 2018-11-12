@@ -106,20 +106,9 @@ namespace FPS.Services
         /// <returns></returns>
         PageList<ApproveDataModel> IApprove.GetApproveList(PageParams pageParams)
         {
-            var db = SugerBase.GetInstance();
-            List<ApproveDataModel> list = db.SqlQueryable<ApproveDataModel>(
-                "select Approve.ID,Instance.ID as InstanceID,Instance.RegisterPeopleID,Business.ID as BusinessID,Business.Name as BusinessName,Users.realName as UsersName,Role.Name as RoleName,Instance.InstanceTypes,Instance.InstanceTime,Instance.ApproveState " +
-                "from Approve,Users,Instance,Business,Role " +
-                "where Approve.ORIGINALID=Instance.ID and Approve.BUSINESSTYPEID=Business.ID and Approve.APPROVEPEOPLEID=USERS.ID and Approve.ROLEID=Role.ID and Approve.State=1 " + pageParams.Filter).Skip(pageParams.CurPage).Take(pageParams.PageSize).ToList();
+            PageList<ApproveDataModel> pageList = Parameters<ApproveDataModel>.GetpageList(pageParams);
 
-            int count = db.SqlQueryable<ApproveDataModel>(
-                "select Approve.ID,Instance.ID as InstanceID,Instance.RegisterPeopleID,Business.ID as BusinessID,Business.Name as BusinessName,Users.realName as UsersName,Role.Name as RoleName,Instance.InstanceTypes,Instance.InstanceTime,Instance.ApproveState " +
-                "from Approve,Users,Instance,Business,Role " +
-                "where Approve.ORIGINALID=Instance.ID and Approve.BUSINESSTYPEID=Business.ID and Approve.APPROVEPEOPLEID=USERS.ID and Approve.ROLEID=Role.ID and Approve.State=1 " + pageParams.Filter).Count();
-
-            PageList<ApproveDataModel> pagelist = new PageList<ApproveDataModel>() { ListData = list, TotalCount = count };
-
-            return pagelist;
+            return pageList;
         }
     }
 }
