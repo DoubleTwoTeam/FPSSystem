@@ -50,41 +50,42 @@
         </ul>
     </div>
     <div class="rightinfo">
-        <ul class="prosearch">
-            <li>
-                <i>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</i>
-                <a><input name="name" type="text" class="scinput" /></a>
-                <i>联系电话</i><a><input name="phone" type="text" class="scinput" /></a>
-                <i>身份证号</i><a><input name="idcard" type="text" class="scinput" /></a>
-            </li>
-            <li>
-                <a><input name="" type="button" class="sure" value="查询" style="background:#417EB5;" /></a>
-                <a><input name="reset" type="reset" class="sure" value="清空" style="background:#417EB5;margin-left: 25px;" /></a>
-                @if (ViewBag.userName == "警员")
-                {
-                    <a><input name="" onclick="location.href='/Alarm/ConstableOperation'" type="button" class="sure" value="我的任务" style="background:#ff0000;" /></a>
-                }
-            </li>
-        </ul>
-        <ul class="prosearch">
-            <li>
-                <i>案情地点</i><a><input name="detailSplace" type="text" class="scinput" /></a>
-                <i>报警时间</i><a><input name="beginTime" type="text" class="scinput" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" />—<input name="endTime" type="text" class="scinput" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" /></a>
-            </li>
-        </ul>
+        <form action="/Alarm/Index" method="post">
+            <ul class="prosearch">
+                <li>
+                    <i>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</i>
+                    <a><input name="name" type="text" class="scinput" /></a>
+                    <i>联系电话</i><a><input name="phone" type="text" class="scinput" /></a>
+                    <i>身份证号</i><a><input name="idcard" type="text" class="scinput" /></a>
+                </li>
+                <li>
+                    <a><input name="" type="submit" class="sure" value="查询" style="background:#417EB5;" /></a>
+                    <a><input name="reset" type="reset" class="sure" value="清空" style="background:#417EB5;margin-left: 25px;" /></a>
+                    @if (ViewBag.userName == "警员")
+                    {
+                        <a><input name="" onclick="location.href='/Alarm/ConstableOperation'" type="button" class="sure" value="我的任务" style="background:#ff0000;" /></a>
+                    }
+                </li>
+            </ul>
+            <ul class="prosearch">
+                <li>
+                    <i>案情地点</i><a><input name="detailSplace" type="text" class="scinput" /></a>
+                    <i>报警时间</i><a><input name="beginTime" type="text" class="scinput" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" />—<input name="endTime" type="text" class="scinput" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" /></a>
+                </li>
+            </ul>
+        </form>
         <div id="alarmList">
             <table class="table table-bordered">
                 <thead>
                     <tr class="text-center">
                         <td style="width:5%;">序号</td>
-                        <td style="width:11%;">报警地点</td>
+                        <td style="width:15%;">报警地点</td>
                         <td style="width:15px;">申报事项</td>
                         <td style="width:7%;">报警人</td>
                         <td style="width:10%;">联系方式</td>
-                        <td style="width:12%;">身份证号</td>
-                        <td style="width:12%;">报警时间</td>
-                        <td style="width:7%;">出警人</td>
-                        <td style="width:12%;">处理时间</td>
+                        <td style="width:13%;">身份证号</td>
+                        <td style="width:13%;">报警时间</td>
+                        <td style="width:13%;">处理时间</td>
                         <td style="width:7%;">状态</td>
                     </tr>
                 </thead>
@@ -99,7 +100,6 @@
                             <td>@item.Phone</td>
                             <td>@item.IdCard</td>
                             <td>@item.Time.ToString("yyyy-MM-dd hh:mm")</td>
-                            <td>@item.SolvePeopleId</td>
                             <td>@item.OverTime.ToString("yyyy-MM-dd hh:mm")</td>
                             <td>@(item.State == 0 ? "等待处理" : (item.State == 1 ? "出警中" : "已处理"))</td>
                         </tr>
