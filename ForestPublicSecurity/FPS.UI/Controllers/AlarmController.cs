@@ -12,6 +12,8 @@ using FPS.Models.DTO;
 using FPS.UI.Common;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Web;
 
 namespace FPS.UI.Controllers
 {
@@ -116,9 +118,23 @@ namespace FPS.UI.Controllers
         }
 
         /// <summary>
+        /// 外派警员页面
+        /// </summary>
+        /// <returns></returns>
+
+        public ActionResult SolvePeople(int id)
+        {
+            //外派警员的下拉列表
+            ViewBag.id = new SelectList(_alarm.GetRoles(), "ID", "RoleName");
+
+            return View();
+        }
+
+        /// <summary>
         /// 外派警员
         /// </summary>
         /// <returns></returns>
+        [HttpPost]
         public ActionResult SolvePeople(int id,int outid)
         {
             //获取登录人信息
@@ -211,6 +227,5 @@ namespace FPS.UI.Controllers
             var alarmlist = pList.ListData;
             return View(alarmlist);
         }
-
     }
 }
