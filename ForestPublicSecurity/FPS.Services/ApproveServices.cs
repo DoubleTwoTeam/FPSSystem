@@ -109,18 +109,18 @@ namespace FPS.Services
         /// 审批页面显示
         /// </summary>
         /// <returns></returns>
-        PageList<ApproveDataModel> IApprove.GetApproveList()
+        PageList<ApproveDataModel> IApprove.GetApproveList(int rid)
         {
             var db = SugerBase.GetInstance();
             List<ApproveDataModel> list = db.SqlQueryable<ApproveDataModel>(
                 "select Approve.ID,Instance.ID as InstanceID,Business.Name as BusinessName,Approve.BUSINESSTYPEID,Role.RoleName as RoleName,Instance.InstanceTypes,Instance.Time as InstanceTime,Instance.ApproveState,Instance.InstanceState " +
                 "from Approve,Instance,Business,Role " +
-                "where Approve.ORIGINALID=Instance.ID and Approve.BUSINESSTYPEID=Business.ID and Approve.ROLEID=Role.ID and Approve.State=1 ").ToList();
+                "where Approve.ORIGINALID=Instance.ID and Approve.BUSINESSTYPEID=Business.ID and Approve.ROLEID=Role.ID and Approve.State=1 and Approve.RoleID="+rid).ToList();
 
             int i=db.SqlQueryable<ApproveDataModel>(
                 "select Approve.ID,Instance.ID as InstanceID,Instance.RegisterPeopleID,Approve.BUSINESSTYPEID,Business.Name as BusinessName,Role.RoleName as RoleName,Instance.InstanceTypes,Instance.Time as InstanceTime,Instance.ApproveState,Instance.InstanceState " +
                 "from Approve,Instance,Business,Role " +
-                "where Approve.ORIGINALID=Instance.ID and Approve.BUSINESSTYPEID=Business.ID and Approve.ROLEID=Role.ID and Approve.State=1 " ).Count();
+                "where Approve.ORIGINALID=Instance.ID and Approve.BUSINESSTYPEID=Business.ID and Approve.ROLEID=Role.ID and Approve.State=1 and Approve.RoleID=" + rid).Count();
             PageList<ApproveDataModel> pageList = new PageList<ApproveDataModel>() { ListData = list, TotalCount = i };
             
             return pageList;
