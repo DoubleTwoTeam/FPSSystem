@@ -32,12 +32,25 @@ namespace FPS.IServices
         int UptAlarm(int id,Alarm alarm);
 
         /// <summary>
+        /// 操作警员状态
+        /// </summary>
+        /// <param name="userid"></param>
+        /// <returns></returns>
+        int UptUserState(int userid);
+
+        /// <summary>
         /// 警员归队操作
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         int UptState(int id);
 
+        /// <summary>
+        /// 警员归队状态修改
+        /// </summary>
+        /// <param name="outid"></param>
+        /// <returns></returns>
+        int UptOverOperationState(int outid);
         /// <summary>
         /// 外派警员列表
         /// </summary>
