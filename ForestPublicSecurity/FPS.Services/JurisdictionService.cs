@@ -37,7 +37,7 @@ namespace FPS.Services
             int i = db.Insertable(role).ExecuteCommand();
             if (i > 0)
             {
-                var newId = db.Queryable<Role>().Where(m => m.RoleName == name).OrderBy("ID desc").Single().ID;
+                var newId = db.Queryable<Role>().Where(m => m.RoleName == name).OrderBy("ID desc").First().ID;
                 string[] qxids = qxid.Split(',');
                 int state = 0;
                 foreach (var item in qxids)
@@ -235,8 +235,10 @@ namespace FPS.Services
         public int UpdateAuthority(Authority authority)
         {
             var db = SugerBase.GetInstance();
-            var client = SimpleClientBase.GetSimpleClient<Authority>();
-            var result = db.Updateable(authority).Where(m => m.ID == authority.ID).ExecuteCommand();
+            //var client = SimpleClientBase.GetSimpleClient<Authority>();
+            //var result = db.Updateable(authority).Where(m => m.ID == authority.ID).ExecuteCommand();
+            //return result;
+            int result = db.Updateable(authority).Where(m => m.ID == authority.ID).ExecuteCommand();
             return result;
         }
 
@@ -248,8 +250,9 @@ namespace FPS.Services
         public Authority UpdateAuthorityShow(int id)
         {
             var db = SugerBase.GetInstance();
-            var client = SimpleClientBase.GetSimpleClient<Authority>();
-            return UpdateAuthorityShow(id);
+            List<Authority> list = db.SqlQueryable<Authority>("select * from Authority where ID=" + id).ToList();
+            Authority authority = list[0];
+            return authority;
         }
 
         /// <summary>
@@ -280,7 +283,7 @@ namespace FPS.Services
         public RoleAndAuthority UpdateRoleShow(int id)
         {
             var db = SugerBase.GetInstance();
-            var role = db.SqlQueryable<RoleAndAuthority>("select a.*,c.name from role a,ROLEAUTHORITY b,Authority c where a.id=b.roleid and b.Authorityid=c.id and a.ID=" + id).Single();
+            var role = db.SqlQueryable<RoleAndAuthority>("select a.*,c.name from role a,ROLEAUTHORITY b,Authority c where a.id=b.roleid and b.Authorityid=c.id and a.ID=" + id).First();
             return role;
         }
 
