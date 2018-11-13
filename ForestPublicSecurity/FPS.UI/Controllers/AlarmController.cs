@@ -122,8 +122,10 @@ namespace FPS.UI.Controllers
         /// </summary>
         /// <returns></returns>
 
-        public ActionResult SolvePeople(int id)
+        public ActionResult SolvePeople(int infoid)
         {
+            HttpContext.Session.SetString("info", JsonConvert.SerializeObject(infoid));
+
             //外派警员的下拉列表
             ViewBag.id = new SelectList(_alarm.GetRoles(), "ID", "RoleName");
 
@@ -135,19 +137,20 @@ namespace FPS.UI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult SolvePeople(int id,int outid)
+        public ActionResult SolvePeople1(int id)
         {
+            var ids =Convert.ToInt32(JsonConvert.DeserializeObject(HttpContext.Session.GetString("info")));
             //获取登录人信息
             var seesi = HttpContext.Session.GetString("user");
             var user = JsonConvert.DeserializeObject<UserAndRole>(seesi);
             
             var alarms = new Alarm()
             {
-                OutID= outid,
+                OutID= id,
                 SolvePeopleId=user.ID,
                 OverTime = new DateTime()
             };
-             var result = _alarm.UptAlarm(id,alarms);
+             var result = _alarm.UptAlarm(ids, alarms);
             return View();
         }
 
