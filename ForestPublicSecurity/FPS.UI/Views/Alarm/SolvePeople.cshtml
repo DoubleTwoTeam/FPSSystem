@@ -14,13 +14,15 @@
 <body>
     <div style="width:555px;height:500px;background-color:#ff0000" align="center">
         <h2 class="md-content">出警操作</h2>
-        <span style="font-size:15px;">
-            选择出警警员:<span style="font-size:15px;color:#000000;font-weight:bolder;" align="center">@Html.DropDownList("id")</span>
-        </span>
-        <span style="margin-top:125px" align="center">
-            <input type="button" class="btn btn-success" style="margin:0 auto" onclick="SolvePeople()" value="确 定" />
-            <input type="button" class="btn btn-success" style="margin:0 auto" onclick="layer_close()" value="关 闭" />
-        </span>
+        <form action="/Alarm/SolvePeople1" method="post">
+            <span style="font-size:15px;">
+                选择出警警员:<span style="font-size:15px;color:#000000;font-weight:bolder;" align="center">@Html.DropDownList("id")</span>
+            </span>
+            <span style="margin-top:125px" align="center">
+                <input type="submit" class="btn btn-success" style="margin:0 auto" value="确 定" />
+                <input type="button" class="btn btn-success" style="margin:0 auto" onclick="layer_close()" value="关 闭" />
+            </span>
+        </form>
     </div>
     <script src="~/js/jquery-3.3.1.js"></script>
     <script src="~/js/jquery.unobtrusive-ajax.js"></script>
@@ -34,9 +36,6 @@
             var index = parent.layer.getFrameIndex(window.name);
             parent.layer.close(index);
         };
-        function SolvePeople() {
-            location.log(id);
-        }
     </script>
 </body>
 </html>
