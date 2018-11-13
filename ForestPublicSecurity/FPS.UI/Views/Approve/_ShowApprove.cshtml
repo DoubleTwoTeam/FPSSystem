@@ -4,13 +4,13 @@
 @using Webdiyer.WebControls.Mvc;
 @model PagedList<FPS.Models.ApproveDataModel>
 
+
 <table class="tablelist">
     <thead>
         <tr>
 
             <th>序号<i class="sort"><img src="images/px.gif" /></i></th>
             <th>业务类型</th>
-            <th>申请人</th>
             <th>案件类型</th>
             <th>案件详情</th>
             <th>申请时间</th>
@@ -21,35 +21,49 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
+        <tr>
 
-                <td>@item.ID</td>
-                <td>@item.BusinessName</td>
-                <td>@item.InstanceTypes</td>
-                <td>
-                    <a href="javascript:;" onclick="Get_inStanceById('查看案情','/Approve/GetInstanceById/'+@item.InstanceID,'800','500')">查看案情</a>
-                </td>
-                <td>@item.InstanceTime</td>
-                @{
-                    if (item.ApproveState == 1)
-                    {
-                        <td>审核中</td>
-                    }
-                    else if (item.ApproveState == 2)
-                    {
-                        <td>已通过</td>
-                    }
-                    else
-                    {
-                        <td>已驳回</td>
-                    }
+            <td>@item.ID</td>
+            <td>@item.BusinessName</td>
+            @{ 
+                if (item.InstanceState==1)
+                {
+                    <td>普通</td>
                 }
-
-                <td>
-                    @Html.ActionLink("通过", "PassApprove", new { id = item.ID, bussiness = item.InstanceTypes, inStanceId = item.InstanceID })&nbsp;&nbsp;
-                    @Html.ActionLink("驳回", "NoApprove", new { id = item.ID, inStanceId = item.InstanceID })
-                </td>
-            </tr>
+                else if(item.InstanceState == 2)
+                {
+                    <td>重大</td>
+                }
+                else
+                {
+                    <td>特大</td>
+                }
+            }
+            <td>
+                <a href="javascript:;" onclick="Get_inStanceById('查看案情','/Approve/GetInstanceById?id='+@item.InstanceID,'800','500')">查看案情</a>
+            </td>
+            <td>@item.InstanceTime</td>
+            @{
+                if (item.ApproveState == 1)
+                {
+                    <td>审核中</td>
+                    <td>
+                        @Html.ActionLink("通过", "PassApprove", new { id = item.ID, bussiness = item.BusinessID, inStanceId = item.InstanceID })&nbsp;&nbsp;
+                        @Html.ActionLink("驳回", "NoApprove", new { id = item.ID, inStanceId = item.InstanceID })
+                    </td>
+                }
+                else if (item.ApproveState == 2)
+                {
+                    <td>已通过</td>
+                    <td>森林公安</td>
+                }
+                else
+                {
+                    <td>已驳回</td>
+                    <td>森林公安</td>
+                }
+            }
+        </tr>
         }
     </tbody>
 </table>

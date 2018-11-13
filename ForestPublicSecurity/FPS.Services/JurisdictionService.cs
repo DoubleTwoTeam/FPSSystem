@@ -69,7 +69,6 @@ namespace FPS.Services
             {
                 var newId = db.Queryable<Users>().Where(m => m.LoginName == users.LoginName).First();
                 string[] ids = roleid.Split(',');
-
                 int state = 0;
                 foreach (var item in ids)
                 {
@@ -78,7 +77,6 @@ namespace FPS.Services
                     userRole.RoleId = itemid;
                     userRole.UserId = newId.ID;//用户ID
                     state += db.Insertable(userRole).ExecuteCommand();
-
                 }
                 return ids.Length == state ? state : 0;
             }
@@ -163,7 +161,6 @@ namespace FPS.Services
             foreach (var item in ids)
             {
                 int intId = Convert.ToInt32(item);
-                //var updateUserState = db.SqlQueryable<int>("update " + tablename + " set state=0 where " + byid + "= " + intId).First();
                 state += (simple.Update(m => new Users() { State = 1 }, m => m.ID == intId)) ? 1 : 0;
             }
             return state;
@@ -174,7 +171,6 @@ namespace FPS.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-
         public List<Authority> GetAuthority()
         {
             var db = SugerBase.GetInstance();
@@ -235,9 +231,6 @@ namespace FPS.Services
         public int UpdateAuthority(Authority authority)
         {
             var db = SugerBase.GetInstance();
-            //var client = SimpleClientBase.GetSimpleClient<Authority>();
-            //var result = db.Updateable(authority).Where(m => m.ID == authority.ID).ExecuteCommand();
-            //return result;
             int result = db.Updateable(authority).Where(m => m.ID == authority.ID).ExecuteCommand();
             return result;
         }
@@ -307,21 +300,6 @@ namespace FPS.Services
                 return res?1:0;
             }
             return 0;
-            //if (i > 0)
-            //{
-            //    string[] qxids = roleid.Split(',');
-            //    int state = 0;
-            //    foreach (var item in qxids)
-            //    {
-            //        int newId = Convert.ToInt32(item);
-            //        RoleAuthority roleAuthority = new RoleAuthority();
-            //        roleAuthority.AuthorityId = id;
-            //        roleAuthority.RoleId = newId;
-            //        state += db.Insertable(roleAuthority).ExecuteCommand();//记录成功条数
-            //    }
-            //    return qxids.Length == state ? 1 : 0;
-            //}
-            //return result ? 1 : 0;
         }
 
         /// <summary>
