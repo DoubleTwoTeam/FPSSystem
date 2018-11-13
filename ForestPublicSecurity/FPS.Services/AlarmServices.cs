@@ -18,11 +18,11 @@ namespace FPS.Services
         /// 外派警员列表
         /// </summary>
         /// <returns></returns>
-        public List<Role> GetRoles()
+        public List<UserAndRole> GetRoles()
         {
             var db = SugerBase.GetInstance();
-            var roleList = db.SqlQueryable<Role>("Select a.RoleId as ID,b.RoleName from RoleAuthority a, ROLE b Where a.RoleId=b.ID and a.RoleId=88").ToList();
-            return roleList;
+            var userList = db.SqlQueryable<UserAndRole>("select B.ID,B.RealName,B.state from Role a,Users b,UserRole c where a.ID=c.roleid AND b.id=c.UserID AND C.ROLEID=88").ToList();
+            return userList;
         }
 
         /// <summary>
