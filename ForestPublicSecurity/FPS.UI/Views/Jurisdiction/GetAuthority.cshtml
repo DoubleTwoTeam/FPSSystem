@@ -8,7 +8,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>GetAuthority</title>
+    <title>权限管理</title>
     <link href="~/police/css/style.css" rel="stylesheet" />
     <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
     <script src="~/js/dist/My97DatePicker/WdatePicker.js"></script>
@@ -25,6 +25,7 @@
         </ul>
     </div>
     <div id="divData">
+        <h2 style="margin-left:900px;">权限管理</h2>
         @{ await Html.RenderPartialAsync("_ShowGetAuthority", Model); }
     </div>
 </body>

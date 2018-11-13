@@ -14,7 +14,6 @@
     <script src="~/js/dist/My97DatePicker/WdatePicker.js"></script>
 </head>
 <body>
-
     <div class="place">
         <span>位置：</span>
         <ul class="placeul">
@@ -25,6 +24,7 @@
         </ul>
     </div>
     <div id="divData">
+        <h2 style="margin-left:800px;">角色管理</h2>
         @{ await Html.RenderPartialAsync("_ShowGetRole", Model); }
     </div>
 </body>
