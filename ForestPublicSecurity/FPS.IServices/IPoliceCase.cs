@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using FPS.Models;
+using FPS.Models.DTO;
 
 namespace FPS.IServices
 {
@@ -28,7 +29,7 @@ namespace FPS.IServices
         /// 案件显示页面
         /// </summary>
         /// <returns></returns>
-        List<InstanceDataModel> GetInstanceList();
+        PageList<InstanceDataModel> GetInstanceList();
 
         /// <summary>
         /// 根据ID查询对应的案件

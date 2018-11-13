@@ -15,6 +15,8 @@ namespace FPS.IServices
     /// </summary>
     public interface IAlarm
     {
+
+
         /// <summary>
         /// 添加报警
         /// </summary>
@@ -23,18 +25,23 @@ namespace FPS.IServices
         int InsertAlarm(Alarm alarm);
 
         /// <summary>
-        /// 反填显示
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        DataTable GetUptAlarm(int id);
-
-        /// <summary>
         /// 操作报警内容
         /// </summary>
         /// <param name="alarm"></param>
         /// <returns></returns>
-        int UptAlarm(Alarm alarm);
+        int UptAlarm(int id,Alarm alarm);
 
+        /// <summary>
+        /// 警员归队操作
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        int UptState(int id);
+
+        /// <summary>
+        /// 外派警员列表
+        /// </summary>
+        /// <returns></returns>
+        List<Role> GetRoles(); 
     }
 }

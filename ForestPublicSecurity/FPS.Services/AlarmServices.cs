@@ -15,16 +15,14 @@ namespace FPS.Services
     public class AlarmServices : IAlarm
     {
         /// <summary>
-        /// 反填显示
+        /// 外派警员列表
         /// </summary>
-        /// <param name="id"></param>
         /// <returns></returns>
-        public DataTable GetUptAlarm(int id)
+        public List<Role> GetRoles()
         {
             var db = SugerBase.GetInstance();
-            Alarm alarm= db.Queryable<Alarm>().Where(it => it.ID == id).Single();
-            DataTable alarmDataTable =JsonConvert.DeserializeObject<DataTable>(JsonConvert.SerializeObject(alarm));
-            return alarmDataTable;
+            var roleList = db.SqlQueryable<Role>("Select a.RoleId as ID,b.RoleName from RoleAuthority a, ROLE b Where a.RoleId=b.ID and a.AuthorityId=88").ToList();
+            return roleList;
         }
 
         /// <summary>
@@ -57,28 +55,23 @@ namespace FPS.Services
         /// </summary>
         /// <param name="alarm"></param>
         /// <returns></returns>
-        public int UptAlarm(Alarm alarm)
+        public int UptAlarm(int id, Alarm alarm)
         {
-            var db = SugerBase.GetInstance();
-            var updateAlarm = new Alarm()
-            {
-                ID = alarm.ID,
-                AlarmReason = alarm.AlarmReason,
-                DetailSplace = alarm.DetailSplace,
-                Enclosure = alarm.Enclosure,
-                Time = alarm.Time,
-                AlarmPeople = alarm.AlarmPeople,
-                Phone = alarm.Phone,
-                IdCard = alarm.IdCard,
-                Url = alarm.Url,
-                SolvePeopleId=alarm.SolvePeopleId,
-                OutID=alarm.OutID,
-                OverTime=alarm.OverTime,
-                State=alarm.State,
-                Space=alarm.Space
-            };
-            var ruselt = db.Updateable(updateAlarm).ExecuteCommand();
-            return ruselt;
+            var db = SimpleClientBase.GetSimpleClient<Alarm>();
+            var result = db.Update(m => new Alarm {  OutID = alarm.ID,SolvePeopleId=alarm.SolvePeopleId,OverTime=alarm.OverTime,State=1 }, q => q.ID == id) ? 1 : 0;
+            return result;
+        }
+
+        /// <summary>
+        /// 警员归队
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public int UptState(int id)
+        {
+            var db = SimpleClientBase.GetSimpleClient<Alarm>();
+            var result = db.Update(m =>new Alarm { State=2 },q=>q.ID==id)?1:0;
+            return result;
         }
     }
 }

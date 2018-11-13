@@ -1,12 +1,12 @@
-﻿@model List<FPS.Models.RoleAndAuthority>
+﻿@model List<FPS.Models.Authority>
 <table class="tablelist">
     <tr>
-        <th>用户信息</th>
+        <th>权限信息</th>
     </tr>
     <tr>
         <th>ID</th>
-        <th>角色名称</th>
         <th>权限名称</th>
+        <th>父级ID</th>
         <th>状态</th>
         <th>操作</th>
     </tr>
@@ -17,8 +17,8 @@
             {
                 <tr>
                     <td>@item.ID</td>
-                    <td>@item.RoleName</td>
                     <td>@item.Name</td>
+                    <td>@item.FatherId</td>
                     <td>@(item.State == 0 ? "启用" : "停用")</td>
                     <td><a href="">修改</a>&nbsp;<a href="javascript:stop(@item.ID.ToString())">停用</a></td>
                 </tr>
