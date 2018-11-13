@@ -9,9 +9,11 @@ using FPS.UI;
 using FPS.IServices;
 using FPS.Services;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using FPS.UI.Filter;
 
 namespace FPS.UI.Controllers
 {
+    [PermissionFilter]
     public class JurisdictionController : Controller
     {
         /// <summary>

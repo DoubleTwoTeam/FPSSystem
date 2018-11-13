@@ -11,14 +11,25 @@
     <title>五台山森林管控中心后台系统</title>
     <link href="/police/css/style.css" rel="stylesheet" type="text/css" />
     <script language="JavaScript" src="/police/js/jquery.js"></script>
+    <script src="~/js/jquery.unobtrusive-ajax.js"></script>
     <script type="text/javascript">
-$(function(){
-	//顶部导航切换
-	$(".nav li a").click(function(){
-		$(".nav li a.selected").removeClass("selected")
-		$(this).addClass("selected");
-	})
-})
+        $(function () {
+            //顶部导航切换
+            $(".nav li a").click(function () {
+                $(".nav li a.selected").removeClass("selected")
+                $(this).addClass("selected");
+            })
+        })
+        function SignOut() {
+            $.ajax({
+                url: "/BackWebSet/Logout",
+                type: "get",
+                success: function (data) {
+                    alert(data);
+                    alert("success");
+                }
+            })
+        }
     </script>
 
 
@@ -41,7 +52,7 @@ $(function(){
     <div class="topright">
         <ul>
             <li><a href="#">关于</a></li>
-            <li><a href="login.html" target="_parent">退出</a></li>
+            <li><a href="/BackWebSet/Logout">退出</a></li>
         </ul>
 
         <div class="user">
