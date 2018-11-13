@@ -42,6 +42,6 @@ namespace FPS.IServices
         /// 外派警员列表
         /// </summary>
         /// <returns></returns>
-        List<Role> GetRoles(); 
+        List<UserAndRole> GetRoles(); 
     }
 }
