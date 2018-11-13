@@ -13,6 +13,8 @@ using Microsoft.Extensions.DependencyInjection;
 using FPS.Services;
 using FPS.IServices;
 using FPS.UI.Common;
+using Microsoft.Extensions.Caching.Redis;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace FPS.UI
 {
@@ -51,6 +53,16 @@ namespace FPS.UI
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
+            //注册Redis服务
+            services.AddSingleton(typeof(ICacheService), new RedisCacheService(new RedisCacheOptions()
+            {
+                Configuration = Configuration.GetSection("Cache:ConnectionString").Value,
+                InstanceName = Configuration.GetSection("Cache:InstanceName").Value
+            }));
+            //注册Cookie身份验证服务
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                    .AddCookie(options => options.LoginPath = new PathString("/home/index"));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -66,10 +78,14 @@ namespace FPS.UI
                 app.UseHsts();
             }
 
+            //开启验证
+            app.UseAuthentication();
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseSession();
+
 
             app.UseMvc(routes =>
             {

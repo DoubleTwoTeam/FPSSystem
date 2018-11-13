@@ -14,5 +14,6 @@ namespace FPS.IServices
         int AddCallPolice(Alarm alarm);
 
         UserAndRole Login(string name, string pwd);
+        List<Authority> GetAuthority(int id);
     }
 }

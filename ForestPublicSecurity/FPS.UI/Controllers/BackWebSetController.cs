@@ -10,17 +10,24 @@ using FPS.IServices;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Session;
 using Newtonsoft.Json;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using FPS.UI.Common;
+using Microsoft.AspNetCore.Authentication;
 
 namespace FPS.UI.Controllers
 {
     public class BackWebSetController : Controller
     {
-        private readonly IJurisdiction _jurisdiction;
         private readonly IStudent _student;
 
-        public BackWebSetController(IStudent student, IJurisdiction jurisdiction)
+        private readonly IJurisdiction _jurisdiction;
+        private ICacheService _cacheService { get; set; }
+
+        public BackWebSetController(IStudent student, IJurisdiction jurisdiction, ICacheService cacheService)
         {
             _jurisdiction = jurisdiction;
+            _cacheService = cacheService;
             _student = student;
         }
 
@@ -58,8 +65,9 @@ namespace FPS.UI.Controllers
         /// <returns></returns>
         public IActionResult Left_menu()
         {
+            var id=HttpContext.User.Identity.Name;
             List<Authority> authority = new List<Authority>();
-            authority = _jurisdiction.GetAuthority();
+            authority = _student.GetAuthority(Convert.ToInt32(id));
             return View(authority);
         }
 
@@ -88,13 +96,30 @@ namespace FPS.UI.Controllers
         /// <param name="pwd"></param>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult Login(string name,string pwd)
+        public  IActionResult Login(string name,string pwd)
         {
             UserAndRole users =_student.Login(name,pwd);
             if (users==null)
                 return Content("<script>alert('登录失败,请检查账号密码!');</script>", "text/html;charset=utf-8");
-            //存储用户信息
+            //Session存储用户信息
             HttpContext.Session.SetString("user",JsonConvert.SerializeObject(users));
+
+            //构造ClaimsIdentity 对象
+            var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
+            //创建 Claim 类型,传入 ClaimsIdentity 中
+            identity.AddClaim(new Claim(ClaimTypes.Name, users.ID.ToString()));
+            //创建ClaimsPrincipal对象,传入ClaimsIdentity 对象,调用HttpContext.SignInAsync完成登录
+            HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity));
+
+            //存Redis
+            RedisHelper.Set<UserAndRole>(users.LoginName, users);
+            //取Redis
+            var user2 = RedisHelper.Get<UserAndRole>(users.LoginName);
+
+            ////存储redis
+            //_cacheService.Add(users.LoginName, JsonConvert.SerializeObject(users));
+            ////取Redis
+            //var result = _cacheService.Get(HttpContext.User.Claims.First().Value);
 
             //.net Core返回一个弹窗需要制定文本类型与编码格式
             return Content("<script>alert('登录成功');location.href='/BackWebSet/Index'</script>", "text/html;charset=utf-8");
