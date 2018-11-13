@@ -9,6 +9,7 @@ using FPS.UI;
 using FPS.IServices;
 using FPS.Services;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Http;
 
 namespace FPS.UI.Controllers
 {
@@ -200,7 +201,6 @@ namespace FPS.UI.Controllers
             int i = _jurisdiction.UpdateRole(authority, qxid.ToString(), id);
             return i;
         }
-
         /// <summary>
         /// 修改角色状态为停用
         /// </summary>

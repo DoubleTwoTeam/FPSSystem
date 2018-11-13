@@ -46,13 +46,13 @@ namespace FPS.UI.Controllers
         //    return Json(alarmlist);
         //}
         #endregion
-            
+
         /// <summary>
         /// 报警显示
         /// </summary>
         /// <returns></returns>
         public IActionResult Index()
-        { 
+        {
             //当前第几页
             var pageIndex = 1;
 
@@ -68,7 +68,7 @@ namespace FPS.UI.Controllers
             var user = JsonConvert.DeserializeObject<UserAndRole>(seesi);
 
             var userid = user.ID;
-           // 登录人权限名称
+            // 登录人权限名称
             ViewBag.userName = user.RoleName;
             ViewBag.totalNumber = pList.TotalCount;
 
@@ -93,7 +93,7 @@ namespace FPS.UI.Controllers
         {
             //拼接条件
             StringBuilder str = new StringBuilder();
-            str.Append("");
+            str.Append("1=1");
             if (!string.IsNullOrWhiteSpace(name))
             {
                 str.Append(" and ALARMPEOPLE='" + name + "'");
@@ -121,7 +121,7 @@ namespace FPS.UI.Controllers
             var alarmlist = pList.ListData;
             return View(alarmlist);
         }
-      
+
         /// <summary>
         /// 队长管理
         /// </summary>
@@ -171,7 +171,7 @@ namespace FPS.UI.Controllers
             //将操作的列ID 取到存在Session中
             HttpContext.Session.SetString("info", JsonConvert.SerializeObject(id));
             //外派警员的下拉列表
-            ViewBag.id = new SelectList(_alarm.GetRoles(), "ID", "RoleName");
+            ViewBag.id = new SelectList(_alarm.GetRoles(), "ID", "RealName");
             return View();
         }
 
@@ -182,19 +182,29 @@ namespace FPS.UI.Controllers
         [HttpPost]
         public ActionResult UptSolvePeople(int id)
         {
-            var ids =Convert.ToInt32(JsonConvert.DeserializeObject(HttpContext.Session.GetString("info")));
+            var ids = Convert.ToInt32(JsonConvert.DeserializeObject(HttpContext.Session.GetString("info")));
             //获取登录人信息
             var seesi = HttpContext.Session.GetString("user");
             var user = JsonConvert.DeserializeObject<UserAndRole>(seesi);
-            
+
             var alarms = new Alarm()
             {
-                OutID= id,
-                SolvePeopleId=user.ID,
-                OverTime = new DateTime()
+                OutID = id,
+                SolvePeopleId = user.ID,
+                OverTime = DateTime.Now
             };
-             var result = _alarm.UptAlarm(ids, alarms);
-            return View();
+            //修改信息
+            var result = _alarm.UptAlarm(ids, alarms);
+            //修改警员状态
+            var resultTwo = _alarm.UptUserState(id);
+            if (result > 0)
+            {
+                if (resultTwo>0)
+                {
+                    return Content("<script>alert('操作成功');var index = parent.layer.getFrameIndex(window.name);window.parent.location.reload();parent.layer.close(index); location.href='/Alarm/CaptainOperation'</script>", "text/html;charset=utf-8");
+                }
+            }
+            return Content("<script>alert('操作失败');var index = parent.layer.getFrameIndex(window.name);window.parent.location.reload();parent.layer.close(index); location.href='/Alarm/CaptainOperation'</script>", "text/html;charset=utf-8");
         }
 
         /// <summary>
@@ -203,10 +213,19 @@ namespace FPS.UI.Controllers
         /// <returns></returns>
         public ActionResult OverOperation(int id)
         {
+            //获取登录人信息
+            var seesi = HttpContext.Session.GetString("user");
+            var user = JsonConvert.DeserializeObject<UserAndRole>(seesi);
+
+            var userid = user.ID;
             var result = _alarm.UptState(id);
-            if (result>0)
+            var resultTwo = _alarm.UptOverOperationState(userid);
+            if (result > 0)
             {
-                return Content("<script>alert('操作成功');location.href='/Alarm/ConstableOperation'</script>", "text/html;charset=utf-8");
+                if (resultTwo>0)
+                {
+                    return Content("<script>alert('操作成功');location.href='/Alarm/ConstableOperation'</script>", "text/html;charset=utf-8");
+                }
             }
             return Content("<script>alert('操作成功');location.href='/Alarm/ConstableOperation'</script>", "text/html;charset=utf-8");
         }
