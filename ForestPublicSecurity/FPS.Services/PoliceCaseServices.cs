@@ -38,7 +38,7 @@ namespace FPS.Services
             List<ApproveCourse> course = db.SqlQueryable<ApproveCourse>("select * from ApproveCourse where Condition like '%" + instance.InstanceState + "%' and BusinesstypeId=" + instance.InstanceTypes).ToList();
             ApproveCourse approveCourse = course[0];
             //ApproveCourse approveCourse= db.Queryable<ApproveCourse>().Where(m => (m.Condition.Contains(instance.InstanceState.ToString()) && m.BusinesstypeId == Convert.ToInt32(instance.InstanceTypes))).Single();
-            Approve approve = new Approve() { RoleId = approveCourse.ApproveRoleId, BusinesstypeId = approveCourse.BusinesstypeId, PlaceID = approveCourse.PostpositionID, OriginalId=instance.ID, Ideas="", State="0" };
+            Approve approve = new Approve() { RoleId = approveCourse.ApproveRoleId, BusinesstypeId = approveCourse.BusinesstypeId, PlaceID = approveCourse.PostpositionID, OriginalId=instance.ID, Ideas="", State="1" };
             return approve;
         }
 
