@@ -46,15 +46,15 @@
                     console.log(data);
                     if (data > 0) {
                         alert("添加成功!为该用户添加 " + data + " 条权限")
-                        parent.window.location.href = "/Jurisdiction/ShowUser";
+                        parent.window.location.href = "/Jurisdiction/GetRole";
                     }
                     else if (data == -1) {
                         alert("角色添加成功,部分权限添加缺失!");
-                        parent.window.location.href = "/Jurisdiction/ShowUser";
+                        parent.window.location.href = "/Jurisdiction/GetRole";
                     }
                     else {
                         alert("角色添加失败!");
-                        parent.window.location.href = "/Jurisdiction/ShowUser";
+                        parent.window.location.href = "/Jurisdiction/GetRole";
                     }
                 }
             })
@@ -62,12 +62,10 @@
     </script>
 </head>
 <body>
-    <div >
+    <h1 style="margin-left:800px;">添加角色</h1>
+    <div style="width:900px; height:300px; margin-left:500px;">
         <form action="/Jurisdiction/AddRole" method="post">
-            <table class="table table-border " style="width:50%;margin:0 auto;">
-                <tr>
-                    <td>添加角色：</td>
-                </tr>
+            <table class="table table-border " style="width:85%;margin:0 auto;">
                 <tr>
                     <td>新增角色名：</td>
                     <td><input id="Text1" type="text" name="name" /></td>
@@ -90,8 +88,8 @@
                                             {
                                                 if (item2.FatherId == item.ID)
                                                 {
-                                                    <input id="Checkbox1" type="checkbox" name="ck_Child_@item.ID" data-father="@item2.FatherId" value="@item2.ID" />
-                                                    <span >@item2.Name</span>
+                                                    <input id="Checkbox1" type="checkbox" hidden="hidden"  name="ck_Child_@item.ID" data-father="@item2.FatherId" value="@item2.ID" />
+                                                    <span>@item2.Name</span>
                                                 }
                                             }
                                         </td>
@@ -103,7 +101,7 @@
                 </tr>
                 <tr>
                     <td colspan="2" class="text-c">
-                        <input id="Button1" type="button" value="添加" onclick="GetAllCk()" class="btn btn-secondary radius" />
+                        <input id="Button1" style="margin-left:250px; width:100px;" type="button" value="添加" onclick="GetAllCk()" class="btn btn-primary" />
                 </tr>
             </table>
         </form>

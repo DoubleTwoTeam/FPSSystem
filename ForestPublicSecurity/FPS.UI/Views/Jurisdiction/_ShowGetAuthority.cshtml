@@ -1,8 +1,10 @@
 ﻿@model List<FPS.Models.Authority>
+<div>
+    <input id="Button1" style="margin-left:1600px; margin-top:20px; margin-bottom:20px;" type="button" value="添加权限" class="btn btn-primary" onclick="location.href='/Jurisdiction/AddAuthority'" />
+</div>
+
+
 <table class="tablelist">
-    <tr>
-        <th>权限信息</th>
-    </tr>
     <tr>
         <th>ID</th>
         <th>权限名称</th>
@@ -20,7 +22,7 @@
                     <td>@item.Name</td>
                     <td>@item.FatherId</td>
                     <td>@(item.State == 0 ? "启用" : "停用")</td>
-                    <td><a href="">修改</a>&nbsp;<a href="javascript:stop(@item.ID.ToString())">停用</a></td>
+                    <td>@Html.ActionLink("修改", "UpdateUserShow", new { id = @item.ID })&nbsp;<a href="javascript:stop(@item.ID.ToString())">停用</a></td>
                 </tr>
             }}
     }

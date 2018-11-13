@@ -36,7 +36,7 @@ namespace FPS.Models
         /// <summary>
         /// 立案类型
         /// </summary>
-        public string InstanceTypes { get; set; }
+        public int InstanceTypes { get; set; }
         /// <summary>
         /// 审批状态
         /// </summary>
@@ -54,5 +54,7 @@ namespace FPS.Models
         /// 案件备用字段
         /// </summary>
         public string Space { get; set; }
+        
+        
     }
 }

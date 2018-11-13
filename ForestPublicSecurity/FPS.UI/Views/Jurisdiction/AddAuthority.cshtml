@@ -12,11 +12,9 @@
 </head>
 <body>
     <div>
+        <h2 style="margin-left:900px;">添加权限</h2>
         <form action="/Jurisdiction/AddAuthority" method="post">
             <table class="table table-border" style="width:50%" align="center">
-                <tr>
-                    <td colspan="2">添加权限</td>
-                </tr>
                 <tr>
                     <td>父级节点</td>
                     <td>@Html.DropDownList("Authority", "根节点")</td>
@@ -30,7 +28,7 @@
                     <td><input id="Text1" type="text" name="newUrl" /></td>
                 </tr>
                 <tr>
-                    <td colspan="2"><input id="Submit1" type="submit" value="添加" /></td>
+                    <td colspan="2"><input style="margin-left:300px; width:100px;" id="Submit1" type="submit" value="添加" class="btn btn-primary"  /></td>
                 </tr>
             </table>
         </form>

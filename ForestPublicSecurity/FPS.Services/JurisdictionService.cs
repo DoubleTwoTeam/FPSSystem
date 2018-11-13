@@ -37,7 +37,7 @@ namespace FPS.Services
             int i = db.Insertable(role).ExecuteCommand();
             if (i > 0)
             {
-                var newId = db.Queryable<Role>().Where(m => m.RoleName == name).OrderBy("ID desc").Single().ID;
+                var newId = db.Queryable<Role>().Where(m => m.RoleName == name).OrderBy("ID desc").First().ID;
                 string[] qxids = qxid.Split(',');
                 int state = 0;
                 foreach (var item in qxids)
@@ -69,7 +69,6 @@ namespace FPS.Services
             {
                 var newId = db.Queryable<Users>().Where(m => m.LoginName == users.LoginName).First();
                 string[] ids = roleid.Split(',');
-
                 int state = 0;
                 foreach (var item in ids)
                 {
@@ -78,7 +77,6 @@ namespace FPS.Services
                     userRole.RoleId = itemid;
                     userRole.UserId = newId.ID;//用户ID
                     state += db.Insertable(userRole).ExecuteCommand();
-
                 }
                 return ids.Length == state ? state : 0;
             }
@@ -163,7 +161,6 @@ namespace FPS.Services
             foreach (var item in ids)
             {
                 int intId = Convert.ToInt32(item);
-                //var updateUserState = db.SqlQueryable<int>("update " + tablename + " set state=0 where " + byid + "= " + intId).First();
                 state += (simple.Update(m => new Users() { State = 1 }, m => m.ID == intId)) ? 1 : 0;
             }
             return state;
@@ -174,7 +171,6 @@ namespace FPS.Services
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-
         public List<Authority> GetAuthority()
         {
             var db = SugerBase.GetInstance();
@@ -235,8 +231,7 @@ namespace FPS.Services
         public int UpdateAuthority(Authority authority)
         {
             var db = SugerBase.GetInstance();
-            var client = SimpleClientBase.GetSimpleClient<Authority>();
-            var result = db.Updateable(authority).Where(m => m.ID == authority.ID).ExecuteCommand();
+            int result = db.Updateable(authority).Where(m => m.ID == authority.ID).ExecuteCommand();
             return result;
         }
 
@@ -248,8 +243,9 @@ namespace FPS.Services
         public Authority UpdateAuthorityShow(int id)
         {
             var db = SugerBase.GetInstance();
-            var client = SimpleClientBase.GetSimpleClient<Authority>();
-            return UpdateAuthorityShow(id);
+            List<Authority> list = db.SqlQueryable<Authority>("select * from Authority where ID=" + id).ToList();
+            Authority authority = list[0];
+            return authority;
         }
 
         /// <summary>
@@ -280,7 +276,7 @@ namespace FPS.Services
         public RoleAndAuthority UpdateRoleShow(int id)
         {
             var db = SugerBase.GetInstance();
-            var role = db.SqlQueryable<RoleAndAuthority>("select a.*,c.name from role a,ROLEAUTHORITY b,Authority c where a.id=b.roleid and b.Authorityid=c.id and a.ID=" + id).Single();
+            var role = db.SqlQueryable<RoleAndAuthority>("select a.*,c.name from role a,ROLEAUTHORITY b,Authority c where a.id=b.roleid and b.Authorityid=c.id and a.ID=" + id).First();
             return role;
         }
 
@@ -304,21 +300,6 @@ namespace FPS.Services
                 return res?1:0;
             }
             return 0;
-            //if (i > 0)
-            //{
-            //    string[] qxids = roleid.Split(',');
-            //    int state = 0;
-            //    foreach (var item in qxids)
-            //    {
-            //        int newId = Convert.ToInt32(item);
-            //        RoleAuthority roleAuthority = new RoleAuthority();
-            //        roleAuthority.AuthorityId = id;
-            //        roleAuthority.RoleId = newId;
-            //        state += db.Insertable(roleAuthority).ExecuteCommand();//记录成功条数
-            //    }
-            //    return qxids.Length == state ? 1 : 0;
-            //}
-            //return result ? 1 : 0;
         }
 
         /// <summary>

@@ -10,6 +10,7 @@ using FPS.IServices;
 using FPS.Services;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using FPS.UI.Filter;
+using Microsoft.AspNetCore.Http;
 
 namespace FPS.UI.Controllers
 {
@@ -43,6 +44,7 @@ namespace FPS.UI.Controllers
             authorities = _jurisdiction.GetAuthority();
             return PartialView("_ShowGetAuthority", authorities);
         }
+
         /// <summary>
         /// 添加权限
         /// </summary>
@@ -69,12 +71,9 @@ namespace FPS.UI.Controllers
 
             if (i > 0)
             {
-                return Content("<script>alert('新权限添加成功!');location.href='/Jurisdiction/Index'</script>", "text/html;charset=utf-8");
+                return Content("<script>alert('新权限添加成功!');location.href='/Jurisdiction/GetAuthority'</script>", "text/html;charset=utf-8");
             }
-            else
-            {
-                return Content("<script>alert('新权限添加失败!');location.href='/Jurisdiction/AddDroit'</script>", "text/html;charset=utf-8");
-            };
+            return Content("<script>alert('新权限添加失败!');location.href='/Jurisdiction/GetAuthority'</script>", "text/html;charset=utf-8");
         }
 
         /// <summary>
@@ -100,6 +99,7 @@ namespace FPS.UI.Controllers
         /// <returns></returns>
         public IActionResult UpdateAuthorityShow(int id)
         {
+            GetAuthorityList();
             Authority authority = _jurisdiction.UpdateAuthorityShow(id);
             return View(authority);
         }
@@ -112,9 +112,11 @@ namespace FPS.UI.Controllers
         /// <param name="roleid"></param>
         /// <returns></returns>
         [HttpPost]
-        public int UpdateAuthorityShow(Authority authority)
+        public int UpdateAuthorityShow(Authority authoritymodel,int Authority)
         {
-            int i = _jurisdiction.UpdateAuthority(authority);
+            GetAuthorityList();
+            authoritymodel.FatherId = Authority;
+            int i = _jurisdiction.UpdateAuthority(authoritymodel);
             return i;
         }
         #endregion
@@ -201,7 +203,6 @@ namespace FPS.UI.Controllers
             int i = _jurisdiction.UpdateRole(authority, qxid.ToString(), id);
             return i;
         }
-
         /// <summary>
         /// 修改角色状态为停用
         /// </summary>

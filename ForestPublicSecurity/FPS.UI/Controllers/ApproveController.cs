@@ -40,7 +40,6 @@ namespace FPS.UI.Controllers
         /// </summary>
         private readonly IHostingEnvironment _hostingEnvironment;
         
-        string loginRoleId = "1";//当前用户的权限ID
         int pageSize = 8;//每页显示多少条数据
 
         /// <summary>
@@ -80,7 +79,7 @@ namespace FPS.UI.Controllers
             pageParams.CurPage = id;
             pageParams.Filter += "  and Approve.RoleId=" + userAndRole.RID;
             pageParams.PageSize = pageSize;
-            PageList<ApproveDataModel> pageList =_approve.GetApproveList();
+            PageList<ApproveDataModel> pageList =_approve.GetApproveList(userAndRole.RID);
             PagedList<ApproveDataModel> pagedList = new PagedList<ApproveDataModel>(pageList.ListData, id, pageParams.PageSize);
             pagedList = pageList.ListData.ToPagedList(id - 1, pageParams.PageSize);
             pagedList.TotalItemCount = pageList.TotalCount;
@@ -101,7 +100,7 @@ namespace FPS.UI.Controllers
             pageParams.CurPage = id;
             pageParams.Filter += "  and Approve.RoleId=" + userAndRole.RID;
             pageParams.PageSize = pageSize;
-            PageList<ApproveDataModel> pageList = _approve.GetApproveList();
+            PageList<ApproveDataModel> pageList = _approve.GetApproveList(userAndRole.RID);
             PagedList<ApproveDataModel> pagedList = new PagedList<ApproveDataModel>(pageList.ListData, id, pageParams.PageSize);
             pagedList = pageList.ListData.ToPagedList(id - 1, pageParams.PageSize);
             pagedList.TotalItemCount = pageList.TotalCount;
@@ -115,57 +114,63 @@ namespace FPS.UI.Controllers
         /// <param name="id"></param>
         /// <param name="bussiness"></param>
         /// <returns></returns>
-        public void PassApprove(int id, int bussiness, int inStanceId)
+        public IActionResult PassApprove(int id, int bussiness, int inStanceId)
         {
             string user = HttpContext.Session.GetString("user");
             UserAndRole userAndRole = JsonConvert.DeserializeObject<UserAndRole>(user);
             int userID = userAndRole.ID;
             Approve approve = _approve.GetApproveById(id);
-            ApproveCourse approveCourse = _approve.GetApproveCoursesList(approve.PlaceID);
-            approve.Ideas = "";
-            approve.State = "2";
-            approve.ApprovePeopleId = userID;
-            approve.Time = DateTime.Now;
-            int i = _approve.UpdateApprove(approve);
-            if (i > 0)
+            Instance instance = _policeCase.GetInstanceById(inStanceId);
+            ApproveCourse approveCourse = new ApproveCourse();
+            if (approve.PlaceID!=0)
             {
-                if (approveCourse != null)
+                approveCourse = _approve.GetApproveCoursesList(approve.PlaceID);
+                string str = approveCourse.Condition;
+                if (!str.Contains(instance.InstanceState.ToString()))
                 {
-                    if (approveCourse.PostpositionID == 0)
+                    approve.PlaceID = 0;
+                }
+            }
+            //approve.Ideas = "";
+            //approve.State = "2";
+            //approve.ApprovePeopleId = userID;
+            //approve.Time = DateTime.Now;
+            //int i = _approve.UpdateApprove(approve);
+            //if (i > 0)
+            //{
+            if (approve.PlaceID == 0 )
                     {
-                        //approve.Ideas = "";
-                        //approve.State = "2";
-                        //approve.ApprovePeopleId = userID;
-                        //approve.Time = DateTime.Now;
-                        //int result = _approve.UpdateApprove(approve);
-                        //if (result > 0)
-                        //{
-                        Instance instance = _policeCase.GetInstanceById(inStanceId);
-                        instance.ApproveState = 2;
-                        int a = _policeCase.UpdateinStance(instance);
-                        if (a > 0)
+                        approve.Ideas = "";
+                        approve.State = "2";
+                        approve.ApprovePeopleId = userID;
+                        approve.Time = DateTime.Now;
+                        int result = _approve.UpdateApprove(approve);
+                        if (result > 0)
                         {
-                            Content("<script>alert('审核通过！')</script>");
+                            //Instance instance = _policeCase.GetInstanceById(inStanceId);
+                            instance.ApproveState = 2;
+                            int a = _policeCase.UpdateinStance(instance);
+                            if (a > 0)
+                            {
+                                return Content("<script>alert('审核通过！');location.href='/BackWebSet/Index'</script>","text/html;charset=utf-8");
+                            }
                         }
-                        //}
                     }
                     else
                     {
-                        Approve approves = new Approve() { BusinesstypeId = approve.BusinesstypeId, OriginalId = approve.OriginalId, PlaceID = approveCourse.PostpositionID, RoleId = approveCourse.ApproveRoleId, State = "1" };
-                        int result = _approve.InsertApprove(approves);
+                        //ApproveCourse approveCourse = _approve.GetApproveCoursesList(approve.PlaceID);
+                        //Approve approves = new Approve() { BusinesstypeId = approve.BusinesstypeId, OriginalId = approve.OriginalId, PlaceID = approveCourse.PostpositionID, RoleId = approveCourse.ApproveRoleId, State = "1" };
+                        approve.PlaceID = approveCourse.PostpositionID;
+                        approve.RoleId = approveCourse.ApproveRoleId;
+                        int result = _approve.UpdateApprove(approve);
                         if (result > 0)
                         {
 
-                            Content("<script>alert('您的审核通过！正在进行下一级审核')</script>");
-                            //PassApprove(approve.ID, approve.BusinesstypeId, inStanceId);
+                            return Content("<script>alert('您的审核通过！正在进行下一级审核');location.href='/BackWebSet/Index'</script>", "text/html;charset=utf-8");
                         }
                     }
-                }
-            }
-            else
-            {
-                Content("<script>alert('您的审核未成功')</script>");
-            }
+                //}
+            return View();
         }
 
         /// <summary>
@@ -173,9 +178,9 @@ namespace FPS.UI.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <param name="inStanceId"></param>
-        public void NoApprove(int id, int inStanceId)
+        public IActionResult NoApprove(int id, int inStanceId)
         {
-            string user = HttpContext.Session.GetString("users");
+            string user = HttpContext.Session.GetString("user");
             UserAndRole userAndRole = JsonConvert.DeserializeObject<UserAndRole>(user);
             int userID = userAndRole.ID;
             Approve approve = _approve.GetApproveById(id);
@@ -190,13 +195,14 @@ namespace FPS.UI.Controllers
                 int i = _policeCase.UpdateinStance(instance);
                 if (i > 0)
                 {
-                    Content("<script>alert('已驳回！')</script>");
+                    return Content("<script>alert('已驳回！');location.href='/BackWebSet/Index'</script>", "text/html;charset=utf-8");
                 }
             }
             else
             {
-                Content("<script>alert('驳回失败！')</script>");
+                return Content("<script>alert('驳回失败！');location.href='/BackWebSet/Index'</script>", "text/html;charset=utf-8");
             }
+            return View();
         }
 
         /// <summary>
@@ -262,7 +268,7 @@ namespace FPS.UI.Controllers
                            Text = s.Name,
                            Value = s.ID.ToString()
                        };
-            ViewBag.InstanceTypes = linq.ToList();
+            ViewBag.InstanceState = linq.ToList();
         }
     }
 }
