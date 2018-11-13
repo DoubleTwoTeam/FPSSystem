@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using FPS.Models;
 using FPS.IServices;
 using Newtonsoft.Json;
+using FPS.Models.DTO;
 
 namespace FPS.Services
 {
@@ -45,7 +46,7 @@ namespace FPS.Services
         /// 案件显示页面
         /// </summary>
         /// <returns></returns>
-        public List<InstanceDataModel> GetInstanceList()
+        public PageList<InstanceDataModel> GetInstanceList()
         {
             var db = SugerBase.GetInstance();
             List<InstanceDataModel> inStance =db.SqlQueryable<InstanceDataModel>(
@@ -53,7 +54,13 @@ namespace FPS.Services
                 "from Instance,Alarm,Users" +
                 " where Instance.AlterID=Alarm.ID and Instance.RegisterPeopleID=Users.ID "
                 ).ToList();
-            return inStance;
+            int count = db.SqlQueryable<InstanceDataModel>(
+                "select Instance.ID,Alarm.AlarmReason,Alarm.DetailSplace,Users.RealName,Instance.InstanceTypes,Instance.ApproveState,Instance.InstanceState,Instance.Time as InstanceTime " +
+                "from Instance,Alarm,Users" +
+                " where Instance.AlterID=Alarm.ID and Instance.RegisterPeopleID=Users.ID "
+                ).Count();
+            PageList<InstanceDataModel> pageList = new PageList<InstanceDataModel>() { ListData = inStance, TotalCount = count };
+            return pageList;
         }
 
         /// <summary>

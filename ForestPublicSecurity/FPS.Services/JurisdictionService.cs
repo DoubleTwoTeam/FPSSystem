@@ -201,7 +201,7 @@ namespace FPS.Services
         public List<RoleAndAuthority> GetRole()
         {
             var db = SugerBase.GetInstance();
-            var rolelist = db.SqlQueryable<RoleAndAuthority>("select a.*,c.Name from role a,RoleAuthority b,Authority c where a.id=b.roleid and b.roleid=c.id");
+            var rolelist = db.SqlQueryable<RoleAndAuthority>("select *  from Role");
             return rolelist.ToList();
         }
 

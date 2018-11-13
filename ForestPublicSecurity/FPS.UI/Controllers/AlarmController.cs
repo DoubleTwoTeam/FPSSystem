@@ -12,6 +12,8 @@ using FPS.Models.DTO;
 using FPS.UI.Common;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Web;
 
 namespace FPS.UI.Controllers
 {
@@ -116,22 +118,39 @@ namespace FPS.UI.Controllers
         }
 
         /// <summary>
+        /// 外派警员页面
+        /// </summary>
+        /// <returns></returns>
+
+        public ActionResult SolvePeople(int infoid)
+        {
+            HttpContext.Session.SetString("info", JsonConvert.SerializeObject(infoid));
+
+            //外派警员的下拉列表
+            ViewBag.id = new SelectList(_alarm.GetRoles(), "ID", "RoleName");
+
+            return View();
+        }
+
+        /// <summary>
         /// 外派警员
         /// </summary>
         /// <returns></returns>
-        public ActionResult SolvePeople(int id,int outid)
+        [HttpPost]
+        public ActionResult SolvePeople1(int id)
         {
+            var ids =Convert.ToInt32(JsonConvert.DeserializeObject(HttpContext.Session.GetString("info")));
             //获取登录人信息
             var seesi = HttpContext.Session.GetString("user");
             var user = JsonConvert.DeserializeObject<UserAndRole>(seesi);
             
             var alarms = new Alarm()
             {
-                OutID= outid,
+                OutID= id,
                 SolvePeopleId=user.ID,
                 OverTime = new DateTime()
             };
-             var result = _alarm.UptAlarm(id,alarms);
+             var result = _alarm.UptAlarm(ids, alarms);
             return View();
         }
 
@@ -211,6 +230,5 @@ namespace FPS.UI.Controllers
             var alarmlist = pList.ListData;
             return View(alarmlist);
         }
-
     }
 }

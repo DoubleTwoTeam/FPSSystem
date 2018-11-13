@@ -12,6 +12,8 @@ using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using FPS.Models.DTO;
 using FPS.UI.Common;
+using Webdiyer.WebControls.Mvc;
+using Newtonsoft.Json;
 
 namespace FPS.UI.Controllers
 {
@@ -63,11 +65,30 @@ namespace FPS.UI.Controllers
         /// <returns></returns>
         public IActionResult GetInstanceList(int id=1)
         {
-            pageParams.CurPage = id;
-            pageParams.PageSize = pageSize;
-            PageList<InstanceDataModel> pageList = _pageHelper.InfoList<InstanceDataModel>(pageParams);
+            PageList<InstanceDataModel> pageList = _policeCase.GetInstanceList();
             List<InstanceDataModel> list = pageList.ListData;
-            return View(list);
+            PagedList<InstanceDataModel> pagedList = new PagedList<InstanceDataModel>(pageList.ListData, id, pageParams.PageSize);
+            pagedList = pageList.ListData.ToPagedList(id - 1, pageParams.PageSize);
+            pagedList.TotalItemCount = pageList.TotalCount;
+            pagedList.CurrentPageIndex = id;
+            return View(pagedList);
+        }
+
+        /// <summary>
+        /// 查询与分页
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public IActionResult NextPage(int id = 1)
+        {
+            pageParams.PageSize = pageSize;
+            PageList<InstanceDataModel> pageList =_policeCase.GetInstanceList();
+            PagedList<InstanceDataModel> pagedList = new PagedList<InstanceDataModel>(pageList.ListData, id, pageParams.PageSize);
+            pagedList = pageList.ListData.ToPagedList(id - 1, pageParams.PageSize);
+            pagedList.TotalItemCount = pageList.TotalCount;
+            pagedList.CurrentPageIndex = id;
+            return PartialView("_ShowInstance", pagedList);
         }
 
         /// <summary>
