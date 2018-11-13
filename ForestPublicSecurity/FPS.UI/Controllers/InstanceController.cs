@@ -44,8 +44,7 @@ namespace FPS.UI.Controllers
             _approve = approve;
             _pageHelper = pageHelper;
         }
-
-        string loginRoleId = "1";//当前用户的权限ID
+        
         int pageSize = 8;//每页显示多少条数据
 
         /// <summary>
@@ -123,7 +122,6 @@ namespace FPS.UI.Controllers
             }
             instance.Space = filename;
             instance.ApproveState = 0;
-            instance.InstanceState = 0;
             instance.Time = DateTime.Now;
             int result= _policeCase.InsertInstance(instance);
             if (result > 0)
@@ -138,6 +136,32 @@ namespace FPS.UI.Controllers
             }
             return View();
         }
-        
+
+        public void OverInstance(int id)
+        {
+            Instance instance = _policeCase.GetInstanceById(id);
+            instance.InstanceTypes = 2;
+            instance.ApproveState = 1;
+            Approve approve= _policeCase.GetApprove(instance);
+            int result = _approve.InsertApprove(approve);
+            if (result>0)
+            {
+                int i = _policeCase.UpdateinStance(instance);
+                if (i>0)
+                {
+                    Response.WriteAsync("<script>alert('申请结案成功！')</script>");
+                }
+                else
+                {
+                    Response.WriteAsync("<script>alert('案件转型失败！')</script>");
+                }
+            }
+            else
+            {
+                Response.WriteAsync("<script>alert('申请结案失败！')</script>");
+            }
+        }
+
+
     }
 }

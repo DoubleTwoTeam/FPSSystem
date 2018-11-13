@@ -38,11 +38,11 @@
                         <li><label>立案时间<b>*</b></label>@Html.TextBoxFor(m => m.InstanceTime, new { @class = "dfinput", style = "width:300px;" })</li>
                         <li>
                             <label>案件等级<b>*</b></label>
-                            @Html.DropDownListFor(m => m.InstanceTypes, ViewBag.businesses as List<SelectListItem>, new { style = "border: 1px solid #C3AB7D;padding:7px 10px 7px 10px;" })
+                            @Html.DropDownListFor(m => m.InstanceTypes, ViewBag.businesses as List<SelectListItem>)@*, new { style = "border: 1px solid #C3AB7D;padding:7px 10px 7px 10px;" }*@
                         </li>
                         <li>
                             <label>案件状态<b>*</b></label>
-                            @Html.DropDownListFor(m => m.InstanceState, ViewBag.inStanceType as List<SelectListItem>, new { style = "border: 1px solid #C3AB7D;padding:7px 10px 7px 10px;" })
+                            @Html.DropDownListFor(m => m.InstanceState, ViewBag.InstanceState as List<SelectListItem>)@*, new { style = "border: 1px solid #C3AB7D;padding:7px 10px 7px 10px;" }*@
                         </li>
                         <li>
                             <label>下载附件<b>*</b></label>

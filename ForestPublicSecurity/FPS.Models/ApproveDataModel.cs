@@ -34,25 +34,34 @@ namespace FPS.Models
         public int InstanceID { get; set; }
 
         /// <summary>
+        /// 案件类型ID
+        /// </summary>
+        public int BusinessID { get; set; }
+
+        /// <summary>
         /// 业务名称
         /// </summary>
         public string BusinessName { get; set; }
         
         /// <summary>
-        /// ID
+        /// 角色ID
         /// </summary>
         public int RoleID { get; set; }
         /// <summary>
-        /// 名字
+        /// 角色名字
         /// </summary>
         public string RoleName { get; set; }
         /// <summary>
-        /// 立案类型
+        /// 立案状态
         /// </summary>
-        public string InstanceTypes { get; set; }
+        public int InstanceTypes { get; set; }
         /// <summary>
         /// 立案时间
         /// </summary>
         public DateTime InstanceTime { get; set; }
+        /// <summary>
+        /// 案情状态
+        /// </summary>
+        public int InstanceState { get; set; }
     }
 }
