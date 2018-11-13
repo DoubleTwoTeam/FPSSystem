@@ -52,21 +52,28 @@ namespace FPS.UI.Controllers
         /// </summary>
         /// <returns></returns>
         public IActionResult Index()
-        {
-            //使用公共方法
-            PageList<Alarm> pList;
-            List<Alarm> alarmlist;
-            GetInfo(out pList, out alarmlist);
+        { 
+            //当前第几页
+            var pageIndex = 1;
+
+            StringBuilder str = new StringBuilder();
+            str.Append(" 1=1");
+            //拼接字符串
+            PageParams pageParams = new PageParams() { CurPage = pageIndex, Fields = "ID,ALARMREASON,DETAILSPLACE,ENCLOSURE,TIME,ALARMPEOPLE,PHONE,IDCARD,URL,SOLVEPEOPLEID,OUTID,OVERTIME,STATE", Filter = str.ToString(), PageSize = 5, Sort = "ID desc", TableName = "Alarm" };
+            PageList<Alarm> pList = _pageHelper.InfoList<Alarm>(pageParams);
+            List<Alarm> alarmlist = pList.ListData;
 
             //获取登录人信息
-            //var seesi = HttpContext.Session.GetString("user");
-            //var user = JsonConvert.DeserializeObject<UserAndRole>(seesi);
+            var seesi = HttpContext.Session.GetString("user");
+            var user = JsonConvert.DeserializeObject<UserAndRole>(seesi);
 
-            //登录人权限名称
-            //ViewBag.userName = user.RoleName;
-            ViewBag.userName = "警员";
-            //ViewBag.userName = "队长";
+            var userid = user.ID;
+           // 登录人权限名称
+            ViewBag.userName = user.RoleName;
             ViewBag.totalNumber = pList.TotalCount;
+
+            //将操作的列ID 取到存在Session中
+            HttpContext.Session.SetString("userid", JsonConvert.SerializeObject(userid));
             return View(alarmlist);
         }
 
@@ -83,122 +90,6 @@ namespace FPS.UI.Controllers
         /// <returns></returns>
         [HttpPost]
         public ActionResult Index(string name = "", string phone = "", string idcard = "", string detailSplace = "", string beginTime = "", string endTime = "", int pageIndex = 1)
-        {
-            var getInfoTerm= GetInfpTerm(name, phone, idcard, detailSplace, beginTime, endTime, pageIndex);
-            return getInfoTerm;
-        }
-      
-        /// <summary>
-        /// 队长管理
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult CaptainOperation()
-        {
-            //使用公共方法
-            PageList<Alarm> pList;
-            List<Alarm> alarmlist;
-            GetInfo(out pList, out alarmlist);
-
-            return View(alarmlist);
-        }
-
-        /// <summary>
-        /// 警员操作管理
-        /// </summary>
-        /// <returns></returns>
-
-        public ActionResult ConstableOperation()
-        {
-            //使用公共方法
-            PageList<Alarm> pList;
-            List<Alarm> alarmlist;
-            GetInfo(out pList, out alarmlist);
-
-            return View(alarmlist);
-        }
-
-        /// <summary>
-        /// 外派警员页面
-        /// </summary>
-        /// <returns></returns>
-
-        public ActionResult SolvePeople(int infoid)
-        {
-            HttpContext.Session.SetString("info", JsonConvert.SerializeObject(infoid));
-
-            //外派警员的下拉列表
-            ViewBag.id = new SelectList(_alarm.GetRoles(), "ID", "RoleName");
-
-            return View();
-        }
-
-        /// <summary>
-        /// 外派警员
-        /// </summary>
-        /// <returns></returns>
-        [HttpPost]
-        public ActionResult SolvePeople1(int id)
-        {
-            var ids =Convert.ToInt32(JsonConvert.DeserializeObject(HttpContext.Session.GetString("info")));
-            //获取登录人信息
-            var seesi = HttpContext.Session.GetString("user");
-            var user = JsonConvert.DeserializeObject<UserAndRole>(seesi);
-            
-            var alarms = new Alarm()
-            {
-                OutID= id,
-                SolvePeopleId=user.ID,
-                OverTime = new DateTime()
-            };
-             var result = _alarm.UptAlarm(ids, alarms);
-            return View();
-        }
-
-        /// <summary>
-        /// 警员归队
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult OverOperation(int id)
-        {
-            var result = _alarm.UptState(id);
-            if (result>0)
-            {
-                return Content("<script>alert('操作成功');location.href='/Alarm/ConstableOperation'</script>", "text/html;charset=utf-8");
-            }
-            return Content("<script>alert('操作成功');location.href='/Alarm/ConstableOperation'</script>", "text/html;charset=utf-8");
-
-        }
-        
-        /// <summary>
-        /// 显示公共方法
-        /// </summary>
-        /// <param name="pList"></param>
-        /// <param name="alarmlist"></param>
-        private void GetInfo(out PageList<Alarm> pList, out List<Alarm> alarmlist)
-        {
-            //当前第几页
-            var pageIndex = 1;
-
-            StringBuilder str = new StringBuilder();
-            str.Append(" 1=1");
-            //拼接字符串
-            PageParams pageParams = new PageParams() { CurPage = pageIndex, Fields = "ID,ALARMREASON,DETAILSPLACE,ENCLOSURE,TIME,ALARMPEOPLE,PHONE,IDCARD,URL,SOLVEPEOPLEID,OUTID,OVERTIME,STATE", Filter = str.ToString(), PageSize = 5, Sort = "ID desc", TableName = "Alarm" };
-            pList = _pageHelper.InfoList<Alarm>(pageParams);
-            alarmlist = pList.ListData;
-        }
-
-        /// <summary>
-        /// 查询的公共方法
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="phone"></param>
-        /// <param name="idcard"></param>
-        /// <param name="detailSplace"></param>
-        /// <param name="beginTime"></param>
-        /// <param name="endTime"></param>
-        /// <param name="pageIndex"></param>
-        /// <returns></returns>
-        private ActionResult GetInfpTerm(string name, string phone, string idcard, string detailSplace, string beginTime, string endTime, int pageIndex)
         {
             //拼接条件
             StringBuilder str = new StringBuilder();
@@ -229,6 +120,95 @@ namespace FPS.UI.Controllers
             PageList<Alarm> pList = _pageHelper.InfoList<Alarm>(pageParams);
             var alarmlist = pList.ListData;
             return View(alarmlist);
+        }
+      
+        /// <summary>
+        /// 队长管理
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult CaptainOperation()
+        {
+            //当前第几页
+            var pageIndex = 1;
+
+            StringBuilder str = new StringBuilder();
+            str.Append(" 1=1");
+            //拼接字符串
+            PageParams pageParams = new PageParams() { CurPage = pageIndex, Fields = "ID,ALARMREASON,DETAILSPLACE,ENCLOSURE,TIME,ALARMPEOPLE,PHONE,IDCARD,URL,SOLVEPEOPLEID,OUTID,OVERTIME,STATE", Filter = str.ToString(), PageSize = 5, Sort = "ID desc", TableName = "Alarm" };
+            PageList<Alarm> pList = _pageHelper.InfoList<Alarm>(pageParams);
+            List<Alarm> alarmlist = pList.ListData;
+
+            return View(alarmlist);
+        }
+
+        /// <summary>
+        /// 警员操作管理
+        /// </summary>
+        /// <returns></returns>
+
+        public ActionResult ConstableOperation()
+        {
+            var rid = Convert.ToInt32(JsonConvert.DeserializeObject(HttpContext.Session.GetString("userid")));
+            //当前第几页
+            var pageIndex = 1;
+
+            StringBuilder str = new StringBuilder();
+            str.Append(" OutID ='" + rid + "'");
+            //拼接字符串
+            PageParams pageParams = new PageParams() { CurPage = pageIndex, Fields = "ID,ALARMREASON,DETAILSPLACE,ENCLOSURE,TIME,ALARMPEOPLE,PHONE,IDCARD,URL,SOLVEPEOPLEID,OUTID,OVERTIME,STATE", Filter = str.ToString(), PageSize = 5, Sort = "ID desc", TableName = "Alarm" };
+            PageList<Alarm> pList = _pageHelper.InfoList<Alarm>(pageParams);
+            List<Alarm> alarmlist = pList.ListData;
+
+            return View(alarmlist);
+        }
+
+        /// <summary>
+        /// 外派警员页面
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult SolvePeople(int id)
+        {
+            //将操作的列ID 取到存在Session中
+            HttpContext.Session.SetString("info", JsonConvert.SerializeObject(id));
+            //外派警员的下拉列表
+            ViewBag.id = new SelectList(_alarm.GetRoles(), "ID", "RoleName");
+            return View();
+        }
+
+        /// <summary>
+        /// 外派警员
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult UptSolvePeople(int id)
+        {
+            var ids =Convert.ToInt32(JsonConvert.DeserializeObject(HttpContext.Session.GetString("info")));
+            //获取登录人信息
+            var seesi = HttpContext.Session.GetString("user");
+            var user = JsonConvert.DeserializeObject<UserAndRole>(seesi);
+            
+            var alarms = new Alarm()
+            {
+                OutID= id,
+                SolvePeopleId=user.ID,
+                OverTime = new DateTime()
+            };
+             var result = _alarm.UptAlarm(ids, alarms);
+            return View();
+        }
+
+        /// <summary>
+        /// 警员归队
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult OverOperation(int id)
+        {
+            var result = _alarm.UptState(id);
+            if (result>0)
+            {
+                return Content("<script>alert('操作成功');location.href='/Alarm/ConstableOperation'</script>", "text/html;charset=utf-8");
+            }
+            return Content("<script>alert('操作成功');location.href='/Alarm/ConstableOperation'</script>", "text/html;charset=utf-8");
         }
     }
 }
