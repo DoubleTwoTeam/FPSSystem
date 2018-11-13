@@ -15,6 +15,17 @@ namespace FPS.Services
     public class AlarmServices : IAlarm
     {
         /// <summary>
+        /// 外派警员列表
+        /// </summary>
+        /// <returns></returns>
+        public List<UserAndRole> GetRoles()
+        {
+            var db = SugerBase.GetInstance();
+            var userList = db.SqlQueryable<UserAndRole>("select B.ID,B.RealName,B.state from Role a,Users b,UserRole c where a.ID=c.roleid AND b.id=c.UserID AND C.ROLEID=88").ToList();
+            return userList;
+        }
+
+        /// <summary>
         /// 添加报警
         /// </summary>
         /// <param name="alarm"></param>

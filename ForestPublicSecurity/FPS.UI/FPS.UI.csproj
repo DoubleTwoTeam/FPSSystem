@@ -83,6 +83,7 @@
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
     <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0-preview3-35497" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Redis" Version="2.2.0-preview3-35497" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1-beta1" />
     <PackageReference Include="Oracle.ManagedDataAccess.Core" Version="2.18.3" />
@@ -101,8 +102,24 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="ServiceStack">
+      <HintPath>..\Dlls\ServiceStack.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Interfaces">
+      <HintPath>..\Dlls\ServiceStack.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.ServiceInterface">
+      <HintPath>..\Dlls\ServiceStack.ServiceInterface.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.OracleClient">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\System.Data.OracleClient.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\System.Web.dll</HintPath>
+    </Reference>
     <Reference Include="Webdiyer.MvcPager">
       <HintPath>..\Dlls\Webdiyer.MvcPager.dll</HintPath>
+
     </Reference>
   </ItemGroup>
 

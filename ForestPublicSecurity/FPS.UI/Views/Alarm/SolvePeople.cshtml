@@ -1,0 +1,41 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>出警操作</title>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="/police/css/style.css" rel="stylesheet" type="text/css" />
+
+</head>
+<body>
+    <div style="width:555px;height:500px;background-color:#ff0000" align="center">
+        <h2 class="md-content">出警操作</h2>
+        <form action="/Alarm/UptSolvePeople" method="post">
+            <span style="font-size:15px;">
+                选择出警警员:<span style="font-size:15px;color:#000000;font-weight:bolder;" align="center">@Html.DropDownList("id")</span>
+            </span>
+            <span style="margin-top:125px" align="center">
+                <input type="submit" class="btn btn-success" style="margin:0 auto" value="确 定" />
+                <input type="button" class="btn btn-success" style="margin:0 auto" onclick="layer_close()" value="关 闭" />
+            </span>
+        </form>
+    </div>
+    <script src="~/js/jquery-3.3.1.js"></script>
+    <script src="~/js/jquery.unobtrusive-ajax.js"></script>
+    <script>
+        $(function () {
+            //添加下拉菜单默认值
+            $("#id").prepend("<option selected='selected' value='0'>---请选择---</option>");
+        });
+        /*关闭弹出框口*/
+        function layer_close() {
+            var index = parent.layer.getFrameIndex(window.name);
+            parent.layer.close(index);
+        };
+    </script>
+</body>
+</html>

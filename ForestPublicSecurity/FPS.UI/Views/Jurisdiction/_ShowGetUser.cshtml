@@ -1,8 +1,8 @@
 ﻿@model List<FPS.Models.UserAndRole>
+<div>
+    <input id="Button1" style="margin-left:1600px; margin-top:20px; margin-bottom:20px;" type="button" value="添加用户" class="btn btn-primary" onclick="location.href='/Jurisdiction/AddRole'" />
+</div>
 <table class="tablelist">
-    <tr>
-        <th>用户信息</th>
-    </tr>
     <tr>
         <th>登录名</th>
         <th>密码</th>
@@ -30,7 +30,7 @@
                     <td>@item.AddTime.ToString("yyyy年MM月dd日 hh:mm:ss")</td>
                     <td>@item.RoleName</td>
                     <td>@(item.State == 1 ? "启用" : "停用")</td>
-                    <td><a href="">修改</a>&nbsp;<a href="javascript:stop(@item.ID.ToString())">停用</a></td>
+                    <td>@Html.ActionLink("修改", "UpdateUserShow", new { id = @item.ID })&nbsp;<a href="javascript:stop(@item.ID.ToString())">停用</a></td>
                 </tr>
             }
         }

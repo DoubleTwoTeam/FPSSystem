@@ -9,13 +9,14 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>AddUser</title>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
 </head>
 <body>
     <div>
         @using (Html.BeginForm())
         {
             <h1>添加用户</h1>
-            <table>
+            <table class="table table-border" style="width:50%" align="center">
                 <tr>
                     <td>登录名：</td>
                     <td>@Html.TextBoxFor(m => m.LoginName)</td>
@@ -41,15 +42,11 @@
                     <td>@Html.TextBoxFor(m => m.Email)</td>
                 </tr>
                 <tr>
-                    <td>添加时间：</td>
-                    <td>@Html.TextBoxFor(m => m.AddTime)</td>
-                </tr>
-                <tr>
                     <td>角色：</td>
                     <td>@Html.DropDownList("role", "请选择角色")</td>
                 </tr>
                 <tr>
-                    <td colspan="2"><input id="Submit1" type="submit" value="添加" onclick="AddUser()" /></td>
+                    <td colspan="2"><input id="Submit1" style="margin-left:300px; width:100px;" type="submit" value="添加" onclick="AddUser()" class="btn btn-primary" /></td>
                 </tr>
             </table>
         }

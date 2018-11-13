@@ -37,5 +37,11 @@ namespace FPS.IServices
         /// <param name="id"></param>
         /// <returns></returns>
         int UptState(int id);
+
+        /// <summary>
+        /// 外派警员列表
+        /// </summary>
+        /// <returns></returns>
+        List<UserAndRole> GetRoles(); 
     }
 }
