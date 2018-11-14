@@ -116,7 +116,7 @@ namespace FPS.UI.Controllers
             }
 
             //拼接语句
-            PageParams pageParams = new PageParams() { CurPage = pageIndex, Fields = "ID,ALARMREASON,DETAILSPLACE,ENCLOSURE,TIME,ALARMPEOPLE,PHONE,IDCARD,URL,SOLVEPEOPLEID,OUTID,OVERTIME,STATE", Filter = str.ToString(), PageSize = 4, Sort = "ID desc", TableName = "Alarm" };
+            PageParams pageParams = new PageParams() { CurPage = pageIndex, Fields = "ID,ALARMREASON,DETAILSPLACE,ENCLOSURE,TIME,ALARMPEOPLE,PHONE,IDCARD,URL,SOLVEPEOPLEID,OUTID,OVERTIME,STATE", Filter = str.ToString(), PageSize = 5, Sort = "ID desc", TableName = "Alarm" };
             PageList<Alarm> pList = _pageHelper.InfoList<Alarm>(pageParams);
             var alarmlist = pList.ListData;
             return View(alarmlist);
