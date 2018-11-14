@@ -17,17 +17,14 @@ namespace FPS.UI.Filter
             var path = filterContext.HttpContext.Request.Path.ToString();
             var user = filterContext.HttpContext.User;
             //Redis取值
-            var userAndRole = RedisHelper.Get<UserAndRole>(user.Claims.ToList().Where(m=>m.Type=="user").First().Value);
-            if (user.Claims.Count() > 0)
+            //var userAndRole = RedisHelper.Get<UserAndRole>(user.Identity.Name);
+            var list = RedisHelper.Get<List<Authority>>(user.Identity.Name);
+            //var flag = user.Identity.IsAuthenticated;
+            if (user.Identity.IsAuthenticated)
             {
                 //验证权限
-                var result = user.Claims.Where(m => m.Type == "keykey").First().Value;
-                if (result != "qqq")
-                {
-                    filterContext.Result = new RedirectResult("/Center/Index");
-                    base.OnActionExecuting(filterContext);
-                    return;
-                }
+                var result = list.Find(m => m.Url == path);
+                if (result != null)  return;
             }
             filterContext.Result = new RedirectResult("/Center/Index");
             base.OnActionExecuting(filterContext);

@@ -79,7 +79,7 @@ namespace FPS.UI.Controllers
             pageParams.CurPage = id;
             pageParams.Filter += "  and Approve.RoleId=" + userAndRole.RID;
             pageParams.PageSize = pageSize;
-            PageList<ApproveDataModel> pageList =_approve.GetApproveList();
+            PageList<ApproveDataModel> pageList =_approve.GetApproveList(userAndRole.RID);
             PagedList<ApproveDataModel> pagedList = new PagedList<ApproveDataModel>(pageList.ListData, id, pageParams.PageSize);
             pagedList = pageList.ListData.ToPagedList(id - 1, pageParams.PageSize);
             pagedList.TotalItemCount = pageList.TotalCount;
@@ -100,7 +100,7 @@ namespace FPS.UI.Controllers
             pageParams.CurPage = id;
             pageParams.Filter += "  and Approve.RoleId=" + userAndRole.RID;
             pageParams.PageSize = pageSize;
-            PageList<ApproveDataModel> pageList = _approve.GetApproveList();
+            PageList<ApproveDataModel> pageList = _approve.GetApproveList(userAndRole.RID);
             PagedList<ApproveDataModel> pagedList = new PagedList<ApproveDataModel>(pageList.ListData, id, pageParams.PageSize);
             pagedList = pageList.ListData.ToPagedList(id - 1, pageParams.PageSize);
             pagedList.TotalItemCount = pageList.TotalCount;
