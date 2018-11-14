@@ -68,6 +68,9 @@ namespace FPS.UI.Controllers
             var id=HttpContext.User.Identity.Name;
             List<Authority> authority = new List<Authority>();
             authority = _student.GetAuthority(Convert.ToInt32(id));
+
+            //存Redis
+            RedisHelper.Set(id, authority);
             return View(authority);
         }
 
@@ -100,7 +103,7 @@ namespace FPS.UI.Controllers
         {
             UserAndRole users =_student.Login(name,pwd);
             if (users==null)
-                return Content("<script>alert('登录失败,请检查账号密码!');</script>", "text/html;charset=utf-8");
+                return Content("<script>alert('登录失败,请检查账号密码!');location.href='/BackWebSet/Login'</script>", "text/html;charset=utf-8");
             //Session存储用户信息
             HttpContext.Session.SetString("user",JsonConvert.SerializeObject(users));
 
@@ -111,10 +114,10 @@ namespace FPS.UI.Controllers
             //创建ClaimsPrincipal对象,传入ClaimsIdentity 对象,调用HttpContext.SignInAsync完成登录
             HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity));
 
-            //存Redis
-            RedisHelper.Set<UserAndRole>(users.LoginName, users);
-            //取Redis
-            var user2 = RedisHelper.Get<UserAndRole>(users.LoginName);
+            ////存Redis
+            //RedisHelper.Set<UserAndRole>(users.LoginName, users);
+            ////取Redis
+            //var user2 = RedisHelper.Get<UserAndRole>(users.LoginName);
 
             ////存储redis
             //_cacheService.Add(users.LoginName, JsonConvert.SerializeObject(users));
@@ -123,6 +126,12 @@ namespace FPS.UI.Controllers
 
             //.net Core返回一个弹窗需要制定文本类型与编码格式
             return Content("<script>alert('登录成功');location.href='/BackWebSet/Index'</script>", "text/html;charset=utf-8");
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction(nameof(BackWebSetController.Login), "BackWebSet");
         }
     }
 }
