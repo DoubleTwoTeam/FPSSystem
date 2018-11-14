@@ -126,8 +126,10 @@ namespace FPS.UI.Controllers
             int result= _policeCase.InsertInstance(instance);
             if (result > 0)
             {
+                int a = _policeCase.GetinStanceByClass(instance);
                 //Approve approve = new Approve() { OriginalId = instance.ID, Ideas = "", State = Convert.ToString(instance.ApproveState), BusinesstypeId = 1 };
                 Approve approve = _policeCase.GetApprove(instance);
+                approve.OriginalId = a;
                 int i= _approve.InsertApprove(approve);
                 if (i>0)
                 {
