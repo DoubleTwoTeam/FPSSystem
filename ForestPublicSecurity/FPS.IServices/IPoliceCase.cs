@@ -50,5 +50,12 @@ namespace FPS.IServices
         /// </summary>
         /// <returns></returns>
         List<Business> GetBusinessesList();
+
+        /// <summary>
+        /// 找到案件表的ID
+        /// </summary>
+        /// <param name="instance"></param>
+        /// <returns></returns>
+        int GetinStanceByClass(Instance instance);
     }
 }

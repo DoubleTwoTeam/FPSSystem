@@ -101,5 +101,15 @@ namespace FPS.Services
             List<Business> list= db.Queryable<Business>().ToList();
             return list;
         }
+
+
+        public int GetinStanceByClass(Instance instance)
+        {
+            var db = SugerBase.GetInstance();
+            List<Instance> instanceList = db.SqlQueryable<Instance>("select * from Instance where AlterID = " + instance.AlterID + " and RegisterPeopleID=" + instance.RegisterPeopleID+ " and InstanceTypes="+instance.InstanceTypes + " and ApproveState="+instance.ApproveState+ " and InstanceState="+instance.InstanceState).ToList();
+            Instance instances = instanceList[0];
+            int result = instances.ID;
+            return result;
+        }
     }
 }

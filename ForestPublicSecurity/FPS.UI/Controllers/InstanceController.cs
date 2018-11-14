@@ -139,10 +139,12 @@ namespace FPS.UI.Controllers
             int result = _policeCase.InsertInstance(instance);
             if (result > 0)
             {
+                int a = _policeCase.GetinStanceByClass(instance);
                 //Approve approve = new Approve() { OriginalId = instance.ID, Ideas = "", State = Convert.ToString(instance.ApproveState), BusinesstypeId = 1 };
                 Approve approve = _policeCase.GetApprove(instance);
-                int i = _approve.InsertApprove(approve);
-                if (i > 0)
+                approve.OriginalId = a;
+                int i= _approve.InsertApprove(approve);
+                if (i>0)
                 {
                     return Content("<script>alert('添加案情成功，等待审批');var index = parent.layer.getFrameIndex(window.name);window.parent.location.reload();parent.layer.close(index); location.href='/Alarm/CaptainOperation'</script>", "text/html;charset=utf-8");
                 }
